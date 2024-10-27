@@ -4,6 +4,9 @@
  */
 package carsalesapplication;
 
+import carsalesapplication.form.LoginForm;
+import javax.swing.JFrame;
+
 /**
  *
  * @author user
@@ -14,7 +17,8 @@ public class CarSalesApplication {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        JFrame login = new LoginForm();
+        login.setVisible(true);
     }
     
 }
