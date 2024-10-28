@@ -4,6 +4,7 @@
  */
 package carsalesapplication.form;
 
+import carsalesapplication.controller.FrontController;
 import carsalesapplication.domain.User;
 import carsalesapplication.util.UserUtil;
 import java.awt.event.ActionEvent;
@@ -177,15 +178,23 @@ public class LoginForm extends javax.swing.JFrame {
         String username = txtUsername.getText();
         String password = String.valueOf(txtPassword.getPassword());
         
-        List<User> users = UserUtil.getUsers();
-        for (int i = 0; i < users.size(); i++) {
-            if(users.get(i).getUsername().equals(username) && users.get(i).getPassword().equals(password)){
-                this.dispose();
-                return;
-            }
+        if (username.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Usename is empty!","Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        JOptionPane.showMessageDialog(this, "User not found", "Error", JOptionPane.ERROR_MESSAGE);
-        txtUsername.setText("");
-        txtPassword.setText("");
+        if (password.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Password is empty!","Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        User user = new User(0, username, password, null, null);
+        FrontController controller = new FrontController();
+        try {
+            user = controller.login(user);
+            this.dispose();
+            new MainForm(user).setVisible(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
