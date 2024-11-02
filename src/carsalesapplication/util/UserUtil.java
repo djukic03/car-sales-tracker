@@ -5,37 +5,35 @@
 package carsalesapplication.util;
 
 import carsalesapplication.domain.User;
+import java.sql.Statement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  *
  * @author user
  */
-public class UserUtil {
-    public List<User> users;
-
-    public UserUtil() {
-        users = new ArrayList(){
-            {
-                add(new User(1,"nemanja","nemanja","Nemanja","Djukic"));
-                add(new User(2,"nemanja2","nemanja2","Nemanja2","Djukic"));
-                add(new User(3,"nemanja3","nemanja3","Nemanja3","Djukic"));
+public class UserUtil {  
+    public static List<User> getAllUsers(){
+        Connection connection = null;
+        connection = DatabaseUtil.connect(connection);
+        
+        List<User> users = new ArrayList();
+        try {
+            String query = "select * from salesman order by last_name";
+            Statement s = connection.createStatement();
+            ResultSet rs = s.executeQuery(query);
+            while(rs.next()){
+                users.add(new User(rs.getLong("id"), rs.getString("username"), rs.getString("password"), rs.getString("first_name"), rs.getString("last_name")));
             }
-        };
-    }
-    
-      
-    public List<User> getUsers(){
-        return users;
-    }
-    
-    public User login(User user) throws Exception{
-        for (int i = 0; i < users.size(); i++) {
-            if(user.getUsername().equals(users.get(i).getUsername()) && user.getPassword().equals(users.get(i).getPassword())){
-                return users.get(i);
-            }
+        } catch (SQLException sQLException) {
+            System.out.println("Error: "+sQLException.getMessage());
         }
-        throw new Exception("User not found");
+        
+        connection = DatabaseUtil.closeConnection(connection);
+        return users;
     }
 }

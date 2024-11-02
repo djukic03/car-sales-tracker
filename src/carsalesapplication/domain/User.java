@@ -9,13 +9,13 @@ package carsalesapplication.domain;
  * @author user
  */
 public class User {
-    private int idUser;
+    private Long idUser;
     private String username;
     private String password;
     private String firstName;
     private String lastName;
 
-    public User(int idUser, String username, String password, String firstName, String lastName) {
+    public User(Long idUser, String username, String password, String firstName, String lastName) {
         this.idUser = idUser;
         this.username = username;
         this.password = password;
@@ -23,11 +23,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public int getIdUser() {
+    public Long getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(Long idUser) {
         this.idUser = idUser;
     }
 
