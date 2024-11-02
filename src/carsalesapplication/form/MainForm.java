@@ -5,6 +5,10 @@
 package carsalesapplication.form;
 
 import carsalesapplication.domain.User;
+import carsalesapplication.util.DatabaseUtil;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
 
 /**
  *
@@ -21,7 +25,15 @@ public class MainForm extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Car Sales Tracker");
         this.setLocationRelativeTo(null);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         lblMain.setText("Welcome " + user.getFirstName() +" "+ user.getLastName());
+        this.addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                DatabaseUtil.closeConnection();
+            }
+        });
     }
     public MainForm() {
         initComponents();
@@ -64,6 +76,11 @@ public class MainForm extends javax.swing.JFrame {
         menuAddNewCar.add(jMenuItem2);
 
         menuSeeAllCars.setText("See all cars");
+        menuSeeAllCars.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSeeAllCarsActionPerformed(evt);
+            }
+        });
         menuAddNewCar.add(menuSeeAllCars);
 
         jMenuBar1.add(menuAddNewCar);
@@ -89,6 +106,11 @@ public class MainForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void menuSeeAllCarsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSeeAllCarsActionPerformed
+        // TODO add your handling code here:
+        new CarsTableForm(this, true).setVisible(true);
+    }//GEN-LAST:event_menuSeeAllCarsActionPerformed
 
     /**
      * @param args the command line arguments

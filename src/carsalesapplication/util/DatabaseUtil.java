@@ -15,21 +15,24 @@ import java.sql.Statement;
  * @author user
  */
 public class DatabaseUtil {
-    public static Connection connect(Connection connection){
+    private static Connection connection;
+    
+    public static Connection connect(){
         try {
-            String url = "jdbc:mysql://localhost:3306/car_sales";
-            String user = "root";
-            String password = "";
-            connection = DriverManager.getConnection(url, user, password);
-            System.out.println("Database connected successfully!");
-
+            if(connection == null || connection.isClosed()) {
+                String url = "jdbc:mysql://localhost:3306/car_sales";
+                String user = "root";
+                String password = "";
+                connection = DriverManager.getConnection(url, user, password);
+                System.out.println("Database connected successfully!");
+            }
         } catch (SQLException ex) {
             System.out.println("Error with database connection: " + ex.getMessage());
         } 
         return connection;
     }
     
-    public static Connection closeConnection(Connection connection){
+    public static void closeConnection(){
         try {
             if(connection!=null && !connection.isClosed()){
                 connection.close();
@@ -38,6 +41,5 @@ public class DatabaseUtil {
         } catch (SQLException ex) {
             System.out.println("Error with closing the database connection!\n"+ex.getMessage());
         }
-        return connection;
     }
 }

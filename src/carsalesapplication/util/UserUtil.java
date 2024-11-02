@@ -18,8 +18,7 @@ import java.sql.SQLException;
  */
 public class UserUtil {  
     public static List<User> getAllUsers(){
-        Connection connection = null;
-        connection = DatabaseUtil.connect(connection);
+        Connection connection = DatabaseUtil.connect();
         
         List<User> users = new ArrayList();
         try {
@@ -32,8 +31,6 @@ public class UserUtil {
         } catch (SQLException sQLException) {
             System.out.println("Error: "+sQLException.getMessage());
         }
-        
-        connection = DatabaseUtil.closeConnection(connection);
         return users;
     }
 }

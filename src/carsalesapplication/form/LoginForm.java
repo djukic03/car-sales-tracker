@@ -5,10 +5,13 @@
 package carsalesapplication.form;
 
 import carsalesapplication.domain.User;
+import carsalesapplication.util.DatabaseUtil;
 import carsalesapplication.util.UserUtil;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -28,13 +31,21 @@ public class LoginForm extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Login Page");
         this.setResizable(false);
-        ImageIcon loginImg = new ImageIcon("src/carsalesapplication/images/image.png");
+        ImageIcon loginImg = new ImageIcon("src/carsalesapplication/images/loginImage.png");
         lblImage.setIcon(loginImg);
         
         btnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 login(e);
+            }
+        });
+        
+        this.addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                DatabaseUtil.closeConnection();
             }
         });
     }
