@@ -7,6 +7,8 @@ package carsalesapplication.form;
 import carsalesapplication.domain.User;
 import carsalesapplication.util.DatabaseUtil;
 import carsalesapplication.util.UserUtil;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +18,10 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.plaf.metal.MetalBorders;
 
 /**
  *
@@ -31,8 +37,6 @@ public class LoginForm extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Login Page");
         this.setResizable(false);
-        ImageIcon loginImg = new ImageIcon("src/carsalesapplication/images/loginImage.png");
-        lblImage.setIcon(loginImg);
         
         btnLogin.addActionListener(new ActionListener() {
             @Override
@@ -69,19 +73,19 @@ public class LoginForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Calibri", 1, 28)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Gill Sans MT", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("LOG IN");
 
-        jLabel2.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         jLabel2.setText("Username:");
 
-        txtUsername.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        txtUsername.setFont(new java.awt.Font("Gill Sans MT", 0, 16)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         jLabel3.setText("Password:");
 
-        btnLogin.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnLogin.setFont(new java.awt.Font("Gill Sans MT", 0, 16)); // NOI18N
         btnLogin.setText("Log in");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,10 +93,12 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
-        txtPassword.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        txtPassword.setFont(new java.awt.Font("Gill Sans MT", 0, 16)); // NOI18N
         txtPassword.setToolTipText("");
         txtPassword.setActionCommand("<Not Set>");
         txtPassword.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+
+        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carsalesapplication/images/loginImage.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,19 +121,19 @@ public class LoginForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(25, 25, 25)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
+                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
                         .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(64, Short.MAX_VALUE))
         );
@@ -137,6 +143,7 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
+        CheckForEmptyFields();
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
@@ -209,6 +216,22 @@ public class LoginForm extends javax.swing.JFrame {
             throw new Exception("User doesn't exists!");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void CheckForEmptyFields() {
+        Border border = new LineBorder(Color.red, 1,true);
+        Font font = new Font("Gill Sans MT", 1, 8);
+        if(txtUsername.getText().isEmpty()){
+            txtUsername.setBorder(new TitledBorder(border, "Required Field", 0, 0, font, Color.RED));
+        }
+        else{
+            txtUsername.setBorder(new MetalBorders.TextFieldBorder());
+        }
+        if(String.valueOf(txtPassword.getPassword()).isEmpty()){
+            txtPassword.setBorder(new TitledBorder(border, "Required Field", 0, 0, font, Color.RED));
+        }else{
+            txtPassword.setBorder(new MetalBorders.TextFieldBorder());
         }
     }
 }

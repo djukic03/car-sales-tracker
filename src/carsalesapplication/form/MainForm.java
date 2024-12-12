@@ -60,21 +60,36 @@ public class MainForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblMain.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        lblMain.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblMain.setText("jLabel1");
 
         jMenu2.setText("Salesmen");
+        jMenu2.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
 
+        menuSeeAllSalesmen.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         menuSeeAllSalesmen.setText("See all salesmen");
+        menuSeeAllSalesmen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSeeAllSalesmenActionPerformed(evt);
+            }
+        });
         jMenu2.add(menuSeeAllSalesmen);
 
         jMenuBar1.add(jMenu2);
 
         menuAddNewCar.setText("Cars");
+        menuAddNewCar.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
 
+        jMenuItem2.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         jMenuItem2.setText("Add new car");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         menuAddNewCar.add(jMenuItem2);
 
+        menuSeeAllCars.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         menuSeeAllCars.setText("See all cars");
         menuSeeAllCars.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,6 +126,16 @@ public class MainForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         new CarsTableForm(this, true).setVisible(true);
     }//GEN-LAST:event_menuSeeAllCarsActionPerformed
+
+    private void menuSeeAllSalesmenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSeeAllSalesmenActionPerformed
+        // TODO add your handling code here:
+        new UsersTableForm(this, true).setVisible(true);
+    }//GEN-LAST:event_menuSeeAllSalesmenActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        new AddCarForm(this, true).setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
