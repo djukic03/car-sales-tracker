@@ -4,15 +4,15 @@
  */
 package carsalesapplication.form;
 
+import carsalesapplication.controller.Controller;
+import carsalesapplication.domain.DefaultDomainObject;
 import carsalesapplication.domain.User;
 import carsalesapplication.tableModels.UsersTableModel;
-import carsalesapplication.util.UserUtil;
-import java.awt.Color;
-import java.awt.Font;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.TableModel;
 
 /**
@@ -24,7 +24,7 @@ public class UsersTableForm extends javax.swing.JDialog {
     /**
      * Creates new form UsersTableForm
      */
-    public UsersTableForm(java.awt.Frame parent, boolean modal) {
+    public UsersTableForm(java.awt.Frame parent, boolean modal) throws SQLException {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(parent);
@@ -42,8 +42,6 @@ public class UsersTableForm extends javax.swing.JDialog {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         usersTable = new javax.swing.JTable();
-        probatxt = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("All Users");
@@ -63,49 +61,25 @@ public class UsersTableForm extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(usersTable);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 667, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(141, 141, 141)
-                .addComponent(probatxt, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(jButton1)
-                .addContainerGap(199, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(probatxt, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(64, 64, 64))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        Border border = new LineBorder(Color.red, 2);
-        Font font = new Font("Gill", 1, 10);
-        probatxt.setBorder(new TitledBorder(border, "Obavezno polje", 0, 0, font, Color.RED));
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -137,7 +111,12 @@ public class UsersTableForm extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                UsersTableForm dialog = new UsersTableForm(new javax.swing.JFrame(), true);
+                UsersTableForm dialog = null;
+                try {
+                    dialog = new UsersTableForm(new javax.swing.JFrame(), true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsersTableForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -150,14 +129,16 @@ public class UsersTableForm extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField probatxt;
     private javax.swing.JTable usersTable;
     // End of variables declaration//GEN-END:variables
 
-    private void fillUsersTable() {
-        List<User> users = UserUtil.getAllUsers();
+    private void fillUsersTable() throws SQLException {
+        List<DefaultDomainObject> u = Controller.getInstance().getAll(new User(Long.MIN_VALUE, null, null, null, null));
+        List<User> users = new ArrayList<>();
+        for (DefaultDomainObject user : u) {
+            users.add((User) user);
+        }
         TableModel tm = new UsersTableModel(users);
         usersTable.setModel(tm);
     }

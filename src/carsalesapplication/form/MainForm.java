@@ -5,7 +5,6 @@
 package carsalesapplication.form;
 
 import carsalesapplication.domain.User;
-import carsalesapplication.util.DatabaseUtil;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
@@ -31,7 +30,6 @@ public class MainForm extends javax.swing.JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
-                DatabaseUtil.closeConnection();
             }
         });
     }

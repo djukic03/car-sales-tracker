@@ -4,9 +4,10 @@
  */
 package carsalesapplication.form;
 
+import carsalesapplication.controller.Controller;
+import carsalesapplication.database.DatabaseBroker;
+import carsalesapplication.domain.DefaultDomainObject;
 import carsalesapplication.domain.User;
-import carsalesapplication.util.DatabaseUtil;
-import carsalesapplication.util.UserUtil;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -14,7 +15,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -41,7 +46,11 @@ public class LoginForm extends javax.swing.JFrame {
         btnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                login(e);
+                try {
+                    login(e);
+                } catch (SQLException ex) {
+                    Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         
@@ -49,7 +58,6 @@ public class LoginForm extends javax.swing.JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
-                DatabaseUtil.closeConnection();
             }
         });
     }
@@ -191,7 +199,7 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 
-    public void login(ActionEvent e){
+    public void login(ActionEvent e) throws SQLException{
         String username = txtUsername.getText();
         String password = String.valueOf(txtPassword.getPassword());
         
@@ -204,7 +212,11 @@ public class LoginForm extends javax.swing.JFrame {
             return;
         }
         
-        List<User> users = UserUtil.getAllUsers();
+        List<DefaultDomainObject> u = Controller.getInstance().getAll(new User(Long.MIN_VALUE, null, null, null, null));
+        List<User> users = new ArrayList<>();
+        for (DefaultDomainObject user : u) {
+            users.add((User) user);
+        }
         try {
             for (int i = 0; i < users.size(); i++) {
                 if(users.get(i).getUsername().equals(username) && users.get(i).getPassword().equals(password)){

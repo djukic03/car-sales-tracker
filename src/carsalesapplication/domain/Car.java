@@ -4,11 +4,19 @@
  */
 package carsalesapplication.domain;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author user
  */
-public class Car {
+public class Car  implements DefaultDomainObject{
     private Long idCar;
     private String brand;
     private String model;
@@ -51,6 +59,25 @@ public class Car {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    @Override
+    public String getClassName() {
+        return "car";
+    }
+
+    @Override
+    public List<DefaultDomainObject> returnList(ResultSet rs) throws SQLException{
+        List<DefaultDomainObject> cars = new ArrayList<>();
+        try {
+            while(rs.next()){
+                cars.add(new Car(rs.getLong("id"), rs.getString("brand"), rs.getString("model"), rs.getDouble("price")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Car.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+        return cars;
     }
     
     

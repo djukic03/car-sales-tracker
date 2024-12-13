@@ -4,10 +4,16 @@
  */
 package carsalesapplication.form;
 
+import carsalesapplication.controller.Controller;
+import carsalesapplication.database.DatabaseBroker;
 import carsalesapplication.domain.Car;
+import carsalesapplication.domain.DefaultDomainObject;
 import carsalesapplication.tableModels.MyCarTableModel;
-import carsalesapplication.util.CarUtil;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.TableModel;
 
 /**
@@ -19,7 +25,7 @@ public class CarsTableForm extends javax.swing.JDialog {
     /**
      * Creates new form CarsTableForm
      */
-    public CarsTableForm(java.awt.Frame parent, boolean modal) {
+    public CarsTableForm(java.awt.Frame parent, boolean modal) throws SQLException {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(parent);
@@ -119,7 +125,12 @@ public class CarsTableForm extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CarsTableForm dialog = new CarsTableForm(new javax.swing.JFrame(), true);
+                CarsTableForm dialog = null;
+                try {
+                    dialog = new CarsTableForm(new javax.swing.JFrame(), true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(CarsTableForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -136,9 +147,13 @@ public class CarsTableForm extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    private void fillCarsTable() {
-        List<Car> cars = CarUtil.getAllCars();
-        TableModel tm = new MyCarTableModel(cars);
+    private void fillCarsTable() throws SQLException {
+        List<DefaultDomainObject> cars = Controller.getInstance().getAll(new Car(Long.MIN_VALUE, null, null, 0));
+        List<Car> c = new ArrayList<>();
+        for (DefaultDomainObject car : cars) {
+            c.add((Car) car);
+        }
+        TableModel tm = new MyCarTableModel(c);
         carsTable.setModel(tm);
     }
 }

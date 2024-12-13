@@ -4,11 +4,18 @@
  */
 package carsalesapplication.domain;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author user
  */
-public class User {
+public class User implements DefaultDomainObject{
     private Long idUser;
     private String username;
     private String password;
@@ -61,6 +68,25 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Override
+    public String getClassName() {
+        return "salesman";
+    }
+
+    @Override
+    public List<DefaultDomainObject> returnList(ResultSet rs) throws SQLException {
+        List<DefaultDomainObject> users = new ArrayList<>();
+        try {
+            while(rs.next()){
+                users.add(new User(rs.getLong("id"), rs.getString("username"), rs.getString("password"), rs.getString("first_name"), rs.getString("last_name")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Car.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+        return users;
     }
     
     
