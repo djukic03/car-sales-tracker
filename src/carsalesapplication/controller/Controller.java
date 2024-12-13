@@ -33,4 +33,16 @@ public class Controller {
     public List<DefaultDomainObject> getAll(DefaultDomainObject ddo) throws SQLException{
         return dbBroker.getAll(ddo);
     }
+    
+    public List<DefaultDomainObject> getByCondition(DefaultDomainObject ddo) throws SQLException {
+        return dbBroker.getByCondition(ddo);
+    }
+    
+    public void InsertRow(DefaultDomainObject ddo) throws SQLException {
+        dbBroker.insertRow(ddo);
+    }
+    
+    public void closeCon(){
+        dbBroker.closeCon();
+    }
 }

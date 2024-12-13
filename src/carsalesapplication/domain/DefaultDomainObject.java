@@ -17,4 +17,12 @@ public interface DefaultDomainObject extends Serializable{
     public String getClassName();
     
     public List<DefaultDomainObject> returnList(ResultSet rs) throws SQLException;
+    
+    public String getCondition();
+    
+    public String getConditionValue();
+
+    public String getInsertValues();
+
+    public String getInsertColumns();
 }

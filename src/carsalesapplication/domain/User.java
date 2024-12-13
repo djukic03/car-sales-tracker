@@ -21,7 +21,12 @@ public class User implements DefaultDomainObject{
     private String password;
     private String firstName;
     private String lastName;
+    String condition;
+    String conditionValue;
 
+    public User() {
+    }
+    
     public User(Long idUser, String username, String password, String firstName, String lastName) {
         this.idUser = idUser;
         this.username = username;
@@ -70,6 +75,16 @@ public class User implements DefaultDomainObject{
         this.lastName = lastName;
     }
 
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+
+    public void setConditionValue(String conditionValue) {
+        this.conditionValue = conditionValue;
+    }
+    
+    
+
     @Override
     public String getClassName() {
         return "salesman";
@@ -87,6 +102,26 @@ public class User implements DefaultDomainObject{
             throw ex;
         }
         return users;
+    }
+
+    @Override
+    public String getCondition() {
+        return condition;
+    }
+
+    @Override
+    public String getConditionValue() {
+        return conditionValue;
+    }
+
+    @Override
+    public String getInsertValues() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getInsertColumns() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

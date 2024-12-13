@@ -4,9 +4,15 @@
  */
 package carsalesapplication.form;
 
+import carsalesapplication.controller.Controller;
+import carsalesapplication.domain.Car;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.geom.FlatteningPathIterator;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -44,8 +50,8 @@ public class AddCarForm extends javax.swing.JDialog {
         brandTxt = new javax.swing.JTextField();
         modelTxt = new javax.swing.JTextField();
         priceTxt = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -56,7 +62,7 @@ public class AddCarForm extends javax.swing.JDialog {
         jLabel2.setText("Brand:");
 
         jLabel3.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        jLabel3.setText("Price:");
+        jLabel3.setText("Price($):");
 
         jLabel4.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         jLabel4.setText("Model:");
@@ -67,16 +73,21 @@ public class AddCarForm extends javax.swing.JDialog {
 
         priceTxt.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
 
-        jButton1.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        jButton1.setText("Save");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        jButton2.setText("Cancel");
+        btnCancel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,9 +111,9 @@ public class AddCarForm extends javax.swing.JDialog {
                             .addComponent(priceTxt)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 150, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -124,18 +135,37 @@ public class AddCarForm extends javax.swing.JDialog {
                     .addComponent(priceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        CheckForEmptyFields();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        if(!CheckForEmptyFields()){
+            Car car = new Car(Long.MIN_VALUE, brandTxt.getText(), modelTxt.getText(), Double.parseDouble(priceTxt.getText()));
+            try {
+                if(JOptionPane.showConfirmDialog(this, "Are you sure you want to insert the following car into the database: \n"+car.getBrand()+" "+car.getModel()+", "+car.getPrice()+"$", "Add car", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                    Controller.getInstance().InsertRow(car);
+                    if(JOptionPane.showConfirmDialog(this, car.getBrand()+" "+car.getModel()+" has been successfully added to the database!\n\nAdd more cars?", "Success", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                        prepareForm();
+                    }
+                    else{
+                        this.dispose();
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AddCarForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,8 +211,8 @@ public class AddCarForm extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField brandTxt;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -191,24 +221,35 @@ public class AddCarForm extends javax.swing.JDialog {
     private javax.swing.JTextField priceTxt;
     // End of variables declaration//GEN-END:variables
 
-    private void CheckForEmptyFields() {
+    private boolean CheckForEmptyFields() {
         Border border = new LineBorder(Color.red, 1,true);
         Font font = new Font("Gill Sans MT", 1, 8);
+        boolean empty = false;
         if(brandTxt.getText().isEmpty()){
             brandTxt.setBorder(new TitledBorder(border, "Required Field", 0, 0, font, Color.RED));
+            empty = true;
         }
         else{
             brandTxt.setBorder(new MetalBorders.TextFieldBorder());
         }
         if(modelTxt.getText().isEmpty()){
             modelTxt.setBorder(new TitledBorder(border, "Required Field", 0, 0, font, Color.RED));
+            empty = true;
         }else{
             modelTxt.setBorder(new MetalBorders.TextFieldBorder());
         }
         if(priceTxt.getText().isEmpty()){
             priceTxt.setBorder(new TitledBorder(border, "Required Field", 0, 0, font, Color.RED));
+            empty = true;
         }else{
             priceTxt.setBorder(new MetalBorders.TextFieldBorder());
         }
+        return empty;
+    }
+
+    private void prepareForm() {
+        brandTxt.setText("");
+        modelTxt.setText("");
+        priceTxt.setText("");
     }
 }

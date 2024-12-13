@@ -6,6 +6,7 @@ package carsalesapplication.form;
 
 import carsalesapplication.controller.Controller;
 import carsalesapplication.database.DatabaseBroker;
+import carsalesapplication.database.DatabaseConnection;
 import carsalesapplication.domain.DefaultDomainObject;
 import carsalesapplication.domain.User;
 import java.awt.Color;
@@ -47,6 +48,7 @@ public class LoginForm extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    CheckForEmptyFields();
                     login(e);
                 } catch (SQLException ex) {
                     Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -54,10 +56,25 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
         
+        txtUsername.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                btnLogin.doClick();
+            }
+        });
+        
+        txtPassword.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                btnLogin.doClick();
+            }
+        });
+        
         this.addWindowListener(new WindowAdapter(){
             @Override
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
+                Controller.getInstance().closeCon();
             }
         });
     }
@@ -136,12 +153,12 @@ public class LoginForm extends javax.swing.JFrame {
                         .addGap(25, 25, 25)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
+                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
                         .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(64, Short.MAX_VALUE))
         );
@@ -151,7 +168,7 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        CheckForEmptyFields();
+        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
@@ -203,12 +220,8 @@ public class LoginForm extends javax.swing.JFrame {
         String username = txtUsername.getText();
         String password = String.valueOf(txtPassword.getPassword());
         
-        if (username.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Usename is empty!","Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (password.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Password is empty!","Error", JOptionPane.ERROR_MESSAGE);
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Fill all required fields","Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         

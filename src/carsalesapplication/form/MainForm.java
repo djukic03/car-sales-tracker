@@ -4,9 +4,13 @@
  */
 package carsalesapplication.form;
 
+import carsalesapplication.controller.Controller;
 import carsalesapplication.domain.User;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -18,6 +22,7 @@ public class MainForm extends javax.swing.JFrame {
 
     /**
      * Creates new form MainForm
+     * @param user
      */
     public MainForm(User user) {
         this.user = user;
@@ -30,6 +35,7 @@ public class MainForm extends javax.swing.JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
+                Controller.getInstance().closeCon();
             }
         });
     }
@@ -121,13 +127,21 @@ public class MainForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuSeeAllCarsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSeeAllCarsActionPerformed
-        // TODO add your handling code here:
-        new CarsTableForm(this, true).setVisible(true);
+        try {
+            // TODO add your handling code here:
+            new CarsTableForm(this, true).setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_menuSeeAllCarsActionPerformed
 
     private void menuSeeAllSalesmenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSeeAllSalesmenActionPerformed
-        // TODO add your handling code here:
-        new UsersTableForm(this, true).setVisible(true);
+        try {
+            // TODO add your handling code here:
+            new UsersTableForm(this, true).setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_menuSeeAllSalesmenActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed

@@ -21,6 +21,8 @@ public class Car  implements DefaultDomainObject{
     private String brand;
     private String model;
     private double price;
+    String condition;
+    String conditionValue;
 
     public Car(Long idCar, String brand, String model, double price) {
         this.idCar = idCar;
@@ -61,6 +63,14 @@ public class Car  implements DefaultDomainObject{
         this.price = price;
     }
 
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+
+    public void setConditionValue(String conditionValue) {
+        this.conditionValue = conditionValue;
+    }
+
     @Override
     public String getClassName() {
         return "car";
@@ -79,6 +89,25 @@ public class Car  implements DefaultDomainObject{
         }
         return cars;
     }
-    
+
+    @Override
+    public String getCondition() {
+        return condition;
+    }
+
+    @Override
+    public String getConditionValue() {
+        return conditionValue;
+    }
+
+    @Override
+    public String getInsertValues() {
+        return "'"+ brand +"', '"+ model +"', "+ price;
+    }    
+
+    @Override
+    public String getInsertColumns() {
+        return "brand, model, price";
+    }
     
 }

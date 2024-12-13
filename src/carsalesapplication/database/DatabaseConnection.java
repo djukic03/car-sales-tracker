@@ -12,11 +12,11 @@ import java.util.logging.Logger;
  *
  * @author user
  */
-public class DatabaseConnnection {
-    private static DatabaseConnnection instance;
+public class DatabaseConnection {
+    private static DatabaseConnection instance;
     private Connection connection;
 
-    public DatabaseConnnection() {
+    public DatabaseConnection() {
         String url = "jdbc:mysql://localhost:3306/car_sales";
         String user = "root";
         String password = "";
@@ -28,9 +28,9 @@ public class DatabaseConnnection {
         }
     }
     
-    public static DatabaseConnnection getInstance(){
+    public static DatabaseConnection getInstance(){
         if(instance == null){
-            instance = new DatabaseConnnection();
+            instance = new DatabaseConnection();
         }
         return instance;
     }
@@ -39,5 +39,14 @@ public class DatabaseConnnection {
         return connection;
     }
     
-    
+    public void closeConnection(){
+        try {
+            if(connection!=null && !connection.isClosed()){
+                connection.close();
+                System.out.println("Connection closed successfully!");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error with closing the database connection!\n"+ex.getMessage());
+        }
+    }
 }
