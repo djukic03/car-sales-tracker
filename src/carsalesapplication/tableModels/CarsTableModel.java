@@ -12,10 +12,10 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author user
  */
-public class MyCarTableModel extends AbstractTableModel {
+public class CarsTableModel extends AbstractTableModel {
     private List<Car> cars;
 
-    public MyCarTableModel(List<Car> cars) {
+    public CarsTableModel(List<Car> cars) {
         this.cars = cars;
     }
     
@@ -56,5 +56,7 @@ public class MyCarTableModel extends AbstractTableModel {
         return Object.class;
     }
     
-    
+    public Car getCarAt(int rowId){
+        return cars.get(rowId);
+    }
 }

@@ -225,7 +225,7 @@ public class LoginForm extends javax.swing.JFrame {
             return;
         }
         
-        List<DefaultDomainObject> u = Controller.getInstance().getAll(new User(Long.MIN_VALUE, null, null, null, null));
+        List<DefaultDomainObject> u = Controller.getInstance().getAll(new User(null, null, null, null, null));
         List<User> users = new ArrayList<>();
         for (DefaultDomainObject user : u) {
             users.add((User) user);

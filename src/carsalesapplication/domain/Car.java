@@ -21,8 +21,10 @@ public class Car  implements DefaultDomainObject{
     private String brand;
     private String model;
     private double price;
-    String condition;
-    String conditionValue;
+    String searchCondition;
+    String searchConditionValue;
+    Long deleteConditionValue;
+    Long updateConditionValue;
 
     public Car(Long idCar, String brand, String model, double price) {
         this.idCar = idCar;
@@ -63,14 +65,24 @@ public class Car  implements DefaultDomainObject{
         this.price = price;
     }
 
-    public void setCondition(String condition) {
-        this.condition = condition;
+    public void setSearchCondition(String condition) {
+        this.searchCondition = condition;
     }
 
-    public void setConditionValue(String conditionValue) {
-        this.conditionValue = conditionValue;
+    public void setSearchConditionValue(String conditionValue) {
+        this.searchConditionValue = conditionValue;
     }
 
+    public void setDeleteConditionValue(Long deleteConditionValue) {
+        this.deleteConditionValue = deleteConditionValue;
+    }
+
+    public void setUpdateConditionValue(Long updateConditionValue) {
+        this.updateConditionValue = updateConditionValue;
+    }
+    
+    
+    
     @Override
     public String getClassName() {
         return "car";
@@ -91,13 +103,13 @@ public class Car  implements DefaultDomainObject{
     }
 
     @Override
-    public String getCondition() {
-        return condition;
+    public String getSearchCondition() {
+        return searchCondition;
     }
 
     @Override
-    public String getConditionValue() {
-        return conditionValue;
+    public String getSearchConditionValue() {
+        return searchConditionValue;
     }
 
     @Override
@@ -108,6 +120,31 @@ public class Car  implements DefaultDomainObject{
     @Override
     public String getInsertColumns() {
         return "brand, model, price";
+    }
+
+    @Override
+    public String getDeleteCondition() {
+        return "id";
+    }
+
+    @Override
+    public String getDeleteConditionValue() {
+        return deleteConditionValue.toString();
+    }
+
+    @Override
+    public String getUpdateValues() {
+        return "brand = '" + brand + "', model = '" + model + "', price = " + price;
+    }
+
+    @Override
+    public String getUpdateCondition() {
+        return "id";
+    }
+
+    @Override
+    public String getUpdateConditionValue() {
+        return updateConditionValue.toString();
     }
     
 }

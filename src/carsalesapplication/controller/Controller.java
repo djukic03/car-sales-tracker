@@ -38,8 +38,20 @@ public class Controller {
         return dbBroker.getByCondition(ddo);
     }
     
-    public void InsertRow(DefaultDomainObject ddo) throws SQLException {
+    public void insertRow(DefaultDomainObject ddo) throws SQLException {
         dbBroker.insertRow(ddo);
+    }
+    
+    public void deleteRow(DefaultDomainObject ddo) throws SQLException {
+        dbBroker.deleteRow(ddo);
+    }
+    
+    public void updateRow(DefaultDomainObject ddo) throws SQLException {
+        dbBroker.updateRow(ddo);
+    }
+    
+    public List<String> getAllCarBrands() throws SQLException{
+        return dbBroker.getAllCarBrands();
     }
     
     public void closeCon(){

@@ -29,7 +29,7 @@ public class DatabaseBroker {
     }
     
     public List<DefaultDomainObject> getByCondition(DefaultDomainObject ddo) throws SQLException{
-        String query = "select * from "+ddo.getClassName()+" where "+ddo.getCondition()+" Like '%"+ddo.getConditionValue()+"%'";
+        String query = "select * from "+ddo.getClassName()+" where "+ddo.getSearchCondition()+" Like '"+ddo.getSearchConditionValue()+"%'";
         Connection connection = DatabaseConnection.getInstance().getConnection();
         Statement s = connection.createStatement();
         ResultSet rs = s.executeQuery(query);
@@ -43,7 +43,34 @@ public class DatabaseBroker {
         s.executeUpdate(query);
     }
     
+    public void deleteRow(DefaultDomainObject ddo) throws SQLException {
+        String query = "delete from "+ddo.getClassName()+" where "+ddo.getDeleteCondition()+" = "+ddo.getDeleteConditionValue();
+        Connection connection = DatabaseConnection.getInstance().getConnection();
+        Statement s = connection.createStatement();
+        s.executeUpdate(query);
+    }
+    
+    public void updateRow(DefaultDomainObject ddo) throws SQLException {
+        String query = "update "+ddo.getClassName()+" set "+ddo.getUpdateValues()+" where "+ddo.getUpdateCondition()+" = "+ddo.getUpdateConditionValue();
+        Connection connection = DatabaseConnection.getInstance().getConnection();
+        Statement s = connection.createStatement();
+        s.executeUpdate(query);
+    }
+    
+    public List<String> getAllCarBrands() throws SQLException {
+        String query = "select distinct brand from car";
+        Connection connection = DatabaseConnection.getInstance().getConnection();
+        Statement s = connection.createStatement();
+        ResultSet rs = s.executeQuery(query);
+        List<String> brands = new ArrayList<>();
+        while(rs.next()){
+            brands.add(rs.getString("brand"));
+        }
+        return brands;
+    }
+    
     public void closeCon(){
         DatabaseConnection.getInstance().closeConnection();
     }
+
 }

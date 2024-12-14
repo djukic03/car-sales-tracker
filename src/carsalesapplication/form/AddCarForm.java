@@ -12,6 +12,7 @@ import java.awt.geom.FlatteningPathIterator;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -24,6 +25,8 @@ import javax.swing.plaf.metal.MetalBorders;
  * @author user
  */
 public class AddCarForm extends javax.swing.JDialog {
+    private Car theCar = null;
+    private CarsTableForm p;
 
     /**
      * Creates new form AddCarForm
@@ -31,7 +34,17 @@ public class AddCarForm extends javax.swing.JDialog {
     public AddCarForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setLocationRelativeTo(this);
+        setLocationRelativeTo(parent);
+        prepareAddForm();
+    }
+    
+    public AddCarForm(java.awt.Frame parent, boolean modal, Car car, CarsTableForm p) {
+        super(parent, modal);
+        initComponents();
+        this.theCar = car;
+        this.p = p;
+        setLocationRelativeTo(parent);
+        prepareDetailsForm(car);
     }
 
     /**
@@ -52,6 +65,9 @@ public class AddCarForm extends javax.swing.JDialog {
         priceTxt = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
+        lblId = new javax.swing.JLabel();
+        idTxt = new javax.swing.JTextField();
+        btnEnableChanges = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -89,6 +105,19 @@ public class AddCarForm extends javax.swing.JDialog {
             }
         });
 
+        lblId.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        lblId.setText("ID:");
+
+        idTxt.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+
+        btnEnableChanges.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnEnableChanges.setText("Enable changes");
+        btnEnableChanges.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnableChangesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -103,17 +132,20 @@ public class AddCarForm extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(brandTxt)
                             .addComponent(modelTxt)
-                            .addComponent(priceTxt)))
+                            .addComponent(priceTxt)
+                            .addComponent(idTxt)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 150, Short.MAX_VALUE)
-                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEnableChanges)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -121,6 +153,10 @@ public class AddCarForm extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblId)
+                    .addComponent(idTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -133,10 +169,11 @@ public class AddCarForm extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(priceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEnableChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -145,14 +182,26 @@ public class AddCarForm extends javax.swing.JDialog {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         if(!CheckForEmptyFields()){
-            Car car = new Car(Long.MIN_VALUE, brandTxt.getText(), modelTxt.getText(), Double.parseDouble(priceTxt.getText()));
+            Car car = new Car(null, brandTxt.getText(), modelTxt.getText(), Double.parseDouble(priceTxt.getText()));
             try {
-                if(JOptionPane.showConfirmDialog(this, "Are you sure you want to insert the following car into the database: \n"+car.getBrand()+" "+car.getModel()+", "+car.getPrice()+"$", "Add car", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                    Controller.getInstance().InsertRow(car);
-                    if(JOptionPane.showConfirmDialog(this, car.getBrand()+" "+car.getModel()+" has been successfully added to the database!\n\nAdd more cars?", "Success", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                        prepareForm();
+                if(this.theCar == null)
+                {
+                    if(JOptionPane.showConfirmDialog(this, "Are you sure you want to INSERT the following car into the database: \n"+car.getBrand()+" "+car.getModel()+", "+car.getPrice()+"$", "Add car", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                        Controller.getInstance().insertRow(car);
+                        if(JOptionPane.showConfirmDialog(this, car.getBrand()+" "+car.getModel()+" has been successfully added to the database!\n\nAdd more cars?", "Success", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                            prepareAddForm();
+                        }
+                        else{
+                            this.dispose();
+                        }
                     }
-                    else{
+                }
+                else{
+                    if(JOptionPane.showConfirmDialog(this, "Are you sure you want to SAVE the following changes into the database: \n"+car.getBrand()+" "+car.getModel()+", "+car.getPrice()+"$", "Change car details", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                        car.setIdCar(theCar.getIdCar());
+                        car.setUpdateConditionValue(car.getIdCar());
+                        Controller.getInstance().updateRow(car);
+                        p.fillCarsTable(null);
                         this.dispose();
                     }
                 }
@@ -166,6 +215,11 @@ public class AddCarForm extends javax.swing.JDialog {
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnEnableChangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnableChangesActionPerformed
+        // TODO add your handling code here:
+        prepareUpdateForm();
+    }//GEN-LAST:event_btnEnableChangesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,11 +266,14 @@ public class AddCarForm extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField brandTxt;
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnEnableChanges;
     private javax.swing.JButton btnSave;
+    private javax.swing.JTextField idTxt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel lblId;
     private javax.swing.JTextField modelTxt;
     private javax.swing.JTextField priceTxt;
     // End of variables declaration//GEN-END:variables
@@ -247,9 +304,40 @@ public class AddCarForm extends javax.swing.JDialog {
         return empty;
     }
 
-    private void prepareForm() {
+    private void prepareDetailsForm(Car car) {
+        jLabel1.setText("Car details");
+        idTxt.setText(car.getIdCar().toString());
+        idTxt.setEditable(false);
+        idTxt.setFocusable(false);
+        brandTxt.setText(car.getBrand());
+        brandTxt.setEditable(false);
+        brandTxt.setFocusable(false);
+        modelTxt.setText(car.getModel());
+        modelTxt.setEditable(false);
+        modelTxt.setFocusable(false);
+        priceTxt.setText(Double.toString(car.getPrice()));
+        priceTxt.setEditable(false);
+        priceTxt.setFocusable(false);
+        btnSave.setEnabled(false);
+        btnEnableChanges.setVisible(true);
+    }
+
+    private void prepareAddForm() {
+        idTxt.setVisible(false);
+        lblId.setVisible(false);
+        btnEnableChanges.setVisible(false);
         brandTxt.setText("");
         modelTxt.setText("");
         priceTxt.setText("");
+    }
+
+    private void prepareUpdateForm() {
+        brandTxt.setEditable(true);
+        brandTxt.setFocusable(true);
+        modelTxt.setEditable(true);
+        modelTxt.setFocusable(true);
+        priceTxt.setEditable(true);
+        priceTxt.setFocusable(true);
+        btnSave.setEnabled(true);
     }
 }

@@ -21,8 +21,9 @@ public class User implements DefaultDomainObject{
     private String password;
     private String firstName;
     private String lastName;
-    String condition;
-    String conditionValue;
+    String searchCondition;
+    String searchConditionValue;
+    Long deleteConditionValue;
 
     public User() {
     }
@@ -75,19 +76,22 @@ public class User implements DefaultDomainObject{
         this.lastName = lastName;
     }
 
-    public void setCondition(String condition) {
-        this.condition = condition;
+    public void setSearchCondition(String condition) {
+        this.searchCondition = condition;
     }
 
-    public void setConditionValue(String conditionValue) {
-        this.conditionValue = conditionValue;
+    public void setSearchConditionValue(String conditionValue) {
+        this.searchConditionValue = conditionValue;
     }
-    
+
+    public void setDeleteConditionValue(Long deleteConditionValue) {
+        this.deleteConditionValue = deleteConditionValue;
+    }
     
 
     @Override
     public String getClassName() {
-        return "salesman";
+        return "user";
     }
 
     @Override
@@ -105,13 +109,13 @@ public class User implements DefaultDomainObject{
     }
 
     @Override
-    public String getCondition() {
-        return condition;
+    public String getSearchCondition() {
+        return searchCondition;
     }
 
     @Override
-    public String getConditionValue() {
-        return conditionValue;
+    public String getSearchConditionValue() {
+        return searchConditionValue;
     }
 
     @Override
@@ -121,6 +125,31 @@ public class User implements DefaultDomainObject{
 
     @Override
     public String getInsertColumns() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getDeleteCondition() {
+        return "id";
+    }
+
+    @Override
+    public String getDeleteConditionValue() {
+        return deleteConditionValue.toString();
+    }
+
+    @Override
+    public String getUpdateValues() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getUpdateCondition() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getUpdateConditionValue() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

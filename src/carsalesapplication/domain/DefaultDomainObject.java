@@ -18,11 +18,21 @@ public interface DefaultDomainObject extends Serializable{
     
     public List<DefaultDomainObject> returnList(ResultSet rs) throws SQLException;
     
-    public String getCondition();
+    public String getSearchCondition();
     
-    public String getConditionValue();
+    public String getSearchConditionValue();
 
     public String getInsertValues();
 
     public String getInsertColumns();
+    
+    public String getDeleteCondition();
+    
+    public String getDeleteConditionValue();
+
+    public String getUpdateValues();
+
+    public String getUpdateCondition();
+
+    public String getUpdateConditionValue();
 }
