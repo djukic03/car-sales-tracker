@@ -93,7 +93,7 @@ public class Customer implements DefaultDomainObject{
         List<DefaultDomainObject> customers = new ArrayList<>();
         try {
             while(rs.next()){
-                customers.add(new Customer(rs.getLong("id"), rs.getString("name"), rs.getInt("phone"), rs.getString("last_name")));
+                customers.add(new Customer(rs.getLong("id"), rs.getString("name"), rs.getInt("phone"), rs.getString("email")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);

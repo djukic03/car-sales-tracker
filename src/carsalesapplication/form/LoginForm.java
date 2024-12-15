@@ -6,13 +6,8 @@ package carsalesapplication.form;
 
 import carsalesapplication.controller.Controller;
 import carsalesapplication.controller.FormsController;
-import carsalesapplication.database.DatabaseBroker;
-import carsalesapplication.database.DatabaseConnection;
 import carsalesapplication.domain.DefaultDomainObject;
 import carsalesapplication.domain.User;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -22,13 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.plaf.metal.MetalBorders;
 
 /**
  *

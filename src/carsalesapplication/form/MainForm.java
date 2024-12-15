@@ -125,6 +125,11 @@ public class MainForm extends javax.swing.JFrame {
 
         jMenuItem1.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         jMenuItem1.setText("See all customers");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
@@ -197,6 +202,16 @@ public class MainForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         new AddCustomerForm(this, true).setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        try {
+            // TODO add your handling code here:
+            new CustomersTableForm(this, true).setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
