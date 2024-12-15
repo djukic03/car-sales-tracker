@@ -5,6 +5,7 @@
 package carsalesapplication.form;
 
 import carsalesapplication.controller.Controller;
+import carsalesapplication.controller.FormsController;
 import carsalesapplication.database.DatabaseBroker;
 import carsalesapplication.database.DatabaseConnection;
 import carsalesapplication.domain.DefaultDomainObject;
@@ -48,7 +49,6 @@ public class LoginForm extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    CheckForEmptyFields();
                     login(e);
                 } catch (SQLException ex) {
                     Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -217,46 +217,32 @@ public class LoginForm extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void login(ActionEvent e) throws SQLException{
-        String username = txtUsername.getText();
-        String password = String.valueOf(txtPassword.getPassword());
-        
-        if (username.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Fill all required fields","Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        List<DefaultDomainObject> u = Controller.getInstance().getAll(new User(null, null, null, null, null));
-        List<User> users = new ArrayList<>();
-        for (DefaultDomainObject user : u) {
-            users.add((User) user);
-        }
-        try {
-            for (int i = 0; i < users.size(); i++) {
-                if(users.get(i).getUsername().equals(username) && users.get(i).getPassword().equals(password)){
-                    this.dispose();
-                    new MainForm(users.get(i)).setVisible(true);
-                    return;
-                }
+        if(!FormsController.getInstance(this).checkEmptyTxtFields()){
+            String username = txtUsername.getText();
+            String password = String.valueOf(txtPassword.getPassword());
+
+            List<DefaultDomainObject> u = Controller.getInstance().getAll(new User(null, null, null, null, null));
+            List<User> users = new ArrayList<>();
+            for (DefaultDomainObject user : u) {
+                users.add((User) user);
             }
-            throw new Exception("User doesn't exists!");
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
-    private void CheckForEmptyFields() {
-        Border border = new LineBorder(Color.red, 1,true);
-        Font font = new Font("Gill Sans MT", 1, 8);
-        if(txtUsername.getText().isEmpty()){
-            txtUsername.setBorder(new TitledBorder(border, "Required Field", 0, 0, font, Color.RED));
+            try {
+                for (int i = 0; i < users.size(); i++) {
+                    if(users.get(i).getUsername().equals(username) && users.get(i).getPassword().equals(password)){
+                        JOptionPane.showMessageDialog(this, "Login successfull! \nWelcome!");
+                        this.dispose();
+                        new MainForm(users.get(i)).setVisible(true);
+                        return;
+                    }
+                }
+                throw new Exception("User doesn't exists!");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
         else{
-            txtUsername.setBorder(new MetalBorders.TextFieldBorder());
+            JOptionPane.showMessageDialog(this, "Fill all required fields");
         }
-        if(String.valueOf(txtPassword.getPassword()).isEmpty()){
-            txtPassword.setBorder(new TitledBorder(border, "Required Field", 0, 0, font, Color.RED));
-        }else{
-            txtPassword.setBorder(new MetalBorders.TextFieldBorder());
-        }
+        
     }
 }

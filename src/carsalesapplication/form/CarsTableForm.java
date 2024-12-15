@@ -149,6 +149,10 @@ public class CarsTableForm extends javax.swing.JDialog {
     private void btnDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailsActionPerformed
         // TODO add your handling code here:
         int rowId = carsTable.getSelectedRow();
+        if (rowId < 0) {
+            JOptionPane.showMessageDialog(this, "Please select car!");
+            return;
+        }
         Car car = ((CarsTableModel) carsTable.getModel()).getCarAt(rowId);
         new AddCarForm(null, true, car, this).setVisible(true);
     }//GEN-LAST:event_btnDetailsActionPerformed
@@ -156,6 +160,10 @@ public class CarsTableForm extends javax.swing.JDialog {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         int rowId = carsTable.getSelectedRow();
+        if (rowId < 0) {
+            JOptionPane.showMessageDialog(this, "Please select car!");
+            return;
+        }
         Car car = ((CarsTableModel) carsTable.getModel()).getCarAt(rowId);
         car.setDeleteConditionValue(car.getIdCar());
         try {

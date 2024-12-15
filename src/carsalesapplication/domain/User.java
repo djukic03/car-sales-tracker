@@ -102,7 +102,7 @@ public class User implements DefaultDomainObject{
                 users.add(new User(rs.getLong("id"), rs.getString("username"), rs.getString("password"), rs.getString("first_name"), rs.getString("last_name")));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Car.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
             throw ex;
         }
         return users;

@@ -61,6 +61,13 @@ public class MainForm extends javax.swing.JFrame {
         menuAddNewCar = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         menuSeeAllCars = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,6 +110,43 @@ public class MainForm extends javax.swing.JFrame {
         menuAddNewCar.add(menuSeeAllCars);
 
         jMenuBar1.add(menuAddNewCar);
+
+        jMenu1.setText("Customers");
+        jMenu1.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+
+        jMenuItem3.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        jMenuItem3.setText("Add new customer");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
+        jMenuItem1.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        jMenuItem1.setText("See all customers");
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu3.setText("Options");
+        jMenu3.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+
+        jMenu4.setText("Language");
+        jMenu4.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+
+        jCheckBoxMenuItem1.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        jCheckBoxMenuItem1.setSelected(true);
+        jCheckBoxMenuItem1.setText("English");
+        jMenu4.add(jCheckBoxMenuItem1);
+
+        jCheckBoxMenuItem2.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        jCheckBoxMenuItem2.setText("Serbian");
+        jMenu4.add(jCheckBoxMenuItem2);
+
+        jMenu3.add(jMenu4);
+
+        jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
 
@@ -149,6 +193,11 @@ public class MainForm extends javax.swing.JFrame {
         new AddCarForm(this, true).setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        new AddCustomerForm(this, true).setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -185,9 +234,16 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JLabel lblMain;
     private javax.swing.JMenu menuAddNewCar;
     private javax.swing.JMenuItem menuSeeAllCars;
