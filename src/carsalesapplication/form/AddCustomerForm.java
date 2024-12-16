@@ -26,7 +26,7 @@ public class AddCustomerForm extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
-        FormsController.getInstance(this).prepareAddForm();
+        prepareAddForm();
     }
 
     /**
@@ -80,7 +80,7 @@ public class AddCustomerForm extends javax.swing.JDialog {
 
         lblId.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         lblId.setText("ID:");
-        lblId.setName("lblId"); // NOI18N
+        lblId.setName("id"); // NOI18N
 
         idTxt.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         idTxt.setName("id"); // NOI18N
@@ -169,8 +169,8 @@ public class AddCustomerForm extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        FormsController controller = FormsController.getInstance(this);
-        if(!controller.checkEmptyTxtFields()){
+        FormsController controller = FormsController.getInstance();
+        if(!controller.checkEmptyTxtFields(this)){
             Customer customer = new Customer(null, txtName.getText(), Integer.parseInt(txtPhone.getText()), txtEmail.getText());
             try {
                 if(this.theCustomer == null)
@@ -178,7 +178,7 @@ public class AddCustomerForm extends javax.swing.JDialog {
                     if(JOptionPane.showConfirmDialog(this, "Are you sure you want to INSERT the following customer into the database: \n"+customer.getName()+" "+customer.getPhone()+", "+customer.getEmail(), "Add customer", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                         Controller.getInstance().insertRow(customer);
                         if(JOptionPane.showConfirmDialog(this, customer.getName()+" has been successfully added to the database!\n\nAdd more customers?", "Success", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                            controller.prepareAddForm();
+                            controller.prepareAddForm(this);
                         }
                         else{
                             this.dispose();
@@ -265,4 +265,8 @@ public class AddCustomerForm extends javax.swing.JDialog {
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPhone;
     // End of variables declaration//GEN-END:variables
+
+    private void prepareAddForm() {
+        FormsController.getInstance().prepareAddForm(this);
+    }
 }

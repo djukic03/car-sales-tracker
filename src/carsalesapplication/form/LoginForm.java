@@ -206,7 +206,7 @@ public class LoginForm extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void login(ActionEvent e) throws SQLException{
-        if(!FormsController.getInstance(this).checkEmptyTxtFields()){
+        if(!FormsController.getInstance().checkEmptyTxtFields(this)){
             String username = txtUsername.getText();
             String password = String.valueOf(txtPassword.getPassword());
 

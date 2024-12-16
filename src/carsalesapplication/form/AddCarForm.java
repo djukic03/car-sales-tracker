@@ -7,21 +7,12 @@ package carsalesapplication.form;
 import carsalesapplication.controller.Controller;
 import carsalesapplication.controller.FormsController;
 import carsalesapplication.domain.Car;
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.FlatteningPathIterator;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.plaf.basic.BasicBorders;
-import javax.swing.plaf.metal.MetalBorders;
 
 /**
  *
@@ -38,7 +29,7 @@ public class AddCarForm extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
-        prepareAddForm();
+        FormsController.getInstance().prepareAddForm(this);
         addListeners();
     }
     
@@ -116,12 +107,14 @@ public class AddCarForm extends javax.swing.JDialog {
 
         lblId.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         lblId.setText("ID:");
+        lblId.setName("id"); // NOI18N
 
         idTxt.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         idTxt.setName("id"); // NOI18N
 
         btnEnableChanges.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         btnEnableChanges.setText("Enable changes");
+        btnEnableChanges.setName("btnEnableChanges"); // NOI18N
         btnEnableChanges.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEnableChangesActionPerformed(evt);
@@ -191,7 +184,8 @@ public class AddCarForm extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        if(!FormsController.getInstance(this).checkEmptyTxtFields()){
+        FormsController controller = FormsController.getInstance();
+        if(!controller.checkEmptyTxtFields(this)){
             Car car = new Car(null, brandTxt.getText(), modelTxt.getText(), Double.parseDouble(priceTxt.getText()));
             try {
                 if(this.theCar == null)
@@ -199,7 +193,7 @@ public class AddCarForm extends javax.swing.JDialog {
                     if(JOptionPane.showConfirmDialog(this, "Are you sure you want to INSERT the following car into the database: \n"+car.getBrand()+" "+car.getModel()+", "+car.getPrice()+"$", "Add car", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                         Controller.getInstance().insertRow(car);
                         if(JOptionPane.showConfirmDialog(this, car.getBrand()+" "+car.getModel()+" has been successfully added to the database!\n\nAdd more cars?", "Success", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                            prepareAddForm();
+                            controller.prepareAddForm(this);
                         }
                         else{
                             this.dispose();
@@ -308,15 +302,6 @@ public class AddCarForm extends javax.swing.JDialog {
         priceTxt.setFocusable(false);
         btnSave.setEnabled(false);
         btnEnableChanges.setVisible(true);
-    }
-
-    private void prepareAddForm() {
-        idTxt.setVisible(false);
-        lblId.setVisible(false);
-        btnEnableChanges.setVisible(false);
-        brandTxt.setText("");
-        modelTxt.setText("");
-        priceTxt.setText("");
     }
 
     private void prepareUpdateForm() {
