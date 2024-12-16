@@ -14,6 +14,7 @@ import javax.swing.table.TableModel;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author user
@@ -45,6 +46,7 @@ public class CustomersTableForm extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         customersTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -88,6 +90,14 @@ public class CustomersTableForm extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Gill Sans MT", 1, 14)); // NOI18N
         jLabel1.setText("Search by Name:");
 
+        jButton1.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        jButton1.setText("Delete");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,6 +115,8 @@ public class CustomersTableForm extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -119,7 +131,9 @@ public class CustomersTableForm extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -151,7 +165,34 @@ public class CustomersTableForm extends javax.swing.JDialog {
 
     private void btnDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailsActionPerformed
         // TODO add your handling code here:
+        int rowId = customersTable.getSelectedRow();
+        if (rowId < 0) {
+            JOptionPane.showMessageDialog(this, "Please select customer!");
+            return;
+        }
+        Customer customer = ((CustomersTableModel) customersTable.getModel()).getCustomerAt(rowId);
+        new AddCustomerForm(null, true, customer, this).setVisible(true);
     }//GEN-LAST:event_btnDetailsActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int rowId = customersTable.getSelectedRow();
+        if (rowId < 0) {
+            JOptionPane.showMessageDialog(this, "Please select customer!");
+            return;
+        }
+        Customer c = ((CustomersTableModel) customersTable.getModel()).getCustomerAt(rowId);
+        c.setDeleteConditionValue(c.getIdCustomer());
+        try {
+            if(JOptionPane.showConfirmDialog(this, "Are you sure you want to DELETE the following customer from the database: \n"+c.getName(), "Delete customer", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                Controller.getInstance().deleteRow(c);
+                JOptionPane.showMessageDialog(this, "Customer deleted successfully!");
+                fillCustomersTable();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AddCarForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,6 +245,7 @@ public class CustomersTableForm extends javax.swing.JDialog {
     private javax.swing.JButton btnDetails;
     private javax.swing.JButton btnSearch;
     private javax.swing.JTable customersTable;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtSearch;

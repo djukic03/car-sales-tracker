@@ -101,6 +101,7 @@
           <Font name="Gill Sans MT" size="16" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Add new car"/>
+        <Property name="name" type="java.lang.String" value="title" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">

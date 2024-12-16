@@ -4,6 +4,9 @@
  */
 package carsalesapplication.controller;
 
+import carsalesapplication.domain.Car;
+import carsalesapplication.domain.DefaultDomainObject;
+import carsalesapplication.form.AddCarForm;
 import carsalesapplication.form.logic.FormsLogic;
 import java.awt.Container;
 
@@ -32,5 +35,13 @@ public class FormsController {
     
     public void prepareAddForm(Container container) {
         frmLogic.prepareAddForm(container);
+    }
+
+    public void prepareDetailsForm(Container container, DefaultDomainObject ddo) {
+        frmLogic.prepareDetailsForm(container, ddo);
+    }
+
+    public void prepareUpdateForm(Container container) {
+        frmLogic.prepareUpdateForm(container);
     }
 }

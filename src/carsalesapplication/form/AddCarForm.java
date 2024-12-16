@@ -39,7 +39,7 @@ public class AddCarForm extends javax.swing.JDialog {
         this.theCar = car;
         this.p = p;
         setLocationRelativeTo(parent);
-        prepareDetailsForm(car);
+        FormsController.getInstance().prepareDetailsForm(this, car);
         addListeners();
     }
 
@@ -70,6 +70,7 @@ public class AddCarForm extends javax.swing.JDialog {
 
         jLabel1.setFont(new java.awt.Font("Gill Sans MT", 1, 16)); // NOI18N
         jLabel1.setText("Add new car");
+        jLabel1.setName("title"); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         jLabel2.setText("Brand:");
@@ -225,7 +226,7 @@ public class AddCarForm extends javax.swing.JDialog {
 
     private void btnEnableChangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnableChangesActionPerformed
         // TODO add your handling code here:
-        prepareUpdateForm();
+        FormsController.getInstance().prepareUpdateForm(this);
     }//GEN-LAST:event_btnEnableChangesActionPerformed
 
     /**
@@ -284,35 +285,6 @@ public class AddCarForm extends javax.swing.JDialog {
     private javax.swing.JTextField modelTxt;
     private javax.swing.JTextField priceTxt;
     // End of variables declaration//GEN-END:variables
-
-    
-    private void prepareDetailsForm(Car car) {
-        jLabel1.setText("Car details");
-        idTxt.setText(car.getIdCar().toString());
-        idTxt.setEditable(false);
-        idTxt.setFocusable(false);
-        brandTxt.setText(car.getBrand());
-        brandTxt.setEditable(false);
-        brandTxt.setFocusable(false);
-        modelTxt.setText(car.getModel());
-        modelTxt.setEditable(false);
-        modelTxt.setFocusable(false);
-        priceTxt.setText(Double.toString(car.getPrice()));
-        priceTxt.setEditable(false);
-        priceTxt.setFocusable(false);
-        btnSave.setEnabled(false);
-        btnEnableChanges.setVisible(true);
-    }
-
-    private void prepareUpdateForm() {
-        brandTxt.setEditable(true);
-        brandTxt.setFocusable(true);
-        modelTxt.setEditable(true);
-        modelTxt.setFocusable(true);
-        priceTxt.setEditable(true);
-        priceTxt.setFocusable(true);
-        btnSave.setEnabled(true);
-    }
 
     private void addListeners() {
         brandTxt.addActionListener(new ActionListener() {

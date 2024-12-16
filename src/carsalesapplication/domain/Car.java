@@ -146,5 +146,16 @@ public class Car  implements DefaultDomainObject{
     public String getUpdateConditionValue() {
         return updateConditionValue.toString();
     }
+
+    @Override
+    public List<DetailsFormData> getDetailsFormData() {
+        List<DetailsFormData> data = new ArrayList<>(){{
+            add(new DetailsFormData("id", idCar.toString()));
+            add(new DetailsFormData("brand", brand));
+            add(new DetailsFormData("model", model));
+            add(new DetailsFormData("price", Double.toString(price)));
+        }};
+        return data;
+    }
     
 }

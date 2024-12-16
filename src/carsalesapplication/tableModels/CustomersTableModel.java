@@ -56,4 +56,8 @@ public class CustomersTableModel extends AbstractTableModel{
     public Class<?> getColumnClass(int columnIndex) {
         return Object.class;
     }
+    
+    public Customer getCustomerAt(int rowId){
+        return customers.get(rowId);
+    }
 }

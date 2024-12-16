@@ -146,6 +146,17 @@ public class Customer implements DefaultDomainObject{
     public String getUpdateConditionValue() {
         return updateConditionValue.toString();
     }
+
+    @Override
+    public List<DetailsFormData> getDetailsFormData() {
+        List<DetailsFormData> data = new ArrayList<>(){{
+            add(new DetailsFormData("id", idCustomer.toString()));
+            add(new DetailsFormData("name", name));
+            add(new DetailsFormData("phone", Integer.toString(phone)));
+            add(new DetailsFormData("email", email));
+        }};
+        return data;
+    }
     
     
 }

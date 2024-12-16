@@ -18,6 +18,7 @@ import java.util.logging.Logger;
  */
 public class AddCustomerForm extends javax.swing.JDialog {
     private Customer theCustomer = null;
+    private CustomersTableForm p;
 
     /**
      * Creates new form AddCustomerForm
@@ -27,6 +28,15 @@ public class AddCustomerForm extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(parent);
         prepareAddForm();
+    }
+
+    public AddCustomerForm(java.awt.Frame parent, boolean modal, Customer customer, CustomersTableForm p) {
+        super(parent, modal);
+        initComponents();
+        this.theCustomer = customer;
+        this.p = p;
+        setLocationRelativeTo(parent);
+        FormsController.getInstance().prepareDetailsForm(this, customer);
     }
 
     /**
@@ -206,7 +216,7 @@ public class AddCustomerForm extends javax.swing.JDialog {
 
     private void btnEnableChangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnableChangesActionPerformed
         // TODO add your handling code here:
-        //prepareUpdateForm();
+        FormsController.getInstance().prepareUpdateForm(this);
     }//GEN-LAST:event_btnEnableChangesActionPerformed
 
     /**
