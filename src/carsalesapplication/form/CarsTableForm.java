@@ -9,12 +9,23 @@ import carsalesapplication.database.DatabaseBroker;
 import carsalesapplication.domain.Car;
 import carsalesapplication.domain.DefaultDomainObject;
 import carsalesapplication.tableModels.CarsTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import javax.swing.table.TableModel;
 
 /**
@@ -22,6 +33,7 @@ import javax.swing.table.TableModel;
  * @author user
  */
 public class CarsTableForm extends javax.swing.JDialog {
+    List<String> items;
 
     /**
      * Creates new form CarsTableForm
@@ -32,6 +44,8 @@ public class CarsTableForm extends javax.swing.JDialog {
         this.setLocationRelativeTo(parent);
         fillComboBox();
         fillCarsTable(null);
+        prepareForm();
+        addListeners();
     }
 
     /**
@@ -49,6 +63,8 @@ public class CarsTableForm extends javax.swing.JDialog {
         btnDelete = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cbBrand = new javax.swing.JComboBox<>();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        txtfff = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("All Cars");
@@ -107,6 +123,21 @@ public class CarsTableForm extends javax.swing.JDialog {
             }
         });
 
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 263, Short.MAX_VALUE)
+        );
+        jLayeredPane1Layout.setVerticalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 41, Short.MAX_VALUE)
+        );
+
+        txtfff.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtfff.setText("jTextField1");
+        txtfff.setBorder(cbBrand.getBorder());
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,7 +145,7 @@ public class CarsTableForm extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -123,7 +154,11 @@ public class CarsTableForm extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(txtfff, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -131,11 +166,14 @@ public class CarsTableForm extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtfff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -179,7 +217,8 @@ public class CarsTableForm extends javax.swing.JDialog {
 
     private void cbBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbBrandActionPerformed
         try {
-            String conditionValue = (String) cbBrand.getSelectedItem();
+            txtfff.setText(cbBrand.getSelectedItem().toString());
+            String conditionValue = cbBrand.getSelectedItem().toString();
             if(conditionValue.equals("All brands")){
                 fillCarsTable(null);
             }
@@ -252,7 +291,9 @@ public class CarsTableForm extends javax.swing.JDialog {
     private javax.swing.JTable carsTable;
     private javax.swing.JComboBox<String> cbBrand;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField txtfff;
     // End of variables declaration//GEN-END:variables
 
     public void fillCarsTable(List<Car> c) throws SQLException {
@@ -272,10 +313,70 @@ public class CarsTableForm extends javax.swing.JDialog {
     }
 
     private void fillComboBox() throws SQLException {
-        List<String> brands = Controller.getInstance().getAllCarBrands();
-        cbBrand.addItem("All brands");
-        for (String brand : brands) {
-            cbBrand.addItem(brand);
+        if(this.items == null){
+            items = Controller.getInstance().getAllCarBrands();
+            items.addFirst("All brands");
         }
+        cbBrand.setModel(new DefaultComboBoxModel<>(items.toArray(new String[0])));
+    }
+
+    private void prepareForm() {
+        cbBrand.setBounds(0, 0, 200, 30);
+        txtfff.setBounds(0, 0, 180, 30);
+        txtfff.setText(cbBrand.getSelectedItem().toString());
+        
+        jLayeredPane1.add(txtfff);
+        jLayeredPane1.add(cbBrand);
+    }
+
+    private void addListeners() {
+        txtfff.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                changeComboBox();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                changeComboBox();            
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                changeComboBox();
+            }
+            
+            private void changeComboBox() {
+                String text = txtfff.getText();
+                List<String> brands = new ArrayList<>();
+                if(text.isEmpty() || text.equals("All brands")){
+                    cbBrand.setModel(new DefaultComboBoxModel<>(items.toArray(new String[0])));
+                    return;
+                }
+                
+                for (String brand : items) {
+                    if (brand.toLowerCase().startsWith(text.toLowerCase())) {
+                        brands.add(brand);
+                    }
+                }
+                
+                cbBrand.setModel(new DefaultComboBoxModel<>(brands.toArray(String[]::new)));
+                cbBrand.setPopupVisible(true);
+            }
+        });
+        
+        txtfff.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    String selectedItem = (String) cbBrand.getSelectedItem();
+                    cbBrand.setSelectedItem(selectedItem);
+                    if (selectedItem != null) {
+                        txtfff.setText(selectedItem);
+                        cbBrand.hidePopup();
+                    }
+                }
+            }
+        });
     }
 }
