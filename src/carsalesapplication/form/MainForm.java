@@ -56,6 +56,9 @@ public class MainForm extends javax.swing.JFrame {
 
         lblMain = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         menuSeeAllSalesmen = new javax.swing.JMenuItem();
         menuAddNewCar = new javax.swing.JMenu();
@@ -73,6 +76,24 @@ public class MainForm extends javax.swing.JFrame {
 
         lblMain.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblMain.setText("jLabel1");
+
+        jMenu5.setText("Invoice");
+        jMenu5.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+
+        jMenuItem4.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        jMenuItem4.setText("Create new invoice");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem4);
+
+        jMenuItem5.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        jMenuItem5.setText("See all invoices");
+        jMenu5.add(jMenuItem5);
+
+        jMenuBar1.add(jMenu5);
 
         jMenu2.setText("Salesmen");
         jMenu2.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
@@ -213,6 +234,11 @@ public class MainForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        new AddInvoiceForm(this, true).setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -255,10 +281,13 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JLabel lblMain;
     private javax.swing.JMenu menuAddNewCar;
     private javax.swing.JMenuItem menuSeeAllCars;
