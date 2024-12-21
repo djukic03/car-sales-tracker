@@ -57,4 +57,8 @@ public class Controller {
     public void closeCon(){
         dbBroker.closeCon();
     }
+
+    public List<DefaultDomainObject> getAllOrdered(DefaultDomainObject ddo) throws SQLException {
+        return dbBroker.getAllOrdered(ddo);
+    }
 }

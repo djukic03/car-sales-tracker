@@ -28,6 +28,14 @@ public class DatabaseBroker {
         return ddo.returnList(rs);
     }
     
+    public List<DefaultDomainObject> getAllOrdered(DefaultDomainObject ddo) throws SQLException{
+        String query = "select * from "+ddo.getClassName() + " order by "+ddo.getOrderCondition();
+        Connection connection = DatabaseConnection.getInstance().getConnection();
+        Statement s = connection.createStatement();
+        ResultSet rs = s.executeQuery(query);
+        return ddo.returnList(rs);
+    }
+    
     public List<DefaultDomainObject> getByCondition(DefaultDomainObject ddo) throws SQLException{
         String query = "select * from "+ddo.getClassName()+" where "+ddo.getSearchCondition()+" Like '"+ddo.getSearchConditionValue()+"%'";
         Connection connection = DatabaseConnection.getInstance().getConnection();
@@ -58,7 +66,7 @@ public class DatabaseBroker {
     }
     
     public List<String> getAllCarBrands() throws SQLException {
-        String query = "select distinct brand from car";
+        String query = "select distinct brand from car order by brand";
         Connection connection = DatabaseConnection.getInstance().getConnection();
         Statement s = connection.createStatement();
         ResultSet rs = s.executeQuery(query);

@@ -26,6 +26,9 @@ public class Car  implements DefaultDomainObject{
     Long deleteConditionValue;
     Long updateConditionValue;
 
+    public Car() {
+    }
+
     public Car(Long idCar, String brand, String model, double price) {
         this.idCar = idCar;
         this.brand = brand;
@@ -156,6 +159,11 @@ public class Car  implements DefaultDomainObject{
             add(new DetailsFormData("price", Double.toString(price)));
         }};
         return data;
+    }
+
+    @Override
+    public String getOrderCondition() {
+        return "brand";
     }
     
 }

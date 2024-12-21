@@ -37,7 +37,7 @@ public class FormsLogic {
         for (Component component : components) {
             if(component instanceof JTextField){
                 JTextField textField = (JTextField) component;
-                if(textField.getText().isEmpty()){
+                if(!"id".equals(textField.getName()) && textField.getText().isEmpty()){
                     textField.setBorder(new TitledBorder(border, "Required Field", 0, 0, font, Color.RED));
                     empty = true;
                 }

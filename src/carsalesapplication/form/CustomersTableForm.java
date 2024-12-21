@@ -251,7 +251,7 @@ public class CustomersTableForm extends javax.swing.JDialog {
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 
-    private void fillCustomersTable() throws SQLException {
+    public void fillCustomersTable() throws SQLException {
         List<DefaultDomainObject> c = Controller.getInstance().getAll(new Customer(null, null, 0, null));
         List<Customer> customers = new ArrayList<>();
         for (DefaultDomainObject customer : c) {

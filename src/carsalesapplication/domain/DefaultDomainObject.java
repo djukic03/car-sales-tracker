@@ -37,4 +37,6 @@ public interface DefaultDomainObject extends Serializable{
     public String getUpdateConditionValue();
     
     public List<DetailsFormData> getDetailsFormData();
+
+    public String getOrderCondition();
 }

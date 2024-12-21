@@ -4,19 +4,46 @@
  */
 package carsalesapplication.form;
 
+import carsalesapplication.controller.Controller;
+import carsalesapplication.domain.Car;
+import carsalesapplication.domain.Customer;
+import carsalesapplication.domain.DefaultDomainObject;
+import carsalesapplication.domain.InvoiceItem;
+import carsalesapplication.tableModels.CarsTableModel;
+import carsalesapplication.tableModels.CustomersTableModel;
+import carsalesapplication.tableModels.InvoiceItemsTableModel;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author user
  */
 public class AddInvoiceForm extends javax.swing.JDialog {
+    int num = 1;
+    List<InvoiceItem> items = new ArrayList<>();
 
     /**
      * Creates new form Invoice
      */
-    public AddInvoiceForm(java.awt.Frame parent, boolean modal) {
+    public AddInvoiceForm(java.awt.Frame parent, boolean modal) throws SQLException {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
+        fillTables(null);
+        fillComboBox();
+        fillDate();
+        addListeners();
     }
 
     /**
@@ -62,26 +89,24 @@ public class AddInvoiceForm extends javax.swing.JDialog {
         txtDate = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         txtTotalAmount = new javax.swing.JTextField();
+        btnRemoveItem = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         btnCancel = new javax.swing.JButton();
-        btnEnableChanges = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Create Invoice");
         setMaximumSize(new java.awt.Dimension(1000, 1000));
         setMinimumSize(new java.awt.Dimension(750, 730));
-        setPreferredSize(new java.awt.Dimension(750, 750));
 
-        jScrollPane1.setBorder(null);
         jScrollPane1.setViewportBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jScrollPane1.setMaximumSize(new java.awt.Dimension(1000, 10000));
         jScrollPane1.setMinimumSize(new java.awt.Dimension(700, 700));
         jScrollPane1.setPreferredSize(new java.awt.Dimension(700, 700));
 
-        jPanel1.setMaximumSize(new java.awt.Dimension(1000, 950));
-        jPanel1.setMinimumSize(new java.awt.Dimension(700, 950));
-        jPanel1.setPreferredSize(new java.awt.Dimension(700, 950));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1000, 1000));
+        jPanel1.setMinimumSize(new java.awt.Dimension(700, 990));
+        jPanel1.setPreferredSize(new java.awt.Dimension(700, 990));
 
         jLabel1.setFont(new java.awt.Font("Gill Sans MT", 1, 14)); // NOI18N
         jLabel1.setText("Create new invoice");
@@ -111,17 +136,37 @@ public class AddInvoiceForm extends javax.swing.JDialog {
 
         btnAddNewCustomer.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         btnAddNewCustomer.setText("Add new");
+        btnAddNewCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddNewCustomerActionPerformed(evt);
+            }
+        });
 
         txtCustomerSearchCondition.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtCustomerSearchCondition.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCustomerSearchConditionActionPerformed(evt);
+            }
+        });
 
         btnCustomerSearch.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         btnCustomerSearch.setText("Search");
+        btnCustomerSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCustomerSearchActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         jLabel7.setText("Or");
 
         btnSelectCustomer.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         btnSelectCustomer.setText("Select customer");
+        btnSelectCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectCustomerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -137,7 +182,7 @@ public class AddInvoiceForm extends javax.swing.JDialog {
                         .addComponent(txtCustomerSearchCondition, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCustomerSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAddNewCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -178,7 +223,11 @@ public class AddInvoiceForm extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         jLabel4.setText("Select brand: ");
 
-        cbCarSearchCondition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbCarSearchCondition.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCarSearchConditionActionPerformed(evt);
+            }
+        });
 
         tblCars.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -191,6 +240,8 @@ public class AddInvoiceForm extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblCars.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblCars.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(tblCars);
 
         jLabel8.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
@@ -198,6 +249,11 @@ public class AddInvoiceForm extends javax.swing.JDialog {
 
         btnAddNewCar.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         btnAddNewCar.setText("Add new");
+        btnAddNewCar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddNewCarActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         jLabel9.setText("Quantity:");
@@ -272,13 +328,13 @@ public class AddInvoiceForm extends javax.swing.JDialog {
 
         tblInvoiceItems.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Number", "Brand", "Model", "Price", "Quantity", "Sum"
             }
         ));
         jScrollPane4.setViewportView(tblInvoiceItems);
@@ -302,9 +358,17 @@ public class AddInvoiceForm extends javax.swing.JDialog {
         jLabel12.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         jLabel12.setText("Total amount:");
 
-        txtTotalAmount.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtTotalAmount.setFont(new java.awt.Font("Gill Sans MT", 1, 16)); // NOI18N
         txtTotalAmount.setEnabled(false);
         txtTotalAmount.setName("model"); // NOI18N
+
+        btnRemoveItem.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnRemoveItem.setText("Remove item");
+        btnRemoveItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveItemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -328,7 +392,10 @@ public class AddInvoiceForm extends javax.swing.JDialog {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addGap(18, 18, 18)
-                        .addComponent(txtTotalAmount)))
+                        .addComponent(txtTotalAmount))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnRemoveItem)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -342,7 +409,9 @@ public class AddInvoiceForm extends javax.swing.JDialog {
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnRemoveItem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -364,15 +433,6 @@ public class AddInvoiceForm extends javax.swing.JDialog {
             }
         });
 
-        btnEnableChanges.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        btnEnableChanges.setText("Enable changes");
-        btnEnableChanges.setName("btnEnableChanges"); // NOI18N
-        btnEnableChanges.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEnableChangesActionPerformed(evt);
-            }
-        });
-
         btnSave.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -386,9 +446,7 @@ public class AddInvoiceForm extends javax.swing.JDialog {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnEnableChanges)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(520, Short.MAX_VALUE)
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -400,8 +458,7 @@ public class AddInvoiceForm extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEnableChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -412,13 +469,13 @@ public class AddInvoiceForm extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -431,10 +488,10 @@ public class AddInvoiceForm extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -455,16 +512,27 @@ public class AddInvoiceForm extends javax.swing.JDialog {
 
     private void btnAddInvoiceItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddInvoiceItemActionPerformed
         // TODO add your handling code here:
+        int selectedCarId = tblCars.getSelectedRow();
+        Car car = ((CarsTableModel) tblCars.getModel()).getCarAt(selectedCarId);
+        int quantity = Integer.parseInt(txtQuantity.getText());
+        InvoiceItem item = new InvoiceItem(null, num++, quantity, car.getPrice(), car.getPrice()*quantity, car.getIdCar());
+        items.add(item);
+        
+        try {
+            if(items != null){
+                TableModel tm = new InvoiceItemsTableModel(items);
+                tblInvoiceItems.setModel(tm);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AddInvoiceForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        fillTotalAmount();
     }//GEN-LAST:event_btnAddInvoiceItemActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
-
-    private void btnEnableChangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnableChangesActionPerformed
-        // TODO add your handling code here:
-        //        FormsController.getInstance().prepareUpdateForm(this);
-    }//GEN-LAST:event_btnEnableChangesActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         //        FormsController controller = FormsController.getInstance();
@@ -502,6 +570,99 @@ public class AddInvoiceForm extends javax.swing.JDialog {
         //
     }//GEN-LAST:event_btnSaveActionPerformed
 
+    private void btnCustomerSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerSearchActionPerformed
+        // TODO add your handling code here:
+        try {
+            String conditionValue = txtCustomerSearchCondition.getText();
+            Customer customer = new Customer(null, null, 0, null);
+            customer.setSearchCondition("name");
+            customer.setSearchConditionValue(conditionValue);
+            List<DefaultDomainObject> c = Controller.getInstance().getByCondition(customer);
+            List<Customer> customers = new ArrayList<>();
+            for (DefaultDomainObject i : c) {
+                customers.add((Customer) i);
+            }
+            TableModel tm = new CustomersTableModel(customers);
+            tblCustomers.setModel(tm);
+        } catch (SQLException ex) {
+            Logger.getLogger(UsersTableForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnCustomerSearchActionPerformed
+
+    private void txtCustomerSearchConditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCustomerSearchConditionActionPerformed
+        // TODO add your handling code here:
+        btnCustomerSearch.doClick();
+    }//GEN-LAST:event_txtCustomerSearchConditionActionPerformed
+
+    private void btnAddNewCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewCustomerActionPerformed
+        // TODO add your handling code here:
+        new AddCustomerForm(null, true, null, this).setVisible(true);
+    }//GEN-LAST:event_btnAddNewCustomerActionPerformed
+
+    private void btnSelectCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectCustomerActionPerformed
+        // TODO add your handling code here:
+        int rowId = tblCustomers.getSelectedRow();
+        if (rowId < 0) {
+            JOptionPane.showMessageDialog(this, "Please select customer!");
+            return;
+        }
+        Customer customer = ((CustomersTableModel) tblCustomers.getModel()).getCustomerAt(rowId);
+        txtSelectedCustomer.setText(customer.getName() + ", " + customer.getPhone() + ", " + customer.getEmail());
+    }//GEN-LAST:event_btnSelectCustomerActionPerformed
+
+    private void cbCarSearchConditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCarSearchConditionActionPerformed
+        // TODO add your handling code here:
+        tblCars.clearSelection();
+        try {
+            String conditionValue = cbCarSearchCondition.getSelectedItem().toString();
+            if(conditionValue.equals("All brands")){
+                fillTables(null);
+            }
+            else{
+                Car car = new Car(null, null, null, 0);
+                car.setSearchCondition("brand");
+                car.setSearchConditionValue(conditionValue);
+                List<DefaultDomainObject> c = Controller.getInstance().getByCondition(car);
+                List<Car> cars = new ArrayList<>();
+                for (DefaultDomainObject i : c) {
+                    cars.add((Car) i);
+                }
+                fillTables(cars);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CarsTableForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cbCarSearchConditionActionPerformed
+
+    private void btnAddNewCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewCarActionPerformed
+        // TODO add your handling code here:
+        new AddCarForm(null, true, null, this).setVisible(true);
+    }//GEN-LAST:event_btnAddNewCarActionPerformed
+
+    private void btnRemoveItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveItemActionPerformed
+        // TODO add your handling code here:
+        int rowId = tblInvoiceItems.getSelectedRow();
+        if(rowId == -1){
+            JOptionPane.showMessageDialog(this, "Please select item to remove from invoice");
+            return;
+        }
+        items.remove(rowId);
+        for (int i = rowId; i < items.size(); i++) {
+            items.get(i).setNum(i+1);
+        }
+        
+        try {
+            if(items != null){
+                TableModel tm = new InvoiceItemsTableModel(items);
+                tblInvoiceItems.setModel(tm);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AddInvoiceForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        fillTotalAmount();
+    }//GEN-LAST:event_btnRemoveItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -533,7 +694,12 @@ public class AddInvoiceForm extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AddInvoiceForm dialog = new AddInvoiceForm(new javax.swing.JFrame(), true);
+                AddInvoiceForm dialog = null;
+                try {
+                    dialog = new AddInvoiceForm(new javax.swing.JFrame(), true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(AddInvoiceForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -551,7 +717,7 @@ public class AddInvoiceForm extends javax.swing.JDialog {
     private javax.swing.JButton btnAddNewCustomer;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnCustomerSearch;
-    private javax.swing.JButton btnEnableChanges;
+    private javax.swing.JButton btnRemoveItem;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSelectCustomer;
     private javax.swing.JComboBox<String> cbCarSearchCondition;
@@ -585,4 +751,74 @@ public class AddInvoiceForm extends javax.swing.JDialog {
     private javax.swing.JTextField txtSelectedCustomer;
     private javax.swing.JTextField txtTotalAmount;
     // End of variables declaration//GEN-END:variables
+
+    public void fillTables(List<Car> c) throws SQLException {
+        List<DefaultDomainObject> AllCustomers = Controller.getInstance().getAll(new Customer(null, null, 0, null));
+        List<Customer> customers = new ArrayList<>();
+        for (DefaultDomainObject customer : AllCustomers) {
+            customers.add((Customer) customer);
+        }
+        TableModel tm = new CustomersTableModel(customers);
+        tblCustomers.setModel(tm);
+        
+        TableModel tmcars;
+        if(c == null){
+            List<DefaultDomainObject> cars = Controller.getInstance().getAllOrdered(new Car(null, null, null, 0));
+            List<Car> ca = new ArrayList<>();
+            for (DefaultDomainObject car : cars) {
+                ca.add((Car) car);
+            }
+            tmcars = new CarsTableModel(ca);
+        }
+        else{
+            tmcars = new CarsTableModel(c);
+        }
+        tblCars.setModel(tmcars);
+    }
+
+    public void fillComboBox() throws SQLException {
+        List<String> brands = Controller.getInstance().getAllCarBrands();
+        cbCarSearchCondition.addItem("All brands");
+        for (String brand : brands) {
+            cbCarSearchCondition.addItem(brand);
+        }
+    }
+
+    private void addListeners() {
+        ListSelectionModel model = tblCars.getSelectionModel();
+        model.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if(!e.getValueIsAdjusting()){
+                    int rowId = tblCars.getSelectedRow();
+                    if(rowId != -1){
+                        Car car = ((CarsTableModel) tblCars.getModel()).getCarAt(rowId);
+                        txtSelectedCar.setText(car.getBrand() + " " + car.getModel() + ", " + car.getPrice());
+                        txtQuantity.setEnabled(true);
+                        txtQuantity.setText("1");
+                        txtQuantity.requestFocusInWindow();
+                    }
+                    else{
+                        txtSelectedCar.setText("");
+                        txtQuantity.setEnabled(false);
+                        txtQuantity.setText("");
+                    }
+                }
+            }
+        });
+    }
+
+    private void fillTotalAmount() {
+        Double total = 0.0;
+        for (InvoiceItem item : items) {
+            total += item.getSum();
+        }
+        txtTotalAmount.setText(Double.toString(total));
+    }
+
+    private void fillDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        String datumZad = sdf.format(new Date());
+        txtDate.setText(datumZad);
+    }
 }

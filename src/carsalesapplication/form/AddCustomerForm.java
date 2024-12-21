@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 
 /**
  *
@@ -18,25 +19,24 @@ import java.util.logging.Logger;
  */
 public class AddCustomerForm extends javax.swing.JDialog {
     private Customer theCustomer = null;
-    private CustomersTableForm p;
+    private JDialog p;
 
     /**
      * Creates new form AddCustomerForm
      */
-    public AddCustomerForm(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        setLocationRelativeTo(parent);
-        prepareAddForm();
-    }
 
-    public AddCustomerForm(java.awt.Frame parent, boolean modal, Customer customer, CustomersTableForm p) {
+    public AddCustomerForm(java.awt.Frame parent, boolean modal, Customer customer, JDialog p) {
         super(parent, modal);
         initComponents();
         this.theCustomer = customer;
         this.p = p;
         setLocationRelativeTo(parent);
-        FormsController.getInstance().prepareDetailsForm(this, customer);
+        if(customer == null){
+            FormsController.getInstance().prepareAddForm(this);
+        }
+        else{
+            FormsController.getInstance().prepareDetailsForm(this, customer);
+        }
     }
 
     /**
@@ -191,6 +191,9 @@ public class AddCustomerForm extends javax.swing.JDialog {
                             controller.prepareAddForm(this);
                         }
                         else{
+                            if(p instanceof AddInvoiceForm table){
+                                table.fillTables(null);
+                            }
                             this.dispose();
                         }
                     }
@@ -200,6 +203,9 @@ public class AddCustomerForm extends javax.swing.JDialog {
                         customer.setIdCustomer(theCustomer.getIdCustomer());
                         customer.setUpdateConditionValue(customer.getIdCustomer());
                         Controller.getInstance().updateRow(customer);
+                        if(p instanceof CustomersTableForm table){
+                            table.fillCustomersTable();
+                        }
                         this.dispose();
                     }
                 }
@@ -249,7 +255,7 @@ public class AddCustomerForm extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AddCustomerForm dialog = new AddCustomerForm(new javax.swing.JFrame(), true);
+                AddCustomerForm dialog = new AddCustomerForm(new javax.swing.JFrame(), true, null, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

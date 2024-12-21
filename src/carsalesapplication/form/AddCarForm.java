@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,26 +21,24 @@ import javax.swing.JOptionPane;
  */
 public class AddCarForm extends javax.swing.JDialog {
     private Car theCar = null;
-    private CarsTableForm p;
+    private JDialog p;
 
     /**
      * Creates new form AddCarForm
      */
-    public AddCarForm(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        setLocationRelativeTo(parent);
-        FormsController.getInstance().prepareAddForm(this);
-        addListeners();
-    }
     
-    public AddCarForm(java.awt.Frame parent, boolean modal, Car car, CarsTableForm p) {
+    public AddCarForm(java.awt.Frame parent, boolean modal, Car car, JDialog p) {
         super(parent, modal);
         initComponents();
         this.theCar = car;
         this.p = p;
         setLocationRelativeTo(parent);
-        FormsController.getInstance().prepareDetailsForm(this, car);
+        if(car == null){
+            FormsController.getInstance().prepareAddForm(this);
+        }
+        else{
+            FormsController.getInstance().prepareDetailsForm(this, car);
+        }
         addListeners();
     }
 
@@ -197,6 +196,10 @@ public class AddCarForm extends javax.swing.JDialog {
                             controller.prepareAddForm(this);
                         }
                         else{
+                            if(p instanceof AddInvoiceForm table){
+                                table.fillTables(null);
+                                table.fillComboBox();
+                            }
                             this.dispose();
                         }
                     }
@@ -206,7 +209,11 @@ public class AddCarForm extends javax.swing.JDialog {
                         car.setIdCar(theCar.getIdCar());
                         car.setUpdateConditionValue(car.getIdCar());
                         Controller.getInstance().updateRow(car);
-                        p.fillCarsTable(null);
+                        if(p instanceof CarsTableForm table){
+                            table.fillCarsTable(null);
+                        }
+                        
+                        
                         this.dispose();
                     }
                 }
@@ -259,7 +266,7 @@ public class AddCarForm extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AddCarForm dialog = new AddCarForm(new javax.swing.JFrame(), true);
+                AddCarForm dialog = new AddCarForm(new javax.swing.JFrame(), true, null, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
