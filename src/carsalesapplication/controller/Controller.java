@@ -19,7 +19,7 @@ public class Controller {
     private static Controller instance;
     private DatabaseBroker dbBroker;
 
-    public Controller() {
+    private Controller() {
         dbBroker = new DatabaseBroker();
     }
     
@@ -40,6 +40,10 @@ public class Controller {
     
     public void insertRow(DefaultDomainObject ddo) throws SQLException {
         dbBroker.insertRow(ddo);
+    }
+    
+    public Long insertRowAndGetId(DefaultDomainObject ddo) throws SQLException {
+        return dbBroker.insertRowAndGetId(ddo);
     }
     
     public void deleteRow(DefaultDomainObject ddo) throws SQLException {

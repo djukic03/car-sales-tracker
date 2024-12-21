@@ -18,7 +18,7 @@ public class FormsController {
     private static FormsController instance;
     private FormsLogic frmLogic;
     
-    public FormsController() {
+    private FormsController() {
         frmLogic = new FormsLogic();
     }
     

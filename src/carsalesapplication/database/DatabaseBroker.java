@@ -51,6 +51,26 @@ public class DatabaseBroker {
         s.executeUpdate(query);
     }
     
+    public Long insertRowAndGetId(DefaultDomainObject ddo) throws SQLException{
+        String query = "insert into "+ddo.getClassName()+" ("+ddo.getInsertColumns()+") values("+ddo.getInsertValues()+")";
+        Connection connection = DatabaseConnection.getInstance().getConnection();
+        PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        int affectedRows = ps.executeUpdate();
+        Long id = null;
+        if (affectedRows > 0) {
+            try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    id = generatedKeys.getLong(1);
+                } else {
+                    System.out.println("No ID generated.");
+                }
+            }
+        } else {
+            System.out.println("Insert failed, no rows affected.");
+        }
+        return id;
+    }
+    
     public void deleteRow(DefaultDomainObject ddo) throws SQLException {
         String query = "delete from "+ddo.getClassName()+" where "+ddo.getDeleteCondition()+" = "+ddo.getDeleteConditionValue();
         Connection connection = DatabaseConnection.getInstance().getConnection();

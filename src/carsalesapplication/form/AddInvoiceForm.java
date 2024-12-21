@@ -8,11 +8,15 @@ import carsalesapplication.controller.Controller;
 import carsalesapplication.domain.Car;
 import carsalesapplication.domain.Customer;
 import carsalesapplication.domain.DefaultDomainObject;
+import carsalesapplication.domain.Invoice;
 import carsalesapplication.domain.InvoiceItem;
+import carsalesapplication.domain.User;
 import carsalesapplication.tableModels.CarsTableModel;
 import carsalesapplication.tableModels.CustomersTableModel;
 import carsalesapplication.tableModels.InvoiceItemsTableModel;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,14 +36,18 @@ import javax.swing.table.TableModel;
 public class AddInvoiceForm extends javax.swing.JDialog {
     int num = 1;
     List<InvoiceItem> items = new ArrayList<>();
+    Date date;
+    Long userId;
+    Long customerId;
 
     /**
      * Creates new form Invoice
      */
-    public AddInvoiceForm(java.awt.Frame parent, boolean modal) throws SQLException {
+    public AddInvoiceForm(java.awt.Frame parent, boolean modal, User user) throws SQLException {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
+        this.userId = user.getIdUser();
         fillTables(null);
         fillComboBox();
         fillDate();
@@ -261,6 +269,11 @@ public class AddInvoiceForm extends javax.swing.JDialog {
         txtQuantity.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         txtQuantity.setEnabled(false);
         txtQuantity.setName("price"); // NOI18N
+        txtQuantity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtQuantityActionPerformed(evt);
+            }
+        });
 
         btnAddInvoiceItem.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         btnAddInvoiceItem.setText("Add item to invoice");
@@ -513,6 +526,10 @@ public class AddInvoiceForm extends javax.swing.JDialog {
     private void btnAddInvoiceItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddInvoiceItemActionPerformed
         // TODO add your handling code here:
         int selectedCarId = tblCars.getSelectedRow();
+        if (selectedCarId < 0) {
+            JOptionPane.showMessageDialog(this, "Please select car to add to invoice!");
+            return;
+        }
         Car car = ((CarsTableModel) tblCars.getModel()).getCarAt(selectedCarId);
         int quantity = Integer.parseInt(txtQuantity.getText());
         InvoiceItem item = new InvoiceItem(null, num++, quantity, car.getPrice(), car.getPrice()*quantity, car.getIdCar());
@@ -535,39 +552,50 @@ public class AddInvoiceForm extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        //        FormsController controller = FormsController.getInstance();
-        //        if(!controller.checkEmptyTxtFields(this)){
-            //            Car car = new Car(null, brandTxt.getText(), modelTxt.getText(), Double.parseDouble(priceTxt.getText()));
-            //            try {
-                //                if(this.theCar == null)
-                //                {
-                    //                    if(JOptionPane.showConfirmDialog(this, "Are you sure you want to INSERT the following car into the database: \n"+car.getBrand()+" "+car.getModel()+", "+car.getPrice()+"$", "Add car", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                        //                        Controller.getInstance().insertRow(car);
-                        //                        if(JOptionPane.showConfirmDialog(this, car.getBrand()+" "+car.getModel()+" has been successfully added to the database!\n\nAdd more cars?", "Success", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                            //                            controller.prepareAddForm(this);
-                            //                        }
-                        //                        else{
-                            //                            this.dispose();
-                            //                        }
-                        //                    }
-                    //                }
-                //                else{
-                    //                    if(JOptionPane.showConfirmDialog(this, "Are you sure you want to SAVE the following changes into the database: \n"+car.getBrand()+" "+car.getModel()+", "+car.getPrice()+"$", "Change car details", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                        //                        car.setIdCar(theCar.getIdCar());
-                        //                        car.setUpdateConditionValue(car.getIdCar());
-                        //                        Controller.getInstance().updateRow(car);
-                        //                        p.fillCarsTable(null);
-                        //                        this.dispose();
-                        //                    }
-                    //                }
-                //            } catch (SQLException ex) {
-                //                Logger.getLogger(AddCarForm.class.getName()).log(Level.SEVERE, null, ex);
-                //            }
-            //        }
-        //        else{
-            //            JOptionPane.showMessageDialog(this, "Fill all required fields");
-            //        }
-        //
+        if(txtSelectedCustomer.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Please select customer");
+            return;
+        }
+        if(tblInvoiceItems.getRowCount() == 0){
+            JOptionPane.showMessageDialog(this, "Please select car(s)");
+            return;
+        }
+        SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
+        Invoice invoice = null;
+        try {
+            Date d = formater.parse(txtDate.getText());
+            invoice = new Invoice(null, d, Double.valueOf(txtTotalAmount.getText()), userId, customerId);
+        } catch (ParseException ex) {
+            Logger.getLogger(AddInvoiceForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(JOptionPane.showConfirmDialog(this, "Are you sure you want to CREATE and INSERT this invoice into the database? \n Please check all the data before clicking Yes!", "Create invoice", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+            Controller controller = Controller.getInstance();
+            Long invoiceId;
+            try {
+                invoiceId = controller.insertRowAndGetId(invoice);
+                if(invoiceId != null){
+                    for (InvoiceItem item : items) {
+                        item.setInvoiceId(invoiceId);
+                        controller.insertRow(item);
+                    }
+                }
+                if(JOptionPane.showConfirmDialog(this, "Invoice has been successfully added to the database!!! \n\n Create more invoices?", "Success", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION){
+                    this.items.removeAll(items);
+                    this.num = 1;
+                    this.userId = null;
+                    this.customerId = null;
+                    fillTables(null);
+                    txtSelectedCustomer.setText("");
+                    txtTotalAmount.setText("");
+                }
+                else{
+                    this.dispose();
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(AddInvoiceForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCustomerSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerSearchActionPerformed
@@ -608,6 +636,7 @@ public class AddInvoiceForm extends javax.swing.JDialog {
         }
         Customer customer = ((CustomersTableModel) tblCustomers.getModel()).getCustomerAt(rowId);
         txtSelectedCustomer.setText(customer.getName() + ", " + customer.getPhone() + ", " + customer.getEmail());
+        this.customerId = customer.getIdCustomer();
     }//GEN-LAST:event_btnSelectCustomerActionPerformed
 
     private void cbCarSearchConditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCarSearchConditionActionPerformed
@@ -663,6 +692,11 @@ public class AddInvoiceForm extends javax.swing.JDialog {
         fillTotalAmount();
     }//GEN-LAST:event_btnRemoveItemActionPerformed
 
+    private void txtQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantityActionPerformed
+        // TODO add your handling code here:
+        btnAddInvoiceItem.doClick();
+    }//GEN-LAST:event_txtQuantityActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -696,7 +730,7 @@ public class AddInvoiceForm extends javax.swing.JDialog {
             public void run() {
                 AddInvoiceForm dialog = null;
                 try {
-                    dialog = new AddInvoiceForm(new javax.swing.JFrame(), true);
+                    dialog = new AddInvoiceForm(new javax.swing.JFrame(), true, null);
                 } catch (SQLException ex) {
                     Logger.getLogger(AddInvoiceForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -774,6 +808,9 @@ public class AddInvoiceForm extends javax.swing.JDialog {
             tmcars = new CarsTableModel(c);
         }
         tblCars.setModel(tmcars);
+        
+        TableModel tmii = new InvoiceItemsTableModel(items);
+        tblInvoiceItems.setModel(tmii);
     }
 
     public void fillComboBox() throws SQLException {
@@ -818,7 +855,9 @@ public class AddInvoiceForm extends javax.swing.JDialog {
 
     private void fillDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-        String datumZad = sdf.format(new Date());
-        txtDate.setText(datumZad);
+        Date d = new Date();
+        String formatedDate = sdf.format(d);
+        txtDate.setText(formatedDate);
+        this.date = d;
     }
 }

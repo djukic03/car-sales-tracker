@@ -6,100 +6,82 @@ package carsalesapplication.domain;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author user
  */
-public class InvoiceItem implements DefaultDomainObject{
-    private Long invoiceId;
-    private int num;
-    private int quantity;
-    private double priceOfOne;
-    private double sum;
-    private Long carId;
+public class Invoice implements DefaultDomainObject{
+    private Long idInvoice;
+    private Date dateOfIssue;
+    private Double totalAmount;
+    private Long userId;
+    private Long customerId;
 
-    public InvoiceItem() {
-    }
-
-    public InvoiceItem(Long invoiceId, int num, int quantity, double priceOfOne, double sum, Long carId) {
-        this.invoiceId = invoiceId;
-        this.num = num;
-        this.quantity = quantity;
-        this.priceOfOne = priceOfOne;
-        this.sum = sum;
-        this.carId = carId;
-    }
-    
-    public Long getInvoiceId() {
-        return invoiceId;
+    public Invoice(Long idInvoice, Date dateOfIssue, Double totalAmount, Long userId, Long customerId) {
+        this.idInvoice = idInvoice;
+        this.dateOfIssue = dateOfIssue;
+        this.totalAmount = totalAmount;
+        this.userId = userId;
+        this.customerId = customerId;
     }
 
-    public void setInvoiceId(Long userId) {
-        this.invoiceId = userId;
-    }
-    
-    public int getNum() {
-        return num;
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setNum(int num) {
-        this.num = num;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public Long getIdInvoice() {
+        return idInvoice;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setIdInvoice(Long idInvoice) {
+        this.idInvoice = idInvoice;
     }
 
-    public double getPriceOfOne() {
-        return priceOfOne;
+    public Date getDateOfIssue() {
+        return dateOfIssue;
     }
 
-    public void setPriceOfOne(double priceOfOne) {
-        this.priceOfOne = priceOfOne;
+    public void setDateOfIssue(Date dateOfIssue) {
+        this.dateOfIssue = dateOfIssue;
     }
 
-    public double getSum() {
-        return sum;
+    public Double getTotalAmount() {
+        return totalAmount;
     }
 
-    public void setSum(double sum) {
-        this.sum = sum;
-    }
-    
-    public Long getCarId() {
-        return carId;
+    public void setTotalAmount(Double totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
-    public void setCarId(Long carId) {
-        this.carId = carId;
+    public Long getUserId() {
+        return userId;
     }
-    
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String getClassName() {
-        return "invoice_item";
+        return "invoice";
     }
 
     @Override
     public List<DefaultDomainObject> returnList(ResultSet rs) throws SQLException {
-        List<DefaultDomainObject> items = new ArrayList<>();
-        try {
-            while(rs.next()){
-                items.add(new InvoiceItem(rs.getLong("invoice_id"), rs.getInt("rb"), rs.getInt("quantity"), rs.getDouble("price_of_one"),rs.getDouble("sum"),rs.getLong("car_id")));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(InvoiceItem.class.getName()).log(Level.SEVERE, null, ex);
-            throw ex;
+        List<DefaultDomainObject> invoices = new ArrayList<>();
+        while(rs.next()){
+            invoices.add(new Invoice(rs.getLong("id"), rs.getDate("date_of_issue"), rs.getDouble("total_amount"), rs.getLong("user_id"), rs.getLong("customer_id")));
         }
-        return items;
+        return invoices;
     }
 
     @Override
@@ -114,12 +96,13 @@ public class InvoiceItem implements DefaultDomainObject{
 
     @Override
     public String getInsertValues() {
-        return invoiceId + ", "+ num +", "+ quantity +", "+ priceOfOne + ", " + sum + ", "+ carId;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return "'"+ sdf.format(dateOfIssue) +"', "+ totalAmount +", "+ userId +", "+ customerId;
     }
 
     @Override
     public String getInsertColumns() {
-        return "invoice_id, rb, quantity, price_of_one, sum, car_id";
+        return "date_of_issue, total_amount, user_id, customer_id";
     }
 
     @Override
@@ -149,18 +132,12 @@ public class InvoiceItem implements DefaultDomainObject{
 
     @Override
     public List<DetailsFormData> getDetailsFormData() {
-        List<DetailsFormData> data = new ArrayList<>(){{
-            add(new DetailsFormData("num", Integer.toString(num)));
-            add(new DetailsFormData("quantity", Integer.toString(quantity)));
-            add(new DetailsFormData("pirce of car", Double.toString(priceOfOne)));
-            add(new DetailsFormData("sum", Double.toString(sum)));
-        }};
-        return data;
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public String getOrderCondition() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    
 }
