@@ -1,2 +1,11 @@
 /build/
 /dist/
+/CarSales/CarSalesCommon/build/
+/CarSales/CarSalesCommon/dist/
+/CarSales/CarSalesCommon/nbproject/private/
+/CarSales/CarSalesServer/build/
+/CarSales/CarSalesServer/dist/
+/CarSales/CarSalesServer/nbproject/private/
+/CarSales/CarSalesClient/build/
+/CarSales/CarSalesClient/dist/
+/CarSales/CarSalesClient/nbproject/private/
