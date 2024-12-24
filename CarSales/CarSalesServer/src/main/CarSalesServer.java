@@ -12,7 +12,6 @@ import server.Server;
  */
 public class CarSalesServer {
     public static void main(String[] args) {
-        System.out.println("U mainu");
         Server server = new Server();
         server.startServer();
     }
