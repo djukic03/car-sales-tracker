@@ -149,17 +149,6 @@ public class InvoiceItem implements DefaultDomainObject, Serializable{
     }
 
     @Override
-    public List<DetailsFormData> getDetailsFormData() {
-        List<DetailsFormData> data = new ArrayList<>(){{
-            add(new DetailsFormData("num", Integer.toString(num)));
-            add(new DetailsFormData("quantity", Integer.toString(quantity)));
-            add(new DetailsFormData("pirce of car", Double.toString(priceOfOne)));
-            add(new DetailsFormData("sum", Double.toString(sum)));
-        }};
-        return data;
-    }
-
-    @Override
     public String getOrderCondition() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }

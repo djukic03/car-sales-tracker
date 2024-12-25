@@ -4,17 +4,10 @@
  */
 package carsalesclient.form;
 
-import carsalesclient.controller.Controller;
-import domain.DefaultDomainObject;
-import domain.User;
-import carsalesclient.tableModels.UsersTableModel;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.table.TableModel;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
@@ -25,11 +18,10 @@ public class UsersTableForm extends javax.swing.JDialog {
     /**
      * Creates new form UsersTableForm
      */
-    public UsersTableForm(java.awt.Frame parent, boolean modal) throws SQLException {
+    public UsersTableForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(parent);
-        fillUsersTable();
     }
 
     /**
@@ -42,7 +34,7 @@ public class UsersTableForm extends javax.swing.JDialog {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        usersTable = new javax.swing.JTable();
+        tblUsers = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         txtSearch = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
@@ -52,8 +44,8 @@ public class UsersTableForm extends javax.swing.JDialog {
         setTitle("All Users");
         setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
 
-        usersTable.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
-        usersTable.setModel(new javax.swing.table.DefaultTableModel(
+        tblUsers.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        tblUsers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -64,7 +56,7 @@ public class UsersTableForm extends javax.swing.JDialog {
                 "First Name", "Last Name", "Username"
             }
         ));
-        jScrollPane1.setViewportView(usersTable);
+        jScrollPane1.setViewportView(tblUsers);
 
         jLabel1.setFont(new java.awt.Font("Gill Sans MT", 1, 14)); // NOI18N
         jLabel1.setText("Search by Last Name:");
@@ -131,106 +123,39 @@ public class UsersTableForm extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        try {
-            String conditionValue = txtSearch.getText();
-            User user = new User();
-            user.setSearchCondition("last_name");
-            user.setSearchConditionValue(conditionValue);
-            List<DefaultDomainObject> u = Controller.getInstance().getByCondition(user);
-            List<User> users = new ArrayList<>();
-            for (DefaultDomainObject i : u) {
-                users.add((User) i);
-            }
-            TableModel tm = new UsersTableModel(users);
-            usersTable.setModel(tm);
-        } catch (SQLException ex) {
-            Logger.getLogger(UsersTableForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(UsersTableForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(UsersTableForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
-        // TODO add your handling code here:
-        btnSearch.doClick();
     }//GEN-LAST:event_txtSearchActionPerformed
 
     private void btnDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailsActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnDetailsActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UsersTableForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UsersTableForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UsersTableForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UsersTableForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                UsersTableForm dialog = null;
-                try {
-                    dialog = new UsersTableForm(new javax.swing.JFrame(), true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(UsersTableForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDetails;
     private javax.swing.JButton btnSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblUsers;
     private javax.swing.JTextField txtSearch;
-    private javax.swing.JTable usersTable;
     // End of variables declaration//GEN-END:variables
 
-    private void fillUsersTable() throws SQLException {
-        List<DefaultDomainObject> u = null;
-        try {
-            u = Controller.getInstance().getAll(new User(Long.MIN_VALUE, null, null, null, null));
-        } catch (IOException ex) {
-            Logger.getLogger(UsersTableForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(UsersTableForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        List<User> users = new ArrayList<>();
-        for (DefaultDomainObject user : u) {
-            users.add((User) user);
-        }
-        TableModel tm = new UsersTableModel(users);
-        usersTable.setModel(tm);
+    public JTable getTblUsers() {
+        return tblUsers;
+    }
+
+    public JButton getBtnSearch() {
+        return btnSearch;
+    }
+
+    public JTextField getTxtSearch() {
+        return txtSearch;
+    }
+    
+    public void btnSearchAddActionListener(ActionListener actionListener){
+        btnSearch.addActionListener(actionListener);
+    }
+    
+    public void btnDetailsAddActionListener(ActionListener actionListener){
+        btnDetails.addActionListener(actionListener);
     }
 }

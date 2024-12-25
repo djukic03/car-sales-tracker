@@ -8,6 +8,7 @@ import carsalesclient.controller.Controller;
 import carsalesclient.form.LoginForm;
 import carsalesclient.form.MainForm;
 import carsalesclient.form.form_coordinator.Coordinator;
+import carsalesclient.form.modes.FormMode;
 import domain.User;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -64,7 +65,7 @@ public class MainController {
         mainForm.miAddNewCarAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Coordinator.getInstance().openAddCarForm();
+                Coordinator.getInstance().openAddCarForm(FormMode.ADD_FORM);
             }
         });
         
@@ -78,7 +79,7 @@ public class MainController {
         mainForm.miAddNewCustomerAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Coordinator.getInstance().openAddCustomerForm();
+                Coordinator.getInstance().openAddCustomerForm(FormMode.ADD_FORM);
             }
         });
         

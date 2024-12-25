@@ -9,6 +9,8 @@ import carsalesclient.form.LoginForm;
 import carsalesclient.form.form_coordinator.Coordinator;
 import domain.DefaultDomainObject;
 import domain.User;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -19,6 +21,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.plaf.metal.MetalBorders;
 
 /**
  *
@@ -44,7 +50,7 @@ public class LoginController {
             }
             
             private void login(ActionEvent actionEvent){
-                if(!FormsController.getInstance().checkEmptyTxtFields(loginForm)){
+                if(!emptyFields()){
                     String username = loginForm.getTxtUsername().getText();
                     String password = String.valueOf(loginForm.getTxtPassword().getPassword());
 
@@ -101,12 +107,37 @@ public class LoginController {
                 super.windowClosing(e);
                 try {
                     Controller.getInstance().closeCon();
-                } catch (IOException ex) {
-                    Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (Exception ex) {
-                    Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("Error: "+ ex.getMessage());
                 }
             }
         });
     }
+    
+    private boolean emptyFields(){
+        Border border = new LineBorder(Color.red, 1,true);
+        Font font = new Font("Gill Sans MT", 1, 8);
+        boolean empty = false;
+        
+        
+        if(loginForm.getTxtUsername().getText().isBlank()){
+            loginForm.getTxtUsername().setBorder(new TitledBorder(border, "Required Field", 0, 0, font, Color.RED));
+            empty = true;
+        }
+        else{
+            loginForm.getTxtUsername().setBorder(new MetalBorders.TextFieldBorder());
+                
+        }
+        if(String.valueOf(loginForm.getTxtPassword().getPassword()).isBlank()){
+            loginForm.getTxtPassword().setBorder(new TitledBorder(border, "Required Field", 0, 0, font, Color.RED));
+            empty = true;
+        }
+        else{
+            loginForm.getTxtPassword().setBorder(new MetalBorders.TextFieldBorder());
+                
+        }
+        
+        return empty;
+    }
+    
 }

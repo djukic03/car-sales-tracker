@@ -132,11 +132,6 @@ public class Invoice implements DefaultDomainObject, Serializable{
     }
 
     @Override
-    public List<DetailsFormData> getDetailsFormData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public String getOrderCondition() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }

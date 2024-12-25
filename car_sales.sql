@@ -26,20 +26,22 @@ CREATE TABLE `car` (
   `model` varchar(100) NOT NULL,
   `price` double NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 /*Data for the table `car` */
 
 insert  into `car`(`id`,`brand`,`model`,`price`) values 
 (1,'Audi','R8',50000),
 (2,'Nissan','R34 GTR',100000),
-(3,'Seat','Ibiza',5000),
+(3,'Seat','Ibiza',8000),
 (4,'Audi','A4',10000),
 (5,'Ford','Mustang',25000),
 (6,'Volkswagen','Golf 5',1000000),
 (10,'Audi','A3',6000),
 (11,'BMW','M4',20000),
-(12,'Škoda','Octavia',10000);
+(12,'Škoda','Superb',10000),
+(13,'Nissan','Qashqai',12000),
+(14,'Volkswagen','Golf 8',15000);
 
 /*Table structure for table `customer` */
 
@@ -51,7 +53,7 @@ CREATE TABLE `customer` (
   `phone` int(11) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 /*Data for the table `customer` */
 
@@ -62,7 +64,8 @@ insert  into `customer`(`id`,`name`,`phone`,`email`) values
 (5,'Teodora Đukić',631748008,'teka.djukic@gmail.com'),
 (6,'Nebojsa Djukic',69661036,'nebojsa@gmail.com'),
 (7,'Ana Djukic',656153878,'ana@gmail.com'),
-(8,'OTP Banka',11456789,'banka@otp.com');
+(8,'OTP Banka',11456789,'banka@otp.com'),
+(9,'Vrtic \"Neven\"',143423456,'');
 
 /*Table structure for table `invoice` */
 
@@ -79,7 +82,7 @@ CREATE TABLE `invoice` (
   KEY `costumer_fk` (`customer_id`),
   CONSTRAINT `costumer_fk` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
   CONSTRAINT `user_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 /*Data for the table `invoice` */
 
@@ -88,7 +91,10 @@ insert  into `invoice`(`id`,`date_of_issue`,`total_amount`,`user_id`,`customer_i
 (9,'2024-12-21',5080000,3,3),
 (10,'2024-12-21',20000,2,5),
 (11,'2024-12-21',100000,1,4),
-(12,'2024-12-21',325000,3,8);
+(12,'2024-12-21',325000,3,8),
+(13,'2024-12-23',1000000,3,7),
+(14,'2024-12-24',100000,3,1),
+(15,'2024-12-25',20000,3,7);
 
 /*Table structure for table `invoice_item` */
 
@@ -118,7 +124,11 @@ insert  into `invoice_item`(`invoice_id`,`rb`,`quantity`,`price_of_one`,`sum`,`c
 (10,1,1,20000,20000,11),
 (11,1,4,25000,100000,5),
 (12,1,20,10000,200000,12),
-(12,2,5,25000,125000,5);
+(12,2,5,25000,125000,5),
+(13,1,1,1000000,1000000,6),
+(14,1,1,100000,100000,2),
+(15,1,1,8000,8000,3),
+(15,2,1,12000,12000,13);
 
 /*Table structure for table `user` */
 

@@ -44,7 +44,6 @@ public class InvoiceItemsTableModel extends AbstractTableModel{
             case 1:
                 for (Car car : cars) {
                     if(car.getIdCar() == carId){
-                        System.out.println("Pronadjen je "+car.getBrand());
                         return car.getBrand();
                     }
                 }

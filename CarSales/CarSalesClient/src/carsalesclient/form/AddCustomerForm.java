@@ -4,40 +4,25 @@
  */
 package carsalesclient.form;
 
-import carsalesclient.controller.Controller;
-import carsalesclient.form.form_controllers.FormsController;
-import domain.Customer;
-import java.io.IOException;
-import javax.swing.JOptionPane;
-import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JDialog;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 /**
  *
  * @author user
  */
 public class AddCustomerForm extends javax.swing.JDialog {
-    private Customer theCustomer = null;
-    private JDialog p;
 
     /**
      * Creates new form AddCustomerForm
      */
 
-    public AddCustomerForm(java.awt.Frame parent, boolean modal, Customer customer, JDialog p) {
+    public AddCustomerForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.theCustomer = customer;
-        this.p = p;
         setLocationRelativeTo(parent);
-        if(customer == null){
-            FormsController.getInstance().prepareAddForm(this);
-        }
-        else{
-            FormsController.getInstance().prepareDetailsForm(this, customer);
-        }
     }
 
     /**
@@ -55,12 +40,13 @@ public class AddCustomerForm extends javax.swing.JDialog {
         btnSave = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         lblId = new javax.swing.JLabel();
-        idTxt = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnEnableChanges = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        btnEdit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -93,8 +79,8 @@ public class AddCustomerForm extends javax.swing.JDialog {
         lblId.setText("ID:");
         lblId.setName("id"); // NOI18N
 
-        idTxt.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        idTxt.setName("id"); // NOI18N
+        txtId.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtId.setName("id"); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Gill Sans MT", 1, 16)); // NOI18N
         jLabel1.setText("Add new customer");
@@ -117,6 +103,14 @@ public class AddCustomerForm extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         jLabel4.setText("Phone:");
 
+        btnEdit.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -138,10 +132,12 @@ public class AddCustomerForm extends javax.swing.JDialog {
                             .addComponent(txtName)
                             .addComponent(txtPhone)
                             .addComponent(txtEmail)
-                            .addComponent(idTxt)))
+                            .addComponent(txtId)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnEnableChanges)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -155,7 +151,7 @@ public class AddCustomerForm extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblId)
-                    .addComponent(idTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -168,11 +164,12 @@ public class AddCustomerForm extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEnableChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEnableChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -180,114 +177,84 @@ public class AddCustomerForm extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        FormsController controller = FormsController.getInstance();
-        if(!controller.checkEmptyTxtFields(this)){
-            Customer customer = new Customer(null, txtName.getText(), Integer.parseInt(txtPhone.getText()), txtEmail.getText());
-            try {
-                if(this.theCustomer == null)
-                {
-                    if(JOptionPane.showConfirmDialog(this, "Are you sure you want to INSERT the following customer into the database: \n"+customer.getName()+" "+customer.getPhone()+", "+customer.getEmail(), "Add customer", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                        Controller.getInstance().insertRow(customer);
-                        if(JOptionPane.showConfirmDialog(this, customer.getName()+" has been successfully added to the database!\n\nAdd more customers?", "Success", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                            controller.prepareAddForm(this);
-                        }
-                        else{
-                            if(p instanceof AddInvoiceForm table){
-//                                table.fillTables(null);
-                            }
-                            this.dispose();
-                        }
-                    }
-                }
-                else{
-                    if(JOptionPane.showConfirmDialog(this, "Are you sure you want to SAVE the following changes into the database: \n"+customer.getName()+" "+customer.getPhone()+", "+customer.getEmail(), "Change car details", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                        customer.setIdCustomer(theCustomer.getIdCustomer());
-                        customer.setUpdateConditionValue(customer.getIdCustomer());
-                        Controller.getInstance().updateRow(customer);
-                        if(p instanceof CustomersTableForm table){
-                            table.fillCustomersTable();
-                        }
-                        this.dispose();
-                    }
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(AddCarForm.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(AddCustomerForm.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Exception ex) {
-                Logger.getLogger(AddCustomerForm.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnEnableChangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnableChangesActionPerformed
         // TODO add your handling code here:
-        FormsController.getInstance().prepareUpdateForm(this);
     }//GEN-LAST:event_btnEnableChangesActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddCustomerForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddCustomerForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddCustomerForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddCustomerForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                AddCustomerForm dialog = new AddCustomerForm(new javax.swing.JFrame(), true, null, null);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnEnableChanges;
     private javax.swing.JButton btnSave;
-    private javax.swing.JTextField idTxt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel lblId;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPhone;
     // End of variables declaration//GEN-END:variables
 
-    private void prepareAddForm() {
-        FormsController.getInstance().prepareAddForm(this);
+    public JButton getBtnCancel() {
+        return btnCancel;
+    }
+
+    public JButton getBtnEnableChanges() {
+        return btnEnableChanges;
+    }
+
+    public JButton getBtnEdit() {
+        return btnEdit;
+    }
+
+    public JButton getBtnSave() {
+        return btnSave;
+    }
+
+    public JLabel getLblId() {
+        return lblId;
+    }
+
+    public JTextField getTxtId() {
+        return txtId;
+    }
+
+    public JTextField getTxtEmail() {
+        return txtEmail;
+    }
+
+    public JTextField getTxtName() {
+        return txtName;
+    }
+
+    public JTextField getTxtPhone() {
+        return txtPhone;
+    }
+    
+    public void btnEnableChangesAddActionListener(ActionListener actionListener){
+        btnEnableChanges.addActionListener(actionListener);
+    }
+    
+    public void btnSaveAddActionListener(ActionListener actionListener){
+        btnSave.addActionListener(actionListener);
+    }
+    
+    public void btnEditAddActionListener(ActionListener actionListener){
+        btnEdit.addActionListener(actionListener);
+    }
+    
+    public void btnCancelAddActionListener(ActionListener actionListener){
+        btnCancel.addActionListener(actionListener);
     }
 }

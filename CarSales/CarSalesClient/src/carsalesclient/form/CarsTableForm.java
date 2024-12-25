@@ -4,34 +4,22 @@
  */
 package carsalesclient.form;
 
-import carsalesclient.controller.Controller;
-import domain.Car;
-import domain.DefaultDomainObject;
-import carsalesclient.tableModels.CarsTableModel;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.table.TableModel;
+import java.awt.event.ActionListener;
+import javax.swing.JComboBox;
+import javax.swing.JTable;
 
 /**
  *
  * @author user
  */
 public class CarsTableForm extends javax.swing.JDialog {
-
     /**
      * Creates new form CarsTableForm
      */
-    public CarsTableForm(java.awt.Frame parent, boolean modal) throws SQLException {
+    public CarsTableForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(parent);
-        fillComboBox();
-        fillCarsTable(null);
     }
 
     /**
@@ -44,7 +32,7 @@ public class CarsTableForm extends javax.swing.JDialog {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        carsTable = new javax.swing.JTable();
+        tblCars = new javax.swing.JTable();
         btnDetails = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -53,7 +41,7 @@ public class CarsTableForm extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("All Cars");
 
-        carsTable.setModel(new javax.swing.table.DefaultTableModel(
+        tblCars.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -79,7 +67,7 @@ public class CarsTableForm extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(carsTable);
+        jScrollPane1.setViewportView(tblCars);
 
         btnDetails.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         btnDetails.setText("Details");
@@ -147,157 +135,38 @@ public class CarsTableForm extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailsActionPerformed
-        // TODO add your handling code here:
-        int rowId = carsTable.getSelectedRow();
-        if (rowId < 0) {
-            JOptionPane.showMessageDialog(this, "Please select car!");
-            return;
-        }
-        Car car = ((CarsTableModel) carsTable.getModel()).getCarAt(rowId);
-        new AddCarForm(null, true, car, this).setVisible(true);
     }//GEN-LAST:event_btnDetailsActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
-        int rowId = carsTable.getSelectedRow();
-        if (rowId < 0) {
-            JOptionPane.showMessageDialog(this, "Please select car!");
-            return;
-        }
-        Car car = ((CarsTableModel) carsTable.getModel()).getCarAt(rowId);
-        car.setDeleteConditionValue(car.getIdCar());
-        try {
-            if(JOptionPane.showConfirmDialog(this, "Are you sure you want to DELETE the following car from the database: \n"+car.getBrand()+" "+car.getModel()+", "+car.getPrice()+"$", "Delete car", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                Controller.getInstance().deleteRow(car);
-                JOptionPane.showMessageDialog(this, "Car deleted successfully!");
-                fillCarsTable(null);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(AddCarForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(CarsTableForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(CarsTableForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void cbBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbBrandActionPerformed
-        try {
-            String conditionValue = cbBrand.getSelectedItem().toString();
-            if(conditionValue.equals("All brands")){
-                fillCarsTable(null);
-            }
-            else{
-                Car car = new Car(null, null, null, 0);
-                car.setSearchCondition("brand");
-                car.setSearchConditionValue(conditionValue);
-                List<DefaultDomainObject> c = Controller.getInstance().getByCondition(car);
-                List<Car> cars = new ArrayList<>();
-                for (DefaultDomainObject i : c) {
-                    cars.add((Car) i);
-                }
-                fillCarsTable(cars);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(CarsTableForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(CarsTableForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(CarsTableForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_cbBrandActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CarsTableForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CarsTableForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CarsTableForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CarsTableForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                CarsTableForm dialog = null;
-                try {
-                    dialog = new CarsTableForm(new javax.swing.JFrame(), true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(CarsTableForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnDetails;
-    private javax.swing.JTable carsTable;
     private javax.swing.JComboBox<String> cbBrand;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblCars;
     // End of variables declaration//GEN-END:variables
 
-    public void fillCarsTable(List<Car> c) throws SQLException {
-        TableModel tm;
-        if(c == null){
-            List<DefaultDomainObject> cars = null;
-            try {
-                cars = Controller.getInstance().getAllOrdered(new Car(null, null, null, 0));
-            } catch (IOException ex) {
-                Logger.getLogger(CarsTableForm.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Exception ex) {
-                Logger.getLogger(CarsTableForm.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            List<Car> ca = new ArrayList<>();
-            for (DefaultDomainObject car : cars) {
-                ca.add((Car) car);
-            }
-            tm = new CarsTableModel(ca);
-        }
-        else{
-            tm = new CarsTableModel(c);
-        }
-        carsTable.setModel(tm);
+    public JTable getTblCars() {
+        return tblCars;
     }
 
-    private void fillComboBox() throws SQLException {
-        List<String> brands = null;
-        try {
-            brands = Controller.getInstance().getAllCarBrands();
-        } catch (IOException ex) {
-            Logger.getLogger(CarsTableForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(CarsTableForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        cbBrand.addItem("All brands");
-        for (String brand : brands) {
-            cbBrand.addItem(brand);
-        }
+    public JComboBox<String> getCbBrand() {
+        return cbBrand;
+    }
+    
+    public void cbBrandAddActionListener(ActionListener actionListener){
+        cbBrand.addActionListener(actionListener);
+    }
+    
+    public void btnDeleteAddActionListener(ActionListener actionListener){
+        btnDelete.addActionListener(actionListener);
+    }
+    public void btnDetailsAddActionListener(ActionListener actionListener){
+        btnDetails.addActionListener(actionListener);
     }
 }

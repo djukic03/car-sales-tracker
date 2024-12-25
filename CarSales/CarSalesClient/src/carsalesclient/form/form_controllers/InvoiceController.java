@@ -7,6 +7,7 @@ package carsalesclient.form.form_controllers;
 import carsalesclient.controller.Controller;
 import carsalesclient.form.AddInvoiceForm;
 import carsalesclient.form.form_coordinator.Coordinator;
+import carsalesclient.form.modes.FormMode;
 import carsalesclient.tableModels.CarsTableModel;
 import carsalesclient.tableModels.CustomersTableModel;
 import carsalesclient.tableModels.InvoiceItemsTableModel;
@@ -18,19 +19,16 @@ import domain.InvoiceItem;
 import domain.User;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.sql.SQLException;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -42,6 +40,7 @@ public class InvoiceController {
 
     public InvoiceController(AddInvoiceForm invoiceForm) {
         this.invoiceForm = invoiceForm;
+        addListeners();
     }
     
     public void openForm(){
@@ -50,11 +49,17 @@ public class InvoiceController {
         fillCarsTable(null);
         fillInvoiceItemsTable();
         fillDate();
-        addListeners();
         invoiceForm.setVisible(true);
     }
 
-    public void addListeners() {
+    private void addListeners() {
+        invoiceForm.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowActivated(WindowEvent e) {
+                fillCarsTable(null);
+                fillCustomersTable();
+            }
+        });
         
         invoiceForm.btnCustomerSearchAddActionListener(new ActionListener() {
             @Override
@@ -91,7 +96,7 @@ public class InvoiceController {
         invoiceForm.btnAddNewCustomerAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Coordinator.getInstance().openAddCustomerForm();
+                Coordinator.getInstance().openAddCustomerForm(FormMode.ADD_FORM);
             }
         });
         
@@ -140,14 +145,13 @@ public class InvoiceController {
                 } catch (Exception e) {
                     System.out.println("Error: " + e.getMessage());
                 }
-                
             }
         });
         
         invoiceForm.btnAddNewCarAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Coordinator.getInstance().openAddCarForm();
+                Coordinator.getInstance().openAddCarForm(FormMode.ADD_FORM);
             }
         });
         
@@ -283,11 +287,13 @@ public class InvoiceController {
         this.customer = c;
     }
     
+    @SuppressWarnings("unchecked")
     public void fillComboBox() {
         try {
             DefaultComboBoxModel cbm = new DefaultComboBoxModel(Controller.getInstance().getAllCarBrands().toArray());
             cbm.insertElementAt("All brands", 0);
             invoiceForm.getCbCarSearchCondition().setModel(cbm);
+            invoiceForm.getCbCarSearchCondition().setSelectedIndex(0);
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }

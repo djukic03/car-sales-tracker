@@ -10,5 +10,6 @@ package carsalesclient.form.modes;
  */
 public enum FormMode {
     ADD_FORM,
-    DETAILS_FORM
+    DETAILS_FORM,
+    UPDATE_FORM
 }

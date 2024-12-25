@@ -4,15 +4,7 @@
  */
 package carsalesclient.form;
 
-import carsalesclient.controller.Controller;
-import domain.User;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -182,87 +174,22 @@ public class MainForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuItemSeeAllCarsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSeeAllCarsActionPerformed
-        try {
-            // TODO add your handling code here:
-            new CarsTableForm(this, true).setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_menuItemSeeAllCarsActionPerformed
 
     private void menuItemSeeAllSalesmenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSeeAllSalesmenActionPerformed
-        try {
-            // TODO add your handling code here:
-            new UsersTableForm(this, true).setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_menuItemSeeAllSalesmenActionPerformed
 
     private void menuItemAddNewCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAddNewCarActionPerformed
-        // TODO add your handling code here:
-        new AddCarForm(this, true, null, null).setVisible(true);
     }//GEN-LAST:event_menuItemAddNewCarActionPerformed
 
     private void menuItemAddNewCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAddNewCustomerActionPerformed
-        // TODO add your handling code here:
-        new AddCustomerForm(this, true, null, null).setVisible(true);
     }//GEN-LAST:event_menuItemAddNewCustomerActionPerformed
 
     private void menuItemSeeAllCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSeeAllCustomersActionPerformed
-        try {
-            // TODO add your handling code here:
-            new CustomersTableForm(this, true).setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
     }//GEN-LAST:event_menuItemSeeAllCustomersActionPerformed
 
     private void menuItemCreateNewInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCreateNewInvoiceActionPerformed
-//        try {
-//            // TODO add your handling code here:
-//            new AddInvoiceForm(this, true, this.user).setVisible(true);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }//GEN-LAST:event_menuItemCreateNewInvoiceActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainForm().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;

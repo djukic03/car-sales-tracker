@@ -7,7 +7,6 @@ package domain;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.sql.*;
 import java.util.logging.Level;
@@ -149,17 +148,6 @@ public class Car implements DefaultDomainObject, Serializable{
     @Override
     public String getUpdateConditionValue() {
         return updateConditionValue.toString();
-    }
-
-    @Override
-    public List<DetailsFormData> getDetailsFormData() {
-        List<DetailsFormData> data = new ArrayList<>(){{
-            add(new DetailsFormData("id", idCar.toString()));
-            add(new DetailsFormData("brand", brand));
-            add(new DetailsFormData("model", model));
-            add(new DetailsFormData("price", Double.toString(price)));
-        }};
-        return data;
     }
 
     @Override

@@ -152,17 +152,6 @@ public class Customer implements DefaultDomainObject, Serializable{
     }
 
     @Override
-    public List<DetailsFormData> getDetailsFormData() {
-        List<DetailsFormData> data = new ArrayList<>(){{
-            add(new DetailsFormData("id", idCustomer.toString()));
-            add(new DetailsFormData("name", name));
-            add(new DetailsFormData("phone", Integer.toString(phone)));
-            add(new DetailsFormData("email", email));
-        }};
-        return data;
-    }
-
-    @Override
     public String getOrderCondition() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
