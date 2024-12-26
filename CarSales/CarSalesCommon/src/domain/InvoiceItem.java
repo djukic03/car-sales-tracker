@@ -94,7 +94,9 @@ public class InvoiceItem implements DefaultDomainObject, Serializable{
         List<DefaultDomainObject> items = new ArrayList<>();
         try {
             while(rs.next()){
-                items.add(new InvoiceItem(rs.getLong("invoice_id"), rs.getInt("rb"), rs.getInt("quantity"), rs.getDouble("price_of_one"),rs.getDouble("sum"),new Car(rs.getLong("car_id"), null, null, 0.0)));
+                Car car = new Car();
+                car.setIdCar(rs.getLong("car_id"));
+                items.add(new InvoiceItem(rs.getLong("invoice_id"), rs.getInt("rb"), rs.getInt("quantity"), rs.getDouble("price_of_one"),rs.getDouble("sum"), car));
             }
         } catch (SQLException ex) {
             Logger.getLogger(InvoiceItem.class.getName()).log(Level.SEVERE, null, ex);

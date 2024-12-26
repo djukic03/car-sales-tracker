@@ -8,7 +8,7 @@ import carsalesclient.controller.Controller;
 import carsalesclient.form.CarsTableForm;
 import carsalesclient.form.form_coordinator.Coordinator;
 import carsalesclient.form.modes.FormMode;
-import carsalesclient.tableModels.CarsTableModel;
+import carsalesclient.form.tableModels.CarsTableModel;
 import domain.Car;
 import domain.DefaultDomainObject;
 import java.awt.event.ActionEvent;
@@ -116,6 +116,7 @@ public class SeeAllCarsController {
         });
     }
 
+    @SuppressWarnings("unchecked")
     private void fillComboBox() {
         try {
             DefaultComboBoxModel cbm = new DefaultComboBoxModel(Controller.getInstance().getAllCarBrands().toArray());

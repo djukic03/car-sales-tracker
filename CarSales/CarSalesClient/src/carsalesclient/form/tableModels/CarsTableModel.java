@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package carsalesclient.tableModels;
+package carsalesclient.form.tableModels;
 
 import domain.Car;
+import java.util.Calendar;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -28,7 +29,7 @@ public class CarsTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return 10;
     }
 
     @Override
@@ -39,7 +40,23 @@ public class CarsTableModel extends AbstractTableModel {
             case 1:
                 return cars.get(rowIndex).getModel();
             case 2:
-                return cars.get(rowIndex).getPrice();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(cars.get(rowIndex).getFirstReg());
+                return calendar.get(Calendar.YEAR);
+            case 3:
+                return cars.get(rowIndex).getMileage() + " km";
+            case 4:
+                return cars.get(rowIndex).getCategory();
+            case 5:
+                return cars.get(rowIndex).getFuel();
+            case 6:
+                return cars.get(rowIndex).getEngineCapacity() + " L";
+            case 7:
+                return cars.get(rowIndex).getEnginePower() + " HP";
+            case 8:
+                return cars.get(rowIndex).getGearbox();
+            case 9:
+                return cars.get(rowIndex).getPrice() + " €";
             default:
                 throw new AssertionError();
         }
@@ -47,7 +64,7 @@ public class CarsTableModel extends AbstractTableModel {
 
     @Override
     public String getColumnName(int column) {
-        String[] columns = {"Brand","Model","Price"};
+        String[] columns = {"Brand","Model","First Registration","Mileage","Category","Fuel","Engine Capacity","Engine power","Gearbox","Price"};
         return columns[column];
     }
 

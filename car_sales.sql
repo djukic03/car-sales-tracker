@@ -24,24 +24,35 @@ CREATE TABLE `car` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `brand` varchar(100) NOT NULL,
   `model` varchar(100) NOT NULL,
+  `first_reg` date NOT NULL,
+  `mileage` int(11) NOT NULL,
+  `category` varchar(20) NOT NULL,
+  `fuel` varchar(20) NOT NULL,
+  `engine_capacity` double NOT NULL,
+  `engine_power` double NOT NULL,
+  `gearbox` varchar(20) NOT NULL,
   `price` double NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 /*Data for the table `car` */
 
-insert  into `car`(`id`,`brand`,`model`,`price`) values 
-(1,'Audi','R8',50000),
-(2,'Nissan','R34 GTR',100000),
-(3,'Seat','Ibiza',8000),
-(4,'Audi','A4',10000),
-(5,'Ford','Mustang',25000),
-(6,'Volkswagen','Golf 5',1000000),
-(10,'Audi','A3',6000),
-(11,'BMW','M4',20000),
-(12,'Škoda','Superb',10000),
-(13,'Nissan','Qashqai',12000),
-(14,'Volkswagen','Golf 8',15000);
+insert  into `car`(`id`,`brand`,`model`,`first_reg`,`mileage`,`category`,`fuel`,`engine_capacity`,`engine_power`,`gearbox`,`price`) values 
+(1,'Audi','R8','2015-01-01',0,'','',0,0,'',50000),
+(2,'Nissan','R34 GTR','2015-03-14',0,'','',0,0,'',100000),
+(3,'Seat','Ibiza','2011-01-01',0,'','',0,0,'',8000),
+(4,'Audi','A4','2003-01-01',0,'','',0,0,'',10000),
+(5,'Ford','Mustang','2016-01-01',0,'','',0,0,'',25000),
+(6,'Volkswagen','Golf 5','2008-01-01',0,'','',0,0,'',3000),
+(11,'BMW','M4','2011-01-01',0,'','',0,0,'',20000),
+(12,'Škoda','Superb','2021-01-01',0,'','',0,0,'',10000),
+(13,'Nissan','Qashqai','2010-01-01',0,'','',0,0,'',12000),
+(14,'Volkswagen','Golf 8','2019-01-01',0,'','',0,0,'',15000),
+(15,'BMW','M3','2018-01-01',0,'','',0,0,'',50000),
+(16,'Audi','A3','2013-01-01',0,'','',0,0,'',6000),
+(17,'Volkswagen','Passat','2020-01-01',220885,'Estate/Wagon','Petrol',2,150,'Automatic',16999),
+(18,'Opel','Astra','2006-01-01',420000,'Estate/Wagon','Diesel',1.6,120,'Manual',2000),
+(19,'Mercedes Benz','E 200','2009-01-01',235800,'Limousine/Salon','Petrol',2.2,136,'Manual',11000);
 
 /*Table structure for table `customer` */
 
@@ -50,22 +61,26 @@ DROP TABLE IF EXISTS `customer`;
 CREATE TABLE `customer` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
-  `phone` int(11) NOT NULL,
+  `phone` varchar(15) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 /*Data for the table `customer` */
 
 insert  into `customer`(`id`,`name`,`phone`,`email`) values 
-(1,'Nemanja Đukić',637412291,'djukic.nemanja003@gmail.com'),
-(3,'Fakultet organizacionih nauka',11123456,'fon@fon.bg.ac.rs'),
-(4,'Centro agrar',69661036,'centro.agrar@gmail.com'),
-(5,'Teodora Đukić',631748008,'teka.djukic@gmail.com'),
-(6,'Nebojsa Djukic',69661036,'nebojsa@gmail.com'),
-(7,'Ana Djukic',656153878,'ana@gmail.com'),
-(8,'OTP Banka',11456789,'banka@otp.com'),
-(9,'Vrtic \"Neven\"',143423456,'');
+(1,'Nemanja Đukić','0637412291','djukic.nemanja003@gmail.com'),
+(3,'Fakultet organizacionih nauka','011123456','fon@fon.bg.ac.rs'),
+(4,'Centro agrar','069661036','centro.agrar@gmail.com'),
+(5,'Teodora Đukić','0631748008','teka.djukic@gmail.com'),
+(6,'Nebojsa Đukić','069661036','nebojsa@gmail.com'),
+(7,'Ana Djukic','0656153878','ana@gmail.com'),
+(8,'OTP Banka','011456789','banka@otp.com'),
+(9,'Vrtic \"Neven\"','0143423456',''),
+(11,'Bambi','011785632','bambi@bambi.com'),
+(12,'Mileta Đukić','064845612','mileta@gmail.com'),
+(13,'Metalac Valjevo','014111111','metalac.to.je.tim.iz.valjeva@valjevo.com'),
+(15,'KK Crvena Zvezda','011456123','kkczv@beograd.rs');
 
 /*Table structure for table `invoice` */
 
@@ -82,7 +97,7 @@ CREATE TABLE `invoice` (
   KEY `costumer_fk` (`customer_id`),
   CONSTRAINT `costumer_fk` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
   CONSTRAINT `user_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 /*Data for the table `invoice` */
 
@@ -94,7 +109,9 @@ insert  into `invoice`(`id`,`date_of_issue`,`total_amount`,`user_id`,`customer_i
 (12,'2024-12-21',325000,3,8),
 (13,'2024-12-23',1000000,3,7),
 (14,'2024-12-24',100000,3,1),
-(15,'2024-12-25',20000,3,7);
+(15,'2024-12-25',20000,3,7),
+(16,'2024-12-26',330000,1,5),
+(17,'2024-12-26',24000,1,13);
 
 /*Table structure for table `invoice_item` */
 
@@ -128,7 +145,10 @@ insert  into `invoice_item`(`invoice_id`,`rb`,`quantity`,`price_of_one`,`sum`,`c
 (13,1,1,1000000,1000000,6),
 (14,1,1,100000,100000,2),
 (15,1,1,8000,8000,3),
-(15,2,1,12000,12000,13);
+(15,2,1,12000,12000,13),
+(16,1,4,20000,80000,11),
+(16,2,5,50000,250000,15),
+(17,1,12,2000,24000,18);
 
 /*Table structure for table `user` */
 

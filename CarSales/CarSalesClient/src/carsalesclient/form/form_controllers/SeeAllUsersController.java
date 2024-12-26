@@ -6,7 +6,7 @@ package carsalesclient.form.form_controllers;
 
 import carsalesclient.controller.Controller;
 import carsalesclient.form.UsersTableForm;
-import carsalesclient.tableModels.UsersTableModel;
+import carsalesclient.form.tableModels.UsersTableModel;
 import domain.DefaultDomainObject;
 import domain.User;
 import java.awt.event.ActionEvent;

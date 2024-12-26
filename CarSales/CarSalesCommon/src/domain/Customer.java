@@ -19,14 +19,14 @@ import java.util.logging.Logger;
 public class Customer implements DefaultDomainObject, Serializable{
     private Long idCustomer;
     private String name;
-    private int phone;
+    private String phone;
     private String email;
     String searchCondition;
     String searchConditionValue;
     Long deleteConditionValue;
     Long updateConditionValue;
 
-    public Customer(Long idCustomer, String name, int phone, String email) {
+    public Customer(Long idCustomer, String name, String phone, String email) {
         this.idCustomer = idCustomer;
         this.name = name;
         this.phone = phone;
@@ -60,11 +60,11 @@ public class Customer implements DefaultDomainObject, Serializable{
         this.name = name;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -97,7 +97,7 @@ public class Customer implements DefaultDomainObject, Serializable{
         List<DefaultDomainObject> customers = new ArrayList<>();
         try {
             while(rs.next()){
-                customers.add(new Customer(rs.getLong("id"), rs.getString("name"), rs.getInt("phone"), rs.getString("email")));
+                customers.add(new Customer(rs.getLong("id"), rs.getString("name"), rs.getString("phone"), rs.getString("email")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
@@ -118,7 +118,7 @@ public class Customer implements DefaultDomainObject, Serializable{
 
     @Override
     public String getInsertValues() {
-        return "'"+ name +"', "+ phone +", '"+ email +"'";
+        return "'"+ name +"', '"+ phone +"', '"+ email +"'";
     }
 
     @Override
@@ -138,7 +138,7 @@ public class Customer implements DefaultDomainObject, Serializable{
 
     @Override
     public String getUpdateValues() {
-        return "name = '"+ name +"', phone = "+ phone +", email = '"+ email +"'";
+        return "name = '"+ name +"', phone = '"+ phone +"', email = '"+ email +"'";
     }
 
     @Override

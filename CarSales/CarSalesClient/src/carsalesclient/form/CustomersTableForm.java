@@ -77,6 +77,8 @@ public class CustomersTableForm extends javax.swing.JDialog {
                 "Full Name", "Phone", "Email"
             }
         ));
+        tblCustomers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        tblCustomers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblCustomers);
 
         jLabel1.setFont(new java.awt.Font("Gill Sans MT", 1, 14)); // NOI18N

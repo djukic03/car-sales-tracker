@@ -56,6 +56,8 @@ public class UsersTableForm extends javax.swing.JDialog {
                 "First Name", "Last Name", "Username"
             }
         ));
+        tblUsers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        tblUsers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblUsers);
 
         jLabel1.setFont(new java.awt.Font("Gill Sans MT", 1, 14)); // NOI18N

@@ -13,7 +13,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -53,7 +57,9 @@ public class CarController {
             private void update() {
                 try {
                     if(!emptyFields()){
-                        Car car = new Car(null, carForm.getTxtBrand().getText(), carForm.getTxtModel().getText(), Double.parseDouble(carForm.getTxtPrice().getText()));
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+                        Date reg = sdf.parse(carForm.getTxtFirstReg().getText());
+                        Car car = new Car(null, carForm.getTxtBrand().getText(), carForm.getTxtModel().getText(), reg, Integer.parseInt(carForm.getTxtMileage().getText()), (String) carForm.getCbCategory().getSelectedItem(), (String) carForm.getCbFuel().getSelectedItem(), Double.valueOf(carForm.getTxtEngineCapacity().getText()), Double.valueOf(carForm.getTxtEnginePower().getText()), (String) carForm.getCbGearbox().getSelectedItem(), Double.parseDouble(carForm.getTxtPrice().getText()));
                         if(JOptionPane.showConfirmDialog(carForm, "Are you sure you want to SAVE the following changes into the database: \n"+car.getBrand()+" "+car.getModel()+", "+car.getPrice()+"$", "Change car details", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                             car.setIdCar(((Car) Coordinator.getInstance().getParam("Car_details")).getIdCar());
                             car.setUpdateConditionValue(car.getIdCar());
@@ -81,7 +87,9 @@ public class CarController {
             private void save() {
                 try {
                     if(!emptyFields()){
-                        Car car = new Car(null, carForm.getTxtBrand().getText(), carForm.getTxtModel().getText(), Double.parseDouble(carForm.getTxtPrice().getText()));
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+                        Date reg = sdf.parse(carForm.getTxtFirstReg().getText());
+                        Car car = new Car(null, carForm.getTxtBrand().getText(), carForm.getTxtModel().getText(), reg, Integer.parseInt(carForm.getTxtMileage().getText()), (String) carForm.getCbCategory().getSelectedItem(), (String) carForm.getCbFuel().getSelectedItem(), Double.valueOf(carForm.getTxtEngineCapacity().getText()), Double.valueOf(carForm.getTxtEnginePower().getText()), (String) carForm.getCbGearbox().getSelectedItem(), Double.parseDouble(carForm.getTxtPrice().getText()));
                         if(JOptionPane.showConfirmDialog(carForm, "Are you sure you want to INSERT the following car into the database: \n"+car.getBrand()+" "+car.getModel()+", "+car.getPrice()+"$", "Add car", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                             Controller.getInstance().insertRow(car);
                             if(JOptionPane.showConfirmDialog(carForm, car.getBrand()+" "+car.getModel()+" has been successfully added to the database!\n\nAdd more cars?", "Success", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
@@ -142,6 +150,20 @@ public class CarController {
                 carForm.getTxtBrand().setEnabled(true);
                 carForm.getTxtModel().setText("");
                 carForm.getTxtModel().setEnabled(true);
+                carForm.getTxtFirstReg().setText("");
+                carForm.getTxtFirstReg().setEnabled(true);
+                carForm.getTxtMileage().setText("");
+                carForm.getTxtMileage().setEnabled(true);
+                carForm.getCbCategory().setSelectedIndex(-1);
+                carForm.getCbCategory().setEnabled(true);
+                carForm.getCbFuel().setSelectedIndex(-1);
+                carForm.getCbFuel().setEnabled(true);
+                carForm.getTxtEngineCapacity().setText("");
+                carForm.getTxtEngineCapacity().setEnabled(true);
+                carForm.getTxtEnginePower().setText("");
+                carForm.getTxtEnginePower().setEnabled(true);
+                carForm.getCbGearbox().setSelectedIndex(-1);
+                carForm.getCbGearbox().setEnabled(true);
                 carForm.getTxtPrice().setText("");
                 carForm.getTxtPrice().setEnabled(true);
                 
@@ -162,6 +184,22 @@ public class CarController {
                 carForm.getTxtBrand().setEnabled(false);
                 carForm.getTxtModel().setText(car.getModel());
                 carForm.getTxtModel().setEnabled(false);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(car.getFirstReg());
+                carForm.getTxtFirstReg().setText(Integer.toString(calendar.get(Calendar.YEAR)));
+                carForm.getTxtFirstReg().setEnabled(false);
+                carForm.getTxtMileage().setText(Integer.toString(car.getMileage()));
+                carForm.getTxtMileage().setEnabled(false);
+                carForm.getCbCategory().setSelectedItem(car.getCategory());
+                carForm.getCbCategory().setEnabled(false);
+                carForm.getCbFuel().setSelectedItem(car.getFuel());
+                carForm.getCbFuel().setEnabled(false);
+                carForm.getTxtEngineCapacity().setText(Double.toString(car.getEngineCapacity()));
+                carForm.getTxtEngineCapacity().setEnabled(false);
+                carForm.getTxtEnginePower().setText(Double.toString(car.getEnginePower()));
+                carForm.getTxtEnginePower().setEnabled(false);
+                carForm.getCbGearbox().setSelectedItem(car.getGearbox());
+                carForm.getCbGearbox().setEnabled(false);
                 carForm.getTxtPrice().setText(Double.toString(car.getPrice()));
                 carForm.getTxtPrice().setEnabled(false);
                 
@@ -179,6 +217,13 @@ public class CarController {
                 
                 carForm.getTxtBrand().setEnabled(true);
                 carForm.getTxtModel().setEnabled(true);
+                carForm.getTxtFirstReg().setEnabled(true);
+                carForm.getTxtMileage().setEnabled(true);
+                carForm.getCbCategory().setEnabled(true);
+                carForm.getCbFuel().setEnabled(true);
+                carForm.getTxtEngineCapacity().setEnabled(true);
+                carForm.getTxtEnginePower().setEnabled(true);
+                carForm.getCbGearbox().setEnabled(true);
                 carForm.getTxtPrice().setEnabled(true);
                 
                 carForm.getBtnEnableChanges().setVisible(true);
@@ -203,23 +248,78 @@ public class CarController {
         }
         else{
             carForm.getTxtBrand().setBorder(new MetalBorders.TextFieldBorder());
-                
         }
+        
         if(carForm.getTxtModel().getText().isBlank()){
             carForm.getTxtModel().setBorder(new TitledBorder(border, "Required Field", 0, 0, font, Color.RED));
             empty = true;
         }
         else{
             carForm.getTxtModel().setBorder(new MetalBorders.TextFieldBorder());
-                
         }
+        
+        if(carForm.getTxtFirstReg().getText().isBlank()){
+            carForm.getTxtFirstReg().setBorder(new TitledBorder(border, "Required Field", 0, 0, font, Color.RED));
+            empty = true;
+        }
+        else{
+            carForm.getTxtFirstReg().setBorder(new MetalBorders.TextFieldBorder());
+        }
+        
+        if(carForm.getTxtMileage().getText().isBlank()){
+            carForm.getTxtMileage().setBorder(new TitledBorder(border, "Required Field", 0, 0, font, Color.RED));
+            empty = true;
+        }
+        else{
+            carForm.getTxtMileage().setBorder(new MetalBorders.TextFieldBorder());
+        }
+        
+        if(carForm.getCbCategory().getSelectedIndex() == -1){
+            carForm.getCbCategory().setBorder(new TitledBorder(border, "Required Field", 0, 0, font, Color.RED));
+            empty = true;
+        }
+        else{
+            carForm.getCbCategory().setBorder(UIManager.getBorder("ComboBox.border"));
+        }
+        
+        if(carForm.getCbFuel().getSelectedIndex() == -1){
+            carForm.getCbFuel().setBorder(new TitledBorder(border, "Required Field", 0, 0, font, Color.RED));
+            empty = true;
+        }
+        else{
+            carForm.getCbFuel().setBorder(UIManager.getBorder("ComboBox.border"));
+        }
+        
+        if(carForm.getTxtEngineCapacity().getText().isBlank()){
+            carForm.getTxtEngineCapacity().setBorder(new TitledBorder(border, "Required Field", 0, 0, font, Color.RED));
+            empty = true;
+        }
+        else{
+            carForm.getTxtEngineCapacity().setBorder(new MetalBorders.TextFieldBorder());
+        }
+        
+        if(carForm.getTxtEnginePower().getText().isBlank()){
+            carForm.getTxtEnginePower().setBorder(new TitledBorder(border, "Required Field", 0, 0, font, Color.RED));
+            empty = true;
+        }
+        else{
+            carForm.getTxtEnginePower().setBorder(new MetalBorders.TextFieldBorder());
+        }
+        
+        if(carForm.getCbGearbox().getSelectedIndex() == -1){
+            carForm.getCbGearbox().setBorder(new TitledBorder(border, "Required Field", 0, 0, font, Color.RED));
+            empty = true;
+        }
+        else{
+            carForm.getCbGearbox().setBorder(UIManager.getBorder("ComboBox.border"));
+        }
+        
         if(carForm.getTxtPrice().getText().isBlank()){
             carForm.getTxtPrice().setBorder(new TitledBorder(border, "Required Field", 0, 0, font, Color.RED));
             empty = true;
         }
         else{
             carForm.getTxtPrice().setBorder(new MetalBorders.TextFieldBorder());
-                
         }
         
         return empty;

@@ -8,7 +8,7 @@ import carsalesclient.controller.Controller;
 import carsalesclient.form.CustomersTableForm;
 import carsalesclient.form.form_coordinator.Coordinator;
 import carsalesclient.form.modes.FormMode;
-import carsalesclient.tableModels.CustomersTableModel;
+import carsalesclient.form.tableModels.CustomersTableModel;
 import domain.Customer;
 import domain.DefaultDomainObject;
 import java.awt.event.ActionEvent;
@@ -105,7 +105,7 @@ public class SeeAllCustomersController {
                 }
                 Customer customer = ((CustomersTableModel) customersTableForm.getTblCustomers().getModel()).getCustomerAt(rowId);
                 Coordinator.getInstance().addParam("Customer_details", customer);
-                Coordinator.getInstance().openAddCarForm(FormMode.DETAILS_FORM);
+                Coordinator.getInstance().openAddCustomerForm(FormMode.DETAILS_FORM);
             }
         });
     }

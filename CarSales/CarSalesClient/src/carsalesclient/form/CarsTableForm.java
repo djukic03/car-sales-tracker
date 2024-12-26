@@ -67,6 +67,8 @@ public class CarsTableForm extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tblCars.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        tblCars.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblCars);
 
         btnDetails.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N

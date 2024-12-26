@@ -45,8 +45,9 @@ public class MainForm extends javax.swing.JFrame {
         menuItemSeeAllCustomers = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
-        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
-        jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
+        menuItemEnglish = new javax.swing.JCheckBoxMenuItem();
+        menuItemSerbian = new javax.swing.JCheckBoxMenuItem();
+        menuItemLogOut = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Car Sales Tracker");
@@ -138,16 +139,20 @@ public class MainForm extends javax.swing.JFrame {
         jMenu4.setText("Language");
         jMenu4.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
 
-        jCheckBoxMenuItem1.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        jCheckBoxMenuItem1.setSelected(true);
-        jCheckBoxMenuItem1.setText("English");
-        jMenu4.add(jCheckBoxMenuItem1);
+        menuItemEnglish.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuItemEnglish.setSelected(true);
+        menuItemEnglish.setText("English");
+        jMenu4.add(menuItemEnglish);
 
-        jCheckBoxMenuItem2.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        jCheckBoxMenuItem2.setText("Serbian");
-        jMenu4.add(jCheckBoxMenuItem2);
+        menuItemSerbian.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuItemSerbian.setText("Serbian");
+        jMenu4.add(menuItemSerbian);
 
         jMenu3.add(jMenu4);
+
+        menuItemLogOut.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuItemLogOut.setText("Log out");
+        jMenu3.add(menuItemLogOut);
 
         jMenuBar1.add(jMenu3);
 
@@ -191,8 +196,6 @@ public class MainForm extends javax.swing.JFrame {
     private void menuItemCreateNewInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCreateNewInvoiceActionPerformed
     }//GEN-LAST:event_menuItemCreateNewInvoiceActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -204,10 +207,13 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemAddNewCar;
     private javax.swing.JMenuItem menuItemAddNewCustomer;
     private javax.swing.JMenuItem menuItemCreateNewInvoice;
+    private javax.swing.JCheckBoxMenuItem menuItemEnglish;
+    private javax.swing.JMenuItem menuItemLogOut;
     private javax.swing.JMenuItem menuItemSeeAllCars;
     private javax.swing.JMenuItem menuItemSeeAllCustomers;
     private javax.swing.JMenuItem menuItemSeeAllInvoices;
     private javax.swing.JMenuItem menuItemSeeAllSalesmen;
+    private javax.swing.JCheckBoxMenuItem menuItemSerbian;
     // End of variables declaration//GEN-END:variables
 
     public void miCreateNewInvoiceAddActionListener(ActionListener actionListener){
