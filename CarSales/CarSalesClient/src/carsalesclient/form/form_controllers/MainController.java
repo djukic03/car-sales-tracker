@@ -4,7 +4,7 @@
  */
 package carsalesclient.form.form_controllers;
 
-import carsalesclient.controller.Controller;
+import carsalesclient.controller.ClientController;
 import carsalesclient.form.LoginForm;
 import carsalesclient.form.MainForm;
 import carsalesclient.form.form_coordinator.Coordinator;
@@ -95,7 +95,7 @@ public class MainController {
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
                 try {
-                    Controller.getInstance().closeCon();
+                    ClientController.getInstance().closeCon();
                 } catch (IOException ex) {
                     Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (Exception ex) {

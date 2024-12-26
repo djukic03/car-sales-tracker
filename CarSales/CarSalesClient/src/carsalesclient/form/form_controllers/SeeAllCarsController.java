@@ -4,7 +4,7 @@
  */
 package carsalesclient.form.form_controllers;
 
-import carsalesclient.controller.Controller;
+import carsalesclient.controller.ClientController;
 import carsalesclient.form.CarsTableForm;
 import carsalesclient.form.form_coordinator.Coordinator;
 import carsalesclient.form.modes.FormMode;
@@ -54,7 +54,7 @@ public class SeeAllCarsController {
                         Car car = new Car();
                         car.setSearchCondition("brand");
                         car.setSearchConditionValue(conditionValue);
-                        List<DefaultDomainObject> c = Controller.getInstance().getByCondition(car);
+                        List<DefaultDomainObject> c = ClientController.getInstance().getByCondition(car);
                         List<Car> cars = new ArrayList<>();
                         for (DefaultDomainObject i : c) {
                             cars.add((Car) i);
@@ -83,7 +83,7 @@ public class SeeAllCarsController {
                     Car car = ((CarsTableModel) carsTableForm.getTblCars().getModel()).getCarAt(rowId);
                     car.setDeleteConditionValue(car.getIdCar());
                     if(JOptionPane.showConfirmDialog(carsTableForm, "Are you sure you want to DELETE the following car from the database: \n"+car.getBrand()+" "+car.getModel()+", "+car.getPrice()+"$", "Delete car", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                        Controller.getInstance().deleteRow(car);
+                        ClientController.getInstance().deleteRow(car);
                         JOptionPane.showMessageDialog(carsTableForm, "Car deleted successfully!");
                         fillTable(null);
                     }
@@ -119,7 +119,7 @@ public class SeeAllCarsController {
     @SuppressWarnings("unchecked")
     private void fillComboBox() {
         try {
-            DefaultComboBoxModel cbm = new DefaultComboBoxModel(Controller.getInstance().getAllCarBrands().toArray());
+            DefaultComboBoxModel cbm = new DefaultComboBoxModel(ClientController.getInstance().getAllCarBrands().toArray());
             cbm.insertElementAt("All brands", 0);
             carsTableForm.getCbBrand().setModel(cbm);
             carsTableForm.getCbBrand().setSelectedIndex(0);
@@ -131,7 +131,7 @@ public class SeeAllCarsController {
     private void fillTable(List<Car> c) {
         try {
             if(c == null){
-                List<DefaultDomainObject> allCars = Controller.getInstance().getAllOrdered(new Car());
+                List<DefaultDomainObject> allCars = ClientController.getInstance().getAllOrdered(new Car());
                 List<Car> cars = new ArrayList<>();
                 for (DefaultDomainObject car : allCars) {
                     cars.add((Car) car);

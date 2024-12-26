@@ -4,7 +4,7 @@
  */
 package carsalesclient.form.tableModels;
 
-import carsalesclient.controller.Controller;
+import carsalesclient.controller.ClientController;
 import domain.Car;
 import domain.DefaultDomainObject;
 import domain.InvoiceItem;
@@ -109,7 +109,7 @@ public class InvoiceItemsTableModel extends AbstractTableModel{
         Car car = new Car();
         car.setSearchCondition("id");
         try {
-            Controller controller = Controller.getInstance();
+            ClientController controller = ClientController.getInstance();
             for (InvoiceItem item : items) {
                 car.setSearchConditionValue(item.getCar().getIdCar().toString());
                 List<DefaultDomainObject> c = controller.getByCondition(car);

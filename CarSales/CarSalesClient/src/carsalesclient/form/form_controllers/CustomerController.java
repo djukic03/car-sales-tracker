@@ -4,7 +4,7 @@
  */
 package carsalesclient.form.form_controllers;
 
-import carsalesclient.controller.Controller;
+import carsalesclient.controller.ClientController;
 import carsalesclient.form.AddCustomerForm;
 import carsalesclient.form.form_coordinator.Coordinator;
 import carsalesclient.form.modes.FormMode;
@@ -57,7 +57,7 @@ public class CustomerController {
                         if(JOptionPane.showConfirmDialog(customerForm, "Are you sure you want to SAVE the following changes into the database: \n"+customer.getName()+" "+customer.getPhone()+", "+customer.getEmail(), "Change customer details", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                             customer.setIdCustomer(((Customer) Coordinator.getInstance().getParam("Customer_details")).getIdCustomer());
                             customer.setUpdateConditionValue(customer.getIdCustomer());
-                            Controller.getInstance().updateRow(customer);
+                            ClientController.getInstance().updateRow(customer);
                             JOptionPane.showMessageDialog(customerForm, customer.getName()+" has been successfully added to the database!");
                             customerForm.dispose();
                         }
@@ -83,7 +83,7 @@ public class CustomerController {
                     if(!emptyFields()){
                         Customer customer = new Customer(null, customerForm.getTxtName().getText(),customerForm.getTxtPhone().getText() , customerForm.getTxtEmail().getText());
                         if(JOptionPane.showConfirmDialog(customerForm, "Are you sure you want to INSERT the following customer into the database: \n"+customer.getName()+" "+customer.getPhone()+", "+customer.getEmail(), "Add customer", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                            Controller.getInstance().insertRow(customer);
+                            ClientController.getInstance().insertRow(customer);
                             if(JOptionPane.showConfirmDialog(customerForm, customer.getName()+" has been successfully added to the database!\n\nAdd more customers?", "Success", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                                 prepareForm(FormMode.ADD_FORM);
                             }

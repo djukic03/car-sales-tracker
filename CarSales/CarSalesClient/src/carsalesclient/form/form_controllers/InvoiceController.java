@@ -4,7 +4,7 @@
  */
 package carsalesclient.form.form_controllers;
 
-import carsalesclient.controller.Controller;
+import carsalesclient.controller.ClientController;
 import carsalesclient.form.AddInvoiceForm;
 import carsalesclient.form.form_coordinator.Coordinator;
 import carsalesclient.form.modes.FormMode;
@@ -73,7 +73,7 @@ public class InvoiceController {
                         Customer customer = new Customer();
                         customer.setSearchCondition("name");
                         customer.setSearchConditionValue(invoiceForm.getTxtCustomerSearchCondition().getText());
-                        List<DefaultDomainObject> allCustomers = Controller.getInstance().getByCondition(customer);
+                        List<DefaultDomainObject> allCustomers = ClientController.getInstance().getByCondition(customer);
                         List<Customer> customers = new ArrayList<>();
                         for (DefaultDomainObject c : allCustomers) {
                             customers.add((Customer) c);
@@ -135,7 +135,7 @@ public class InvoiceController {
                         Car car = new Car();
                         car.setSearchCondition("brand");
                         car.setSearchConditionValue(conditionValue);
-                        List<DefaultDomainObject> c = Controller.getInstance().getByCondition(car);
+                        List<DefaultDomainObject> c = ClientController.getInstance().getByCondition(car);
                         List<Car> cars = new ArrayList<>();
                         for (DefaultDomainObject i : c) {
                             cars.add((Car) i);
@@ -220,7 +220,7 @@ public class InvoiceController {
                     Invoice invoice = new Invoice(null, d, Double.valueOf(invoiceForm.getTxtTotalAmount().getText()),((User) Coordinator.getInstance().getParam("Logged_in_user")).getIdUser(), customer.getIdCustomer());
 
                     if(JOptionPane.showConfirmDialog(invoiceForm, "Are you sure you want to CREATE and INSERT this invoice into the database? \n Please check all the data before clicking Yes!", "Create invoice", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                        Controller controller = Controller.getInstance();
+                        ClientController controller = ClientController.getInstance();
                         Long invoiceId = controller.insertRowAndGetId(invoice);
                         if(invoiceId != null){
                             List<InvoiceItem> items = ((InvoiceItemsTableModel) invoiceForm.getTblInvoiceItems().getModel()).getInvoiceItems();
@@ -290,7 +290,7 @@ public class InvoiceController {
     @SuppressWarnings("unchecked")
     public void fillComboBox() {
         try {
-            DefaultComboBoxModel cbm = new DefaultComboBoxModel(Controller.getInstance().getAllCarBrands().toArray());
+            DefaultComboBoxModel cbm = new DefaultComboBoxModel(ClientController.getInstance().getAllCarBrands().toArray());
             cbm.insertElementAt("All brands", 0);
             invoiceForm.getCbCarSearchCondition().setModel(cbm);
             invoiceForm.getCbCarSearchCondition().setSelectedIndex(0);
@@ -301,7 +301,7 @@ public class InvoiceController {
     
     public void fillCustomersTable() {
         try {
-            List<DefaultDomainObject> allCustomers = Controller.getInstance().getAll(new Customer());
+            List<DefaultDomainObject> allCustomers = ClientController.getInstance().getAll(new Customer());
             List<Customer> customers = new ArrayList<>();
             for (DefaultDomainObject customer : allCustomers) {
                 customers.add((Customer) customer);
@@ -316,7 +316,7 @@ public class InvoiceController {
     public void fillCarsTable(List<Car> c) {
         try {
             if(c == null){
-                List<DefaultDomainObject> allCars = Controller.getInstance().getAllOrdered(new Car());
+                List<DefaultDomainObject> allCars = ClientController.getInstance().getAllOrdered(new Car());
                 List<Car> cars = new ArrayList<>();
                 for (DefaultDomainObject car : allCars) {
                     cars.add((Car) car);

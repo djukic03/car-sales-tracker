@@ -9,6 +9,7 @@ package communication;
  * @author user
  */
 public enum Operation {
+    LOGIN,
     GET_ALL,
     GET_ALL_ORDERED,
     GET_BY_CONDITION,

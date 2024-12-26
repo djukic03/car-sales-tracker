@@ -6,6 +6,7 @@ package controller;
 
 import database.DatabaseBroker;
 import domain.DefaultDomainObject;
+import domain.User;
 import java.util.List;
 import java.sql.SQLException;
 
@@ -26,6 +27,17 @@ public class ServerController {
             instance = new ServerController();
         }
         return instance;
+    }
+    
+    public User login(String username, String password) throws Exception {
+        List<DefaultDomainObject> users = ServerController.getInstance().getAll(new User());
+        for (DefaultDomainObject u : users) {
+            User user = (User) u;
+            if(user.getUsername().equals(username) && user.getPassword().equals(password)){
+                return user;
+            }
+        }
+        throw new Exception("Wrong username or password");
     }
     
     public List<DefaultDomainObject> getAll(DefaultDomainObject ddo) throws SQLException{

@@ -11,6 +11,7 @@ import communication.Response;
 import communication.Sender;
 import controller.ServerController;
 import domain.DefaultDomainObject;
+import domain.User;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,6 +41,10 @@ public class ProcessClientRequests extends Thread{
                     try {
                         ServerController controller = ServerController.getInstance();
                         switch(request.getOperation()){
+                            case Operation.LOGIN:
+                                User user = (User) request.getArgument();
+                                response.setResult(controller.login(user.getUsername(), user.getPassword()));
+                                break;
                             case Operation.GET_ALL:
                                 response.setResult(controller.getAll((DefaultDomainObject) request.getArgument()));
                                 break;

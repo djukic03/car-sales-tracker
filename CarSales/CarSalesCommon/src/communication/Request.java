@@ -12,7 +12,6 @@ import java.io.Serializable;
  */
 public class Request implements Serializable{
     private Operation operation;
-    
     private Object argument;
 
     public Request(Operation operation, Object argument) {

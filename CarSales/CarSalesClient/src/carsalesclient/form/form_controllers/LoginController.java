@@ -4,7 +4,7 @@
  */
 package carsalesclient.form.form_controllers;
 
-import carsalesclient.controller.Controller;
+import carsalesclient.controller.ClientController;
 import carsalesclient.form.LoginForm;
 import carsalesclient.form.form_coordinator.Coordinator;
 import domain.DefaultDomainObject;
@@ -46,37 +46,22 @@ public class LoginController {
         loginForm.btnLoginAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                login(e);
+                login();
             }
             
-            private void login(ActionEvent actionEvent){
+            private void login(){
                 if(!emptyFields()){
-                    String username = loginForm.getTxtUsername().getText();
-                    String password = String.valueOf(loginForm.getTxtPassword().getPassword());
-
-                    List<DefaultDomainObject> u = null;
+                    User user = new User();
+                    user.setUsername(loginForm.getTxtUsername().getText());
+                    user.setPassword(String.valueOf(loginForm.getTxtPassword().getPassword()));
+                    
                     try {
-                        u = Controller.getInstance().getAll(new User(null, null, null, null, null));
-                    } catch (IOException ex) {
-                        Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (Exception ex) {
-                        Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    List<User> users = new ArrayList<>();
-                    for (DefaultDomainObject user : u) {
-                        users.add((User) user);
-                    }
-                    try {
-                        for (User user : users) {
-                            if(user.getUsername().equals(username) && user.getPassword().equals(password)){
-                                JOptionPane.showMessageDialog(loginForm, "Login successfull! \nWelcome "+ user.getFirstName() +"!");
-                                loginForm.dispose();
-                                Coordinator.getInstance().addParam("Logged_in_user", user);
-                                Coordinator.getInstance().openMainForm();
-                                return;
-                            }
-                        }
-                        throw new Exception("User doesn't exists!");
+                        User loggedInUser = ClientController.getInstance().login(user);
+                        JOptionPane.showMessageDialog(loginForm, "Login successfull! \nWelcome "+ loggedInUser.getFirstName() +"!");
+                        loginForm.dispose();
+                        Coordinator.getInstance().addParam("Logged_in_user", loggedInUser);
+                        Coordinator.getInstance().openMainForm();
+                                
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(loginForm, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
@@ -106,7 +91,7 @@ public class LoginController {
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
                 try {
-                    Controller.getInstance().closeCon();
+                    ClientController.getInstance().closeCon();
                 } catch (Exception ex) {
                     System.out.println("Error: "+ ex.getMessage());
                 }

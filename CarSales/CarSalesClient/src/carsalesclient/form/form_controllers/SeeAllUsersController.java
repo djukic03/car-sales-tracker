@@ -4,7 +4,7 @@
  */
 package carsalesclient.form.form_controllers;
 
-import carsalesclient.controller.Controller;
+import carsalesclient.controller.ClientController;
 import carsalesclient.form.UsersTableForm;
 import carsalesclient.form.tableModels.UsersTableModel;
 import domain.DefaultDomainObject;
@@ -47,7 +47,7 @@ public class SeeAllUsersController {
                     User user = new User();
                     user.setSearchCondition("last_name");
                     user.setSearchConditionValue(usersTableForm.getTxtSearch().getText());
-                    List<DefaultDomainObject> u = Controller.getInstance().getByCondition(user);
+                    List<DefaultDomainObject> u = ClientController.getInstance().getByCondition(user);
                     List<User> users = new ArrayList<>();
                     for (DefaultDomainObject i : u) {
                         users.add((User) i);
@@ -68,7 +68,7 @@ public class SeeAllUsersController {
     
     private void fillTable() {
         try {
-            List<DefaultDomainObject> u = Controller.getInstance().getAll(new User());
+            List<DefaultDomainObject> u = ClientController.getInstance().getAll(new User());
             List<User> users = new ArrayList<>();
             for (DefaultDomainObject user : u) {
                 users.add((User) user);

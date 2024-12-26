@@ -10,35 +10,47 @@ import communication.Receiver;
 import communication.Request;
 import communication.Response;
 import communication.Sender;
+import domain.User;
 import java.io.IOException;
 import java.net.Socket;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
  *
  * @author user
  */
-public class Controller {
-    private static Controller instance;
+public class ClientController {
+    private static ClientController instance;
     private final Socket socket;
     private final Sender sender;
     private final Receiver receiver;
 
-    private Controller() throws IOException {
+    private ClientController() throws IOException {
         socket = new Socket("127.0.0.1", 9000);
         sender = new Sender(socket);
         receiver = new Receiver(socket);
     }
     
-    public static Controller getInstance() throws IOException{
+    public static ClientController getInstance() throws IOException{
         if(instance == null){
-            instance = new Controller();
+            instance = new ClientController();
         }
         return instance;
     }
     
-    public List<DefaultDomainObject> getAll(DefaultDomainObject ddo) throws SQLException, Exception{
+    public User login(User user) throws Exception {
+        Request request = new Request(Operation.LOGIN, user);
+        sender.send(request);
+        Response response = (Response) receiver.receive();
+        if (response.getException() == null) {
+            return (User) response.getResult();
+        }
+        else{
+            throw response.getException();
+        }
+    }
+    
+    public List<DefaultDomainObject> getAll(DefaultDomainObject ddo) throws Exception{
         Request request = new Request(Operation.GET_ALL, ddo);
         sender.send(request);
         
@@ -51,7 +63,7 @@ public class Controller {
         }
     }
     
-    public List<DefaultDomainObject> getAllOrdered(DefaultDomainObject ddo) throws SQLException, Exception {
+    public List<DefaultDomainObject> getAllOrdered(DefaultDomainObject ddo) throws Exception {
         Request request = new Request(Operation.GET_ALL_ORDERED, ddo);
         sender.send(request);
         
@@ -64,7 +76,7 @@ public class Controller {
         }
     }
     
-    public List<DefaultDomainObject> getByCondition(DefaultDomainObject ddo) throws SQLException, Exception {
+    public List<DefaultDomainObject> getByCondition(DefaultDomainObject ddo) throws Exception {
         Request request = new Request(Operation.GET_BY_CONDITION, ddo);
         sender.send(request);
         
@@ -77,7 +89,7 @@ public class Controller {
         }
     }
     
-    public void insertRow(DefaultDomainObject ddo) throws SQLException, Exception {
+    public void insertRow(DefaultDomainObject ddo) throws Exception {
         Request request = new Request(Operation.INSERT_ROW, ddo);
         sender.send(request);
         
@@ -87,7 +99,7 @@ public class Controller {
         }
     }
     
-    public Long insertRowAndGetId(DefaultDomainObject ddo) throws SQLException, Exception {
+    public Long insertRowAndGetId(DefaultDomainObject ddo) throws Exception {
         Request request = new Request(Operation.INSERT_ROW_AND_GET_ID, ddo);
         sender.send(request);
         
@@ -100,7 +112,7 @@ public class Controller {
         }
     }
     
-    public void deleteRow(DefaultDomainObject ddo) throws SQLException, Exception {
+    public void deleteRow(DefaultDomainObject ddo) throws Exception {
         Request request = new Request(Operation.DELETE_ROW, ddo);
         sender.send(request);
         
@@ -110,7 +122,7 @@ public class Controller {
         }
     }
     
-    public void updateRow(DefaultDomainObject ddo) throws SQLException, Exception {
+    public void updateRow(DefaultDomainObject ddo) throws Exception {
         Request request = new Request(Operation.UPDATE_ROW, ddo);
         sender.send(request);
         
@@ -120,7 +132,7 @@ public class Controller {
         }
     }
     
-    public List<String> getAllCarBrands() throws SQLException, Exception{
+    public List<String> getAllCarBrands() throws Exception{
         Request request = new Request(Operation.GET_ALL_CAR_BRANDS, null);
         sender.send(request);
         
@@ -143,5 +155,4 @@ public class Controller {
         }
     }
 
-    
 }
