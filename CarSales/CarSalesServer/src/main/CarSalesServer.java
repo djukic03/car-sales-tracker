@@ -4,7 +4,7 @@
  */
 package main;
 
-import server.Server;
+import form.coordinator.Coordinator;
 
 /**
  *
@@ -12,7 +12,6 @@ import server.Server;
  */
 public class CarSalesServer {
     public static void main(String[] args) {
-        Server server = new Server();
-        server.startServer();
+        Coordinator.getInstance().openServerForm();
     }
 }

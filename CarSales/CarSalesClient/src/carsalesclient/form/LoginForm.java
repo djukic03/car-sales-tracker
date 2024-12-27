@@ -69,7 +69,7 @@ public class LoginForm extends javax.swing.JFrame {
         txtPassword.setActionCommand("<Not Set>");
         txtPassword.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
-        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carsalesclient/images/loginImage.png"))); // NOI18N
+        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carsalesclient/form/images/loginImage.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
