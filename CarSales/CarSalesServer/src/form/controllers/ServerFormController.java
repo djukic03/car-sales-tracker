@@ -5,9 +5,12 @@
 package form.controllers;
 
 import com.sun.java.accessibility.util.AWTEventMonitor;
+import domain.User;
 import form.ServerForm;
+import form.tableModel.LoggedInUsersTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import server.Server;
 
 /**
@@ -27,6 +30,7 @@ public class ServerFormController {
     }
 
     public void openForm() {
+        fillLoggedInUsersTable();
         serverForm.setVisible(true);
     }
 
@@ -34,11 +38,28 @@ public class ServerFormController {
         serverForm.btnStartServerAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Server server = new Server();
-                server.startServer();
+                try {
+                    Server server = new Server();
+                    server.start();
+                } catch (Exception ex) {
+                    System.out.println("Error: " + ex.getMessage());
+                }
+                
             }
         });
     }
     
-    
+    private void fillLoggedInUsersTable() {
+        serverForm.getTblLoggedInUsers().setModel(new LoggedInUsersTableModel(new ArrayList<>()));
+    }
+
+    public void addLoggedInUser(User user) {
+        LoggedInUsersTableModel tm =(LoggedInUsersTableModel) serverForm.getTblLoggedInUsers().getModel();
+        tm.addLoggedInUser(user);
+    }    
+
+    public void removeLoggedInUser(User user) {
+        LoggedInUsersTableModel tm =(LoggedInUsersTableModel) serverForm.getTblLoggedInUsers().getModel();
+        tm.removeLoggedInUser(user);
+    }
 }

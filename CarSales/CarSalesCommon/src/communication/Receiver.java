@@ -25,7 +25,6 @@ public class Receiver{
             in = new ObjectInputStream(socket.getInputStream());
             return in.readObject();
         } catch (IOException ex) {
-            ex.printStackTrace();
             throw new Exception("Error with reading object " + ex.getMessage());
         }
     }
