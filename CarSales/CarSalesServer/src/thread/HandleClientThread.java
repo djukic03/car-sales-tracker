@@ -12,61 +12,34 @@ import communication.Sender;
 import controller.ServerController;
 import domain.DefaultDomainObject;
 import domain.User;
+import form.coordinator.Coordinator;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import server.Server;
 
 /**
  *
  * @author user
  */
-public class ProcessClientRequests extends Thread{
-    private final Server server;
+public class HandleClientThread extends Thread{
+    
     private Socket socket;
+    private ServerThread serverThread;
     private final Sender sender;
     private final Receiver receiver;
-    private User loggedInUser;
-//    private final int clientNumber;
-    private boolean threadEnd = false;
-
-    public ProcessClientRequests(Server server, Socket socket) {
-        this.server = server;
+    
+    
+    public HandleClientThread(Socket socket, ServerThread serverThread){
         this.socket = socket;
-//        this.clientNumber = clientNumber;
+        this.serverThread = serverThread;
         sender = new Sender(socket);
         receiver = new Receiver(socket);
     }
-
-    public Socket getSocket() {
-        return socket;
-    }
-
-    public void setSocket(Socket socket) {
-        this.socket = socket;
-    }
     
-    public User getLoggedInUser() {
-        return loggedInUser;
-    }
-
-    public void setLoggedInUser(User loggedInUser) {
-        this.loggedInUser = loggedInUser;
-    }
-
-    public boolean isThreadEnd() {
-        return threadEnd;
-    }
-
-    public void setThreadEnd(boolean threadEnd) {
-        this.threadEnd = threadEnd;
-    }
-
     @Override
     public void run() {
-        System.out.println("Client thread started");
-        while(!threadEnd){
+        while (!socket.isClosed()) {
             try {
                 Request request = (Request) receiver.receive();
                 Response response = new Response();
@@ -75,7 +48,14 @@ public class ProcessClientRequests extends Thread{
                     switch(request.getOperation()){
                         case Operation.LOGIN:
                             User user = (User) request.getArgument();
-                            response.setResult(login(controller.login(user.getUsername(), user.getPassword())));
+                            User loggedInUser = controller.login(user.getUsername(), user.getPassword());
+                            response.setResult(loggedInUser);
+                            login(loggedInUser);
+                            break;
+                        case Operation.LOG_OUT:
+                            User loggedOutUser = (User) request.getArgument();
+                            controller.logout(loggedOutUser);
+                            logout(loggedOutUser);
                             break;
                         case Operation.GET_ALL:
                             response.setResult(controller.getAll((DefaultDomainObject) request.getArgument()));
@@ -111,33 +91,23 @@ public class ProcessClientRequests extends Thread{
                 }
                 sender.send(response);
             } catch (Exception ex) {
-                System.out.println("client disconected.");
-                logout();
+                ex.printStackTrace();
             }
         }
-        System.out.println("Client thread ended");
+        System.out.println("Socket is closed!");
     }
 
-    private User login(User user) throws Exception {
-        alreadyLoggedIn(user);
-        this.loggedInUser = user;
-        server.login(this);
-        return user;
+    public Socket getSocket() {
+        return socket;
     }
 
-    private void logout() {
-        try {
-            server.logout(this);
-            socket.close();
-        } catch (IOException ex) {
-            Logger.getLogger(ProcessClientRequests.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private void login(User user) {
+        serverThread.login(this);
+        Coordinator.getInstance().getServerFormController().addLoggedInUser(user);
     }
 
-    private void alreadyLoggedIn(User user) throws Exception {
-        if(server.alreadyLoggedIn(user)){
-            throw new Exception("You are already logged in!");
-        }
-    }
-    
+    private void logout(User user) {
+        serverThread.logout(this);
+        Coordinator.getInstance().getServerFormController().removeLoggedInUser(user);
+   }
 }

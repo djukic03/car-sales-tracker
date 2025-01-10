@@ -28,7 +28,7 @@ public class Sender {
             out.flush();
         } catch (IOException ex) {
             ex.printStackTrace();
-            throw new Exception("Error with sending the object" + ex.getMessage());
+            throw new Exception("Error with sending the object: " + ex.getMessage());
         }
     }
 }

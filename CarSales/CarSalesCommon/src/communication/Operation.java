@@ -10,6 +10,7 @@ package communication;
  */
 public enum Operation {
     LOGIN,
+    LOG_OUT,
     GET_ALL,
     GET_ALL_ORDERED,
     GET_BY_CONDITION,

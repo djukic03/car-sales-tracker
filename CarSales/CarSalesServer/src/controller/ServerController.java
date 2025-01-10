@@ -9,6 +9,7 @@ import domain.DefaultDomainObject;
 import domain.User;
 import java.util.List;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,9 +18,11 @@ import java.sql.SQLException;
 public class ServerController {
     private static ServerController instance;
     private final DatabaseBroker dbBroker;
+    private final List<User> loggedInUsers;
 
     private ServerController() {
         dbBroker = new DatabaseBroker();
+        loggedInUsers = new ArrayList<>();
     }
     
     public static ServerController getInstance(){
@@ -30,14 +33,24 @@ public class ServerController {
     }
     
     public User login(String username, String password) throws Exception {
-        List<DefaultDomainObject> users = ServerController.getInstance().getAll(new User());
+        List<DefaultDomainObject> users = getAll(new User());
         for (DefaultDomainObject u : users) {
             User user = (User) u;
             if(user.getUsername().equals(username) && user.getPassword().equals(password)){
-                return user;
+                if (!loggedInUsers.contains(user)) {
+                    loggedInUsers.add(user);
+                    return user;
+                }
+                throw new Exception("You are already logged in");
             }
         }
         throw new Exception("Wrong username or password");
+    }
+    
+    public void logout(User user){
+        if (loggedInUsers.contains(user)) {
+            loggedInUsers.remove(user);
+        }
     }
     
     public List<DefaultDomainObject> getAll(DefaultDomainObject ddo) throws SQLException{

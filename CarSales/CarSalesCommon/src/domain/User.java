@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -87,6 +88,15 @@ public class User implements DefaultDomainObject, Serializable{
 
     public void setDeleteConditionValue(Long deleteConditionValue) {
         this.deleteConditionValue = deleteConditionValue;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof User){
+            User user = (User) obj;
+            return idUser.equals(user.idUser);
+        }
+        return false;
     }
     
 

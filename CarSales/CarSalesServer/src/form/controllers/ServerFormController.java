@@ -4,14 +4,15 @@
  */
 package form.controllers;
 
-import com.sun.java.accessibility.util.AWTEventMonitor;
 import domain.User;
 import form.ServerForm;
 import form.tableModel.LoggedInUsersTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
-import server.Server;
+import javax.swing.JFrame;
+import thread.ServerThread;
 
 /**
  *
@@ -19,6 +20,7 @@ import server.Server;
  */
 public class ServerFormController {
     private final ServerForm serverForm;
+    private ServerThread serverThread;
 
     public ServerFormController(ServerForm serverForm) {
         this.serverForm = serverForm;
@@ -30,6 +32,7 @@ public class ServerFormController {
     }
 
     public void openForm() {
+        prepareForm();
         fillLoggedInUsersTable();
         serverForm.setVisible(true);
     }
@@ -38,13 +41,32 @@ public class ServerFormController {
         serverForm.btnStartServerAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    Server server = new Server();
-                    server.start();
-                } catch (Exception ex) {
-                    System.out.println("Error: " + ex.getMessage());
+                if(serverThread == null || !serverThread.isAlive()){
+                    try {
+                        serverThread = new ServerThread();
+                        serverThread.start();
+                        serverForm.getBtnStopServer().setEnabled(true);
+                        serverForm.getBtnStartServer().setEnabled(false);
+                    } catch (Exception ex) {
+                        System.out.println("Error: " + ex.getMessage());
+                        ex.printStackTrace();
+                    }
                 }
-                
+            }
+        });
+        
+        serverForm.btnStopServerAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (serverThread == null || serverThread.getServerSocket().isBound()) {
+                    try {
+                        serverThread.getServerSocket().close();
+                        serverForm.getBtnStopServer().setEnabled(false);
+                        serverForm.getBtnStartServer().setEnabled(true);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
             }
         });
     }
@@ -61,5 +83,10 @@ public class ServerFormController {
     public void removeLoggedInUser(User user) {
         LoggedInUsersTableModel tm =(LoggedInUsersTableModel) serverForm.getTblLoggedInUsers().getModel();
         tm.removeLoggedInUser(user);
+    }
+
+    private void prepareForm() {
+        serverForm.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        serverForm.getBtnStopServer().setEnabled(false);
     }
 }

@@ -96,10 +96,11 @@ public class MainController {
                 super.windowClosing(e);
                 try {
                     ClientController.getInstance().closeCon();
-                } catch (IOException ex) {
-                    Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("log outujemo usera "+((User) Coordinator.getInstance().getParam("Logged_in_user")).getFirstName());
+                    ClientController.getInstance().logout((User) Coordinator.getInstance().getParam("Logged_in_user"));
                 } catch (Exception ex) {
-                    Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+//                    System.out.println("Error: " + ex.getMessage());
+                    ex.printStackTrace();
                 }
             }
         });

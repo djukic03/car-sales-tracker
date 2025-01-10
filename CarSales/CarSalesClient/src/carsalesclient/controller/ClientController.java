@@ -21,9 +21,9 @@ import java.util.List;
  */
 public class ClientController {
     private static ClientController instance;
-    private final Socket socket;
-    private final Sender sender;
-    private final Receiver receiver;
+    private Socket socket;
+    private Sender sender;
+    private Receiver receiver;
 
     private ClientController() throws IOException {
         socket = new Socket("127.0.0.1", 9000);
@@ -147,6 +147,16 @@ public class ClientController {
     
     public void closeCon() throws Exception{
         Request request = new Request(Operation.CLOSE_CON, null);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException() != null){
+            throw response.getException();
+        }
+    }
+
+    public void logout(User user) throws Exception {
+        Request request = new Request(Operation.LOG_OUT, user);
         sender.send(request);
         
         Response response = (Response) receiver.receive();

@@ -34,6 +34,7 @@ public class ServerForm extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLoggedInUsers = new javax.swing.JTable();
         btnStartServer = new javax.swing.JButton();
+        btnStopServer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,6 +59,14 @@ public class ServerForm extends javax.swing.JFrame {
             }
         });
 
+        btnStopServer.setFont(new java.awt.Font("Gill Sans MT", 1, 18)); // NOI18N
+        btnStopServer.setText("Stop Server");
+        btnStopServer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStopServerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -68,14 +77,17 @@ public class ServerForm extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnStartServer, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnStopServer, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(btnStartServer, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnStartServer, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnStopServer, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
                 .addContainerGap())
@@ -88,8 +100,13 @@ public class ServerForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnStartServerActionPerformed
 
+    private void btnStopServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopServerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnStopServerActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnStartServer;
+    private javax.swing.JButton btnStopServer;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblLoggedInUsers;
     // End of variables declaration//GEN-END:variables
@@ -101,8 +118,18 @@ public class ServerForm extends javax.swing.JFrame {
     public JButton getBtnStartServer() {
         return btnStartServer;
     }
+
+    public JButton getBtnStopServer() {
+        return btnStopServer;
+    }
+    
+    
     
     public void btnStartServerAddActionListener(ActionListener actionListener){
         btnStartServer.addActionListener(actionListener);
+    }
+    
+    public void btnStopServerAddActionListener(ActionListener actionListener){
+        btnStopServer.addActionListener(actionListener);
     }
 }

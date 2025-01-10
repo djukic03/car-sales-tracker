@@ -86,6 +86,7 @@ public class LoginController {
                 super.windowClosing(e);
                 try {
                     ClientController.getInstance().closeCon();
+                    ClientController.getInstance().logout(null);
                 } catch (Exception ex) {
                     System.out.println("Error: "+ ex.getMessage());
                 }
