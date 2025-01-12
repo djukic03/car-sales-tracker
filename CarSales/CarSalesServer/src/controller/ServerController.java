@@ -10,6 +10,8 @@ import domain.User;
 import java.util.List;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import so.AbstractSO;
+import so.user.LoginUserSO;
 
 /**
  *
@@ -33,18 +35,17 @@ public class ServerController {
     }
     
     public User login(String username, String password) throws Exception {
-        List<DefaultDomainObject> users = getAll(new User());
-        for (DefaultDomainObject u : users) {
-            User user = (User) u;
-            if(user.getUsername().equals(username) && user.getPassword().equals(password)){
-                if (!loggedInUsers.contains(user)) {
-                    loggedInUsers.add(user);
-                    return user;
-                }
-                throw new Exception("You are already logged in");
-            }
+        LoginUserSO lu = new LoginUserSO();
+        User u = new User();
+        u.setUsername(username);
+        u.setPassword(password);
+        lu.executeSO(u);
+        User loggedInUser = lu.getLoggedInUser();
+        if (!loggedInUsers.contains(loggedInUser)) {
+            loggedInUsers.add(loggedInUser);
+            return loggedInUser;
         }
-        throw new Exception("Wrong username or password");
+        throw new Exception("You are already logged in");
     }
     
     public void logout(User user){

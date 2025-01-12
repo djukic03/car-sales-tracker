@@ -4,7 +4,9 @@
  */
 package form.coordinator;
 
+import form.DatabaseConfigForm;
 import form.ServerForm;
+import form.controllers.DBConfigController;
 import form.controllers.ServerFormController;
 
 /**
@@ -32,6 +34,11 @@ public class Coordinator {
     
     public void openServerForm(){
         serverFormController.openForm();
+    }
+
+    public void openDBConfigForm() {
+        DBConfigController controller = new DBConfigController(new DatabaseConfigForm(serverFormController.getServerForm(), true));
+        controller.openForm();
     }
     
     

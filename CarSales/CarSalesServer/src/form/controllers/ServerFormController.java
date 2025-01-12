@@ -6,6 +6,7 @@ package form.controllers;
 
 import domain.User;
 import form.ServerForm;
+import form.coordinator.Coordinator;
 import form.tableModel.LoggedInUsersTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,6 +42,10 @@ public class ServerFormController {
         serverForm.btnStartServerAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                startServer();
+            }
+            
+            private void startServer(){
                 if(serverThread == null || !serverThread.isAlive()){
                     try {
                         serverThread = new ServerThread();
@@ -58,6 +63,10 @@ public class ServerFormController {
         serverForm.btnStopServerAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                stopServer();
+            }
+            
+            private void stopServer(){
                 if (serverThread == null || serverThread.getServerSocket().isBound()) {
                     try {
                         serverThread.getServerSocket().close();
@@ -67,6 +76,13 @@ public class ServerFormController {
                         ex.printStackTrace();
                     }
                 }
+            }
+        });
+        
+        serverForm.miDBConfigAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Coordinator.getInstance().openDBConfigForm();
             }
         });
     }

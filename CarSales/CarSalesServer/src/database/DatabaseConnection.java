@@ -5,8 +5,6 @@
 package database;
 
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -17,11 +15,9 @@ public class DatabaseConnection {
     private Connection connection;
 
     public DatabaseConnection() {
-        String url = "jdbc:mysql://localhost:3306/car_sales";
-        String user = "root";
-        String password = "";
+        DatabaseProperties props = DatabaseProperties.getInstance();
         try {
-            connection = DriverManager.getConnection(url, user, password);
+            connection = DriverManager.getConnection(props.getProperty("url"), props.getProperty("user"), props.getProperty("password"));
             System.out.println("Database connected successfully!");
         } catch (SQLException ex) {
             System.out.println("Connection error: "+ex.getMessage());

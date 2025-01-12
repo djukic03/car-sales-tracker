@@ -7,7 +7,6 @@ package form;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JTable;
-import javax.swing.JToggleButton;
 
 /**
  *
@@ -35,6 +34,10 @@ public class ServerForm extends javax.swing.JFrame {
         tblLoggedInUsers = new javax.swing.JTable();
         btnStartServer = new javax.swing.JButton();
         btnStopServer = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        menuDatabase = new javax.swing.JMenu();
+        menuItemDBConfig = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,6 +70,21 @@ public class ServerForm extends javax.swing.JFrame {
             }
         });
 
+        menuDatabase.setText("Database");
+        menuDatabase.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+
+        menuItemDBConfig.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuItemDBConfig.setText("DB Configuration");
+        menuDatabase.add(menuItemDBConfig);
+
+        jMenuBar1.add(menuDatabase);
+
+        jMenu2.setText("Edit");
+        jMenu2.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,7 +107,7 @@ public class ServerForm extends javax.swing.JFrame {
                     .addComponent(btnStartServer, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnStopServer, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -107,7 +125,11 @@ public class ServerForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnStartServer;
     private javax.swing.JButton btnStopServer;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenu menuDatabase;
+    private javax.swing.JMenuItem menuItemDBConfig;
     private javax.swing.JTable tblLoggedInUsers;
     // End of variables declaration//GEN-END:variables
 
@@ -131,5 +153,9 @@ public class ServerForm extends javax.swing.JFrame {
     
     public void btnStopServerAddActionListener(ActionListener actionListener){
         btnStopServer.addActionListener(actionListener);
+    }
+    
+    public void miDBConfigAddActionListener(ActionListener actionListener){
+        menuItemDBConfig.addActionListener(actionListener);
     }
 }

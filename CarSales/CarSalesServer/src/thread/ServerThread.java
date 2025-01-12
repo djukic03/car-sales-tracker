@@ -4,15 +4,11 @@
  */
 package thread;
 
-import form.controllers.ServerFormController;
-import form.coordinator.Coordinator;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -23,10 +19,9 @@ public class ServerThread  extends Thread{
     private List<HandleClientThread> clients;
 
     public ServerThread() throws Exception {
-        this.serverSocket = new ServerSocket(9000);
+        serverSocket = new ServerSocket(9000);
         clients = new ArrayList<>();
     }
-    
     
     
     @Override

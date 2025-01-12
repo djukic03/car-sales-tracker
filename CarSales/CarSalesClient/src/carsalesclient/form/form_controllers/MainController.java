@@ -95,11 +95,11 @@ public class MainController {
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
                 try {
-                    ClientController.getInstance().closeCon();
+//                    ClientController.getInstance().closeCon();
                     System.out.println("log outujemo usera "+((User) Coordinator.getInstance().getParam("Logged_in_user")).getFirstName());
                     ClientController.getInstance().logout((User) Coordinator.getInstance().getParam("Logged_in_user"));
                 } catch (Exception ex) {
-//                    System.out.println("Error: " + ex.getMessage());
+                    System.out.println("Error: " + ex.getMessage());
                     ex.printStackTrace();
                 }
             }
