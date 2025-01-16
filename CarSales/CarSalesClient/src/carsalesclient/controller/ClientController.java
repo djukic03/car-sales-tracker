@@ -10,6 +10,7 @@ import communication.Receiver;
 import communication.Request;
 import communication.Response;
 import communication.Sender;
+import domain.Car;
 import domain.User;
 import java.io.IOException;
 import java.net.Socket;
@@ -62,6 +63,36 @@ public class ClientController {
             throw response.getException();
         }
     }
+    /////////////////////////////////////////////////////////////////////////////////
+    
+    public List<User> getAllUsers() throws Exception{
+        Request request = new Request(Operation.GET_ALL_USERS, null);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException() == null){
+            return (List<User>) response.getResult();
+        }
+        else{
+            throw response.getException();
+        }
+    }
+    
+    public List<Car> getAllCars() throws Exception{
+        Request request = new Request(Operation.GET_ALL_CARS, null);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException() == null){
+            return (List<Car>) response.getResult();
+        }
+        else{
+            throw response.getException();
+        }
+    }
+    
+    /////////////////////////////////////////////////////////////////////////////////
+    
     
     public List<DefaultDomainObject> getAllOrdered(DefaultDomainObject ddo) throws Exception {
         Request request = new Request(Operation.GET_ALL_ORDERED, ddo);
@@ -88,6 +119,34 @@ public class ClientController {
             throw response.getException();
         }
     }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public List<User> searchUsers(User u) throws Exception {
+        Request request = new Request(Operation.SEARCH_USERS, u);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException() == null){
+            return (List<User>) response.getResult();
+        }
+        else{
+            throw response.getException();
+        }
+    }
+    
+    public List<Car> searchCars(Car car) throws Exception {
+        Request request = new Request(Operation.SEARCH_CARS, car);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException() == null){
+            return (List<Car>) response.getResult();
+        }
+        else{
+            throw response.getException();
+        }
+    }
+    
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     public void insertRow(DefaultDomainObject ddo) throws Exception {
         Request request = new Request(Operation.INSERT_ROW, ddo);
@@ -121,6 +180,17 @@ public class ClientController {
             throw response.getException();
         }
     }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public void deleteCar(Car car) throws Exception {
+        Request request = new Request(Operation.DELETE_CAR, car);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException() != null){
+            throw response.getException();
+        }
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     public void updateRow(DefaultDomainObject ddo) throws Exception {
         Request request = new Request(Operation.UPDATE_ROW, ddo);

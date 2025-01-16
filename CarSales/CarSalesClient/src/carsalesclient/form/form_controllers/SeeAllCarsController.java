@@ -10,12 +10,10 @@ import carsalesclient.form.form_coordinator.Coordinator;
 import carsalesclient.form.modes.FormMode;
 import carsalesclient.form.tableModels.CarsTableModel;
 import domain.Car;
-import domain.DefaultDomainObject;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -54,11 +52,7 @@ public class SeeAllCarsController {
                         Car car = new Car();
                         car.setSearchCondition("brand");
                         car.setSearchConditionValue(conditionValue);
-                        List<DefaultDomainObject> c = ClientController.getInstance().getByCondition(car);
-                        List<Car> cars = new ArrayList<>();
-                        for (DefaultDomainObject i : c) {
-                            cars.add((Car) i);
-                        }
+                        List<Car> cars = ClientController.getInstance().searchCars(car);
                         fillTable(cars);
                     }
                 } catch (Exception e) {
@@ -83,7 +77,7 @@ public class SeeAllCarsController {
                     Car car = ((CarsTableModel) carsTableForm.getTblCars().getModel()).getCarAt(rowId);
                     car.setDeleteConditionValue(car.getIdCar());
                     if(JOptionPane.showConfirmDialog(carsTableForm, "Are you sure you want to DELETE the following car from the database: \n"+car.getBrand()+" "+car.getModel()+", "+car.getPrice()+"$", "Delete car", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                        ClientController.getInstance().deleteRow(car);
+                        ClientController.getInstance().deleteCar(car);
                         JOptionPane.showMessageDialog(carsTableForm, "Car deleted successfully!");
                         fillTable(null);
                     }
@@ -131,11 +125,7 @@ public class SeeAllCarsController {
     private void fillTable(List<Car> c) {
         try {
             if(c == null){
-                List<DefaultDomainObject> allCars = ClientController.getInstance().getAllOrdered(new Car());
-                List<Car> cars = new ArrayList<>();
-                for (DefaultDomainObject car : allCars) {
-                    cars.add((Car) car);
-                }
+                List<Car> cars = ClientController.getInstance().getAllCars();
                 carsTableForm.getTblCars().setModel(new CarsTableModel(cars));
             }
             else{

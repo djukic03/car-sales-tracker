@@ -7,11 +7,9 @@ package carsalesclient.form.form_controllers;
 import carsalesclient.controller.ClientController;
 import carsalesclient.form.UsersTableForm;
 import carsalesclient.form.tableModels.UsersTableModel;
-import domain.DefaultDomainObject;
 import domain.User;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -47,11 +45,7 @@ public class SeeAllUsersController {
                     User user = new User();
                     user.setSearchCondition("last_name");
                     user.setSearchConditionValue(usersTableForm.getTxtSearch().getText());
-                    List<DefaultDomainObject> u = ClientController.getInstance().getByCondition(user);
-                    List<User> users = new ArrayList<>();
-                    for (DefaultDomainObject i : u) {
-                        users.add((User) i);
-                    }
+                    List<User> users = ClientController.getInstance().searchUsers(user);
                     usersTableForm.getTblUsers().setModel(new UsersTableModel(users));
                 } catch (Exception e) {
                     System.out.println("Error: " + e.getMessage());
@@ -68,11 +62,7 @@ public class SeeAllUsersController {
     
     private void fillTable() {
         try {
-            List<DefaultDomainObject> u = ClientController.getInstance().getAll(new User());
-            List<User> users = new ArrayList<>();
-            for (DefaultDomainObject user : u) {
-                users.add((User) user);
-            }
+            List<User> users = ClientController.getInstance().getAllUsers();
             usersTableForm.getTblUsers().setModel(new UsersTableModel(users));
         } catch (Exception e) {
             System.out.println("Error: "+ e.getMessage());

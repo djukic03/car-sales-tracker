@@ -12,11 +12,22 @@ public enum Operation {
     LOGIN,
     LOG_OUT,
     GET_ALL,
+    ////////////////
+    GET_ALL_USERS,
+    GET_ALL_CARS,
+    /////////////////
     GET_ALL_ORDERED,
     GET_BY_CONDITION,
+    /////////////////////
+    SEARCH_USERS,
+    SEARCH_CARS,
+    ////////////////////
     INSERT_ROW,
     INSERT_ROW_AND_GET_ID,
     DELETE_ROW,
+    //////////////////////////////////////////////
+    DELETE_CAR,
+    ////////////////////////////////////////////////
     UPDATE_ROW,
     GET_ALL_CAR_BRANDS,
     CLOSE_CON

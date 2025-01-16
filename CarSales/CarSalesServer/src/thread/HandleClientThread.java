@@ -10,6 +10,7 @@ import communication.Request;
 import communication.Response;
 import communication.Sender;
 import controller.ServerController;
+import domain.Car;
 import domain.DefaultDomainObject;
 import domain.User;
 import form.coordinator.Coordinator;
@@ -60,12 +61,29 @@ public class HandleClientThread extends Thread{
                         case Operation.GET_ALL:
                             response.setResult(controller.getAll((DefaultDomainObject) request.getArgument()));
                             break;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        case Operation.GET_ALL_USERS:
+                            response.setResult(controller.getAllUsers());
+                            break;
+                        
+                        case Operation.GET_ALL_CARS:
+                            response.setResult(controller.getAllCars());
+                            break;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         case Operation.GET_ALL_ORDERED:
                             response.setResult(controller.getAllOrdered((DefaultDomainObject) request.getArgument()));
                             break;
                         case Operation.GET_BY_CONDITION:
                             response.setResult(controller.getByCondition((DefaultDomainObject) request.getArgument()));
                             break;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        case Operation.SEARCH_USERS:
+                            response.setResult(controller.searchUsers((User) request.getArgument()));
+                            break;
+                        case Operation.SEARCH_CARS:
+                            response.setResult(controller.searchCars((Car) request.getArgument()));
+                            break;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         case Operation.INSERT_ROW:
                             controller.insertRow((DefaultDomainObject) request.getArgument());
                             break;
@@ -73,8 +91,13 @@ public class HandleClientThread extends Thread{
                             response.setResult(controller.insertRowAndGetId((DefaultDomainObject) request.getArgument()));
                             break;
                         case Operation.DELETE_ROW:
+                            controller.deleteCar((Car) request.getArgument());
+                            break;
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        case Operation.DELETE_CAR:
                             controller.deleteRow((DefaultDomainObject) request.getArgument());
                             break;
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         case Operation.UPDATE_ROW:
                             controller.updateRow((DefaultDomainObject) request.getArgument());
                             break;

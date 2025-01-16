@@ -153,7 +153,7 @@ public class Customer implements DefaultDomainObject, Serializable{
 
     @Override
     public String getOrderCondition() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "name";
     }
     
     
