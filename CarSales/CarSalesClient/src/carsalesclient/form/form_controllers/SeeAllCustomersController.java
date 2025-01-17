@@ -10,10 +10,10 @@ import carsalesclient.form.form_coordinator.Coordinator;
 import carsalesclient.form.modes.FormMode;
 import carsalesclient.form.tableModels.CustomersTableModel;
 import domain.Customer;
-import domain.DefaultDomainObject;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -47,11 +47,7 @@ public class SeeAllCustomersController {
                     Customer customer = new Customer();
                     customer.setSearchCondition("name");
                     customer.setSearchConditionValue(conditionValue);
-                    List<DefaultDomainObject> c = ClientController.getInstance().getByCondition(customer);
-                    List<Customer> customers = new ArrayList<>();
-                    for (DefaultDomainObject i : c) {
-                        customers.add((Customer) i);
-                    }
+                    List<Customer> customers = ClientController.getInstance().searchCustomers(customer);
                     customersTableForm.getTblCustomers().setModel(new CustomersTableModel(customers));
                 } catch (Exception e) {
                     System.out.println("Error: "+e.getMessage());
@@ -81,7 +77,7 @@ public class SeeAllCustomersController {
                     Customer customer = ((CustomersTableModel) customersTableForm.getTblCustomers().getModel()).getCustomerAt(rowId);
                     customer.setDeleteConditionValue(customer.getIdCustomer());
                     if(JOptionPane.showConfirmDialog(customersTableForm, "Are you sure you want to DELETE the following customer from the database: \n"+customer.getName(), "Delete customer", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                        ClientController.getInstance().deleteRow(customer);
+                        ClientController.getInstance().deleteCustomer(customer);
                         JOptionPane.showMessageDialog(customersTableForm, "Customer deleted successfully!");
                         fillTable();
                     }
@@ -108,15 +104,18 @@ public class SeeAllCustomersController {
                 Coordinator.getInstance().openAddCustomerForm(FormMode.DETAILS_FORM);
             }
         });
+        
+        customersTableForm.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowActivated(WindowEvent e) {
+                fillTable();
+            }
+        });
     }
 
     private void fillTable() {
         try {
-            List<DefaultDomainObject> allCustomers = ClientController.getInstance().getAll(new Customer());
-            List<Customer> customers = new ArrayList<>();
-            for (DefaultDomainObject customer : allCustomers) {
-                customers.add((Customer) customer);
-            }
+            List<Customer> customers = ClientController.getInstance().getAllCustomers();
             customersTableForm.getTblCustomers().setModel(new CustomersTableModel(customers));
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());

@@ -87,6 +87,7 @@ public class LoginController {
                 try {
 //                    ClientController.getInstance().closeCon();
                     ClientController.getInstance().logout(null);
+//dodaj logoutSO ako smislis nesto bolje
                 } catch (Exception ex) {
                     System.out.println("Error: "+ ex.getMessage());
                 }

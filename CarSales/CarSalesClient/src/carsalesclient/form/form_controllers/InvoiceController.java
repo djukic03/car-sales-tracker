@@ -13,7 +13,6 @@ import carsalesclient.form.tableModels.CustomersTableModel;
 import carsalesclient.form.tableModels.InvoiceItemsTableModel;
 import domain.Car;
 import domain.Customer;
-import domain.DefaultDomainObject;
 import domain.Invoice;
 import domain.InvoiceItem;
 import domain.User;
@@ -73,11 +72,7 @@ public class InvoiceController {
                         Customer customer = new Customer();
                         customer.setSearchCondition("name");
                         customer.setSearchConditionValue(invoiceForm.getTxtCustomerSearchCondition().getText());
-                        List<DefaultDomainObject> allCustomers = ClientController.getInstance().getByCondition(customer);
-                        List<Customer> customers = new ArrayList<>();
-                        for (DefaultDomainObject c : allCustomers) {
-                            customers.add((Customer) c);
-                        }
+                        List<Customer> customers = ClientController.getInstance().searchCustomers(customer);
                         invoiceForm.getTblCustomers().setModel(new CustomersTableModel(customers));
                     }
                 } catch (Exception e) {
@@ -135,11 +130,7 @@ public class InvoiceController {
                         Car car = new Car();
                         car.setSearchCondition("brand");
                         car.setSearchConditionValue(conditionValue);
-                        List<DefaultDomainObject> c = ClientController.getInstance().getByCondition(car);
-                        List<Car> cars = new ArrayList<>();
-                        for (DefaultDomainObject i : c) {
-                            cars.add((Car) i);
-                        }
+                        List<Car> cars = ClientController.getInstance().searchCars(car);
                         fillCarsTable(cars);
                     }
                 } catch (Exception e) {
@@ -301,11 +292,7 @@ public class InvoiceController {
     
     public void fillCustomersTable() {
         try {
-            List<DefaultDomainObject> allCustomers = ClientController.getInstance().getAll(new Customer());
-            List<Customer> customers = new ArrayList<>();
-            for (DefaultDomainObject customer : allCustomers) {
-                customers.add((Customer) customer);
-            }
+            List<Customer> customers = ClientController.getInstance().getAllCustomers();
             invoiceForm.getTblCustomers().setModel(new CustomersTableModel(customers));
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -316,11 +303,7 @@ public class InvoiceController {
     public void fillCarsTable(List<Car> c) {
         try {
             if(c == null){
-                List<DefaultDomainObject> allCars = ClientController.getInstance().getAllOrdered(new Car());
-                List<Car> cars = new ArrayList<>();
-                for (DefaultDomainObject car : allCars) {
-                    cars.add((Car) car);
-                }
+                List<Car> cars = ClientController.getInstance().getAllCars();
                 invoiceForm.getTblCars().setModel(new CarsTableModel(cars));
             }
             else{

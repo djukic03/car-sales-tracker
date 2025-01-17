@@ -5,7 +5,6 @@
 package carsalesclient.form.form_controllers;
 
 import carsalesclient.controller.ClientController;
-import carsalesclient.form.LoginForm;
 import carsalesclient.form.MainForm;
 import carsalesclient.form.form_coordinator.Coordinator;
 import carsalesclient.form.modes.FormMode;
@@ -14,9 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -98,6 +94,7 @@ public class MainController {
 //                    ClientController.getInstance().closeCon();
                     System.out.println("log outujemo usera "+((User) Coordinator.getInstance().getParam("Logged_in_user")).getFirstName());
                     ClientController.getInstance().logout((User) Coordinator.getInstance().getParam("Logged_in_user"));
+//Ako smislim nesto bolje za logout - dodaj SO
                 } catch (Exception ex) {
                     System.out.println("Error: " + ex.getMessage());
                     ex.printStackTrace();

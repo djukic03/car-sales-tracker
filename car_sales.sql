@@ -1,5 +1,5 @@
 /*
-SQLyog Community v13.2.1 (64 bit)
+SQLyog Community v13.3.0 (64 bit)
 MySQL - 10.4.32-MariaDB : Database - car_sales
 *********************************************************************
 */
@@ -40,12 +40,12 @@ CREATE TABLE `car` (
 insert  into `car`(`id`,`brand`,`model`,`first_reg`,`mileage`,`category`,`fuel`,`engine_capacity`,`engine_power`,`gearbox`,`price`) values 
 (1,'Audi','R8','2015-01-01',0,'','',0,0,'',50000),
 (2,'Nissan','R34 GTR','2015-03-14',0,'','',0,0,'',100000),
-(3,'Seat','Ibiza','2011-01-01',0,'','',0,0,'',8000),
+(3,'Seat','Ibiza','2011-01-01',420000,'Hatchback','Diesel',1.2,65,'Manual',5000),
 (4,'Audi','A4','2003-01-01',0,'','',0,0,'',10000),
 (5,'Ford','Mustang','2016-01-01',0,'','',0,0,'',25000),
 (6,'Volkswagen','Golf 5','2008-01-01',0,'','',0,0,'',3000),
 (11,'BMW','M4','2011-01-01',0,'','',0,0,'',20000),
-(12,'Škoda','Superb','2021-01-01',0,'','',0,0,'',10000),
+(12,'Škoda','Superb','2021-01-01',150000,'Limousine/Salon','Petrol',1.5,90,'Automatic',10000),
 (13,'Nissan','Qashqai','2010-01-01',0,'','',0,0,'',12000),
 (14,'Volkswagen','Golf 8','2019-01-01',0,'','',0,0,'',15000),
 (15,'BMW','M3','2018-01-01',0,'','',0,0,'',50000),
@@ -64,7 +64,7 @@ CREATE TABLE `customer` (
   `phone` varchar(15) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 /*Data for the table `customer` */
 
@@ -76,11 +76,11 @@ insert  into `customer`(`id`,`name`,`phone`,`email`) values
 (6,'Nebojsa Đukić','069661036','nebojsa@gmail.com'),
 (7,'Ana Djukic','0656153878','ana@gmail.com'),
 (8,'OTP Banka','011456789','banka@otp.com'),
-(9,'Vrtic \"Neven\"','0143423456',''),
-(11,'Bambi','011785632','bambi@bambi.com'),
+(9,'Vrtic \"Neven\"','0143423456','neven@gmail.com'),
 (12,'Mileta Đukić','064845612','mileta@gmail.com'),
 (13,'Metalac Valjevo','014111111','metalac.to.je.tim.iz.valjeva@valjevo.com'),
-(15,'KK Crvena Zvezda','011456123','kkczv@beograd.rs');
+(15,'KK Crvena Zvezda','011456123','kkczv@beograd.rs'),
+(16,'Studenjak','011111111','stud@stud.stud');
 
 /*Table structure for table `invoice` */
 

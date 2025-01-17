@@ -6,6 +6,7 @@ package controller;
 
 import database.DatabaseBroker;
 import domain.Car;
+import domain.Customer;
 import domain.DefaultDomainObject;
 import domain.User;
 import java.util.List;
@@ -15,7 +16,14 @@ import so.AbstractSO;
 import so.car.DeleteCarSO;
 import so.car.GetAllCarsSO;
 import so.car.GetCarBrandsSO;
+import so.car.InsertCarSO;
 import so.car.SearchCarsSO;
+import so.car.UpdateCarSO;
+import so.customer.DeleteCustomerSO;
+import so.customer.GetAllCustomersSO;
+import so.customer.InsertCustomerSO;
+import so.customer.SearchCustomersSO;
+import so.customer.UpdateCustomerSO;
 import so.user.GetAllUsersSO;
 import so.user.LoginUserSO;
 import so.user.SearchUsersSO;
@@ -61,10 +69,14 @@ public class ServerController {
         }
     }
     
+    
+    
+    
+    
+    
     public List<DefaultDomainObject> getAll(DefaultDomainObject ddo) throws SQLException{
         return dbBroker.getAll(ddo);
     }
-    
     //////////////////////////////////////////////////////////////////////////////////////////////
     public List<DefaultDomainObject> getAllUsers() throws Exception{
         GetAllUsersSO so = new GetAllUsersSO();
@@ -77,12 +89,24 @@ public class ServerController {
         so.executeSO(null);
         return so.getCars();
     }
+    
+    public List<DefaultDomainObject> getAllCustomers() throws Exception{
+        GetAllCustomersSO so = new GetAllCustomersSO();
+        so.executeSO(null);
+        return so.getCustomers();
+    }
     ///////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
+    
+    
+    
+    
+    
     
     public List<DefaultDomainObject> getByCondition(DefaultDomainObject ddo) throws SQLException {
         return dbBroker.getByCondition(ddo);
     }
-    
     ///////////////////////////////////////////////////////////////////////////////////////////////
     public List<DefaultDomainObject> searchUsers(User u) throws Exception {
         SearchUsersSO so = new SearchUsersSO();
@@ -95,15 +119,45 @@ public class ServerController {
         so.executeSO(car);
         return so.getCars();
     }
+    
+    public List<DefaultDomainObject> searchCustomers(Customer customer) throws Exception {
+        SearchCustomersSO so = new SearchCustomersSO();
+        so.executeSO(customer);
+        return so.getCustomers();
+    }
     ///////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
+    
+    
+    
+    
     
     public void insertRow(DefaultDomainObject ddo) throws SQLException {
         dbBroker.insertRow(ddo);
     }
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    public void insertCustomer(Customer customer) throws Exception {
+        InsertCustomerSO so = new InsertCustomerSO();
+        so.executeSO(customer);
+    }
+    
+    public void insertCar(Car car) throws Exception {
+        InsertCarSO so = new InsertCarSO();
+        so.executeSO(car);
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////
     
     public Long insertRowAndGetId(DefaultDomainObject ddo) throws SQLException {
         return dbBroker.insertRowAndGetId(ddo);
     }
+    
+    
+    
+    
+    
+    
+    
     
     public void deleteRow(DefaultDomainObject ddo) throws SQLException {
         dbBroker.deleteRow(ddo);
@@ -113,11 +167,38 @@ public class ServerController {
         DeleteCarSO so = new DeleteCarSO();
         so.executeSO(car);
     }
+    
+    public void deleteCustomer(Customer customer) throws Exception {
+        DeleteCustomerSO so = new DeleteCustomerSO();
+        so.executeSO(customer);
+    }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
+    
+    
+    
     
     public void updateRow(DefaultDomainObject ddo) throws SQLException {
         dbBroker.updateRow(ddo);
     }
+///////////////////////////////////////////////////////////////////////////////////////////////////
+    public void updateCustomer(Customer customer) throws Exception {
+        UpdateCustomerSO so = new UpdateCustomerSO();
+        so.executeSO(customer);
+    }
+    
+    public void updateCar(Car car) throws Exception {
+        UpdateCarSO so = new UpdateCarSO();
+        so.executeSO(car);
+    }
+///////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
+    
+    
+    
+    
     
     public List<String> getAllCarBrands() throws Exception{
         GetCarBrandsSO so = new GetCarBrandsSO();

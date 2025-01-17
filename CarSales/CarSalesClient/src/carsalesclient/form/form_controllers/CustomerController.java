@@ -54,11 +54,11 @@ public class CustomerController {
                 try {
                     if(!emptyFields()){
                         Customer customer = new Customer(null, customerForm.getTxtName().getText(), customerForm.getTxtPhone().getText() , customerForm.getTxtEmail().getText());
-                        if(JOptionPane.showConfirmDialog(customerForm, "Are you sure you want to SAVE the following changes into the database: \n"+customer.getName()+" "+customer.getPhone()+", "+customer.getEmail(), "Change customer details", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                        if(JOptionPane.showConfirmDialog(customerForm, "Are you sure you want to SAVE the following changes into the database: \n"+customer.getName()+" "+customer.getPhone()+", "+customer.getEmail(), "Update customer", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                             customer.setIdCustomer(((Customer) Coordinator.getInstance().getParam("Customer_details")).getIdCustomer());
                             customer.setUpdateConditionValue(customer.getIdCustomer());
-                            ClientController.getInstance().updateRow(customer);
-                            JOptionPane.showMessageDialog(customerForm, customer.getName()+" has been successfully added to the database!");
+                            ClientController.getInstance().updateCustomer(customer);
+                            JOptionPane.showMessageDialog(customerForm, customer.getName()+" has been successfully updated!");
                             customerForm.dispose();
                         }
                     }
@@ -83,7 +83,7 @@ public class CustomerController {
                     if(!emptyFields()){
                         Customer customer = new Customer(null, customerForm.getTxtName().getText(),customerForm.getTxtPhone().getText() , customerForm.getTxtEmail().getText());
                         if(JOptionPane.showConfirmDialog(customerForm, "Are you sure you want to INSERT the following customer into the database: \n"+customer.getName()+" "+customer.getPhone()+", "+customer.getEmail(), "Add customer", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                            ClientController.getInstance().insertRow(customer);
+                            ClientController.getInstance().insertCustomer(customer);
                             if(JOptionPane.showConfirmDialog(customerForm, customer.getName()+" has been successfully added to the database!\n\nAdd more customers?", "Success", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                                 prepareForm(FormMode.ADD_FORM);
                             }
