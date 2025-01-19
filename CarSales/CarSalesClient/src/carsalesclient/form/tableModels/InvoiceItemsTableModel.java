@@ -22,7 +22,6 @@ public class InvoiceItemsTableModel extends AbstractTableModel{
 
     public InvoiceItemsTableModel(List<InvoiceItem> items) {
         this.items = items;
-        updateCars();
     }
 
     @Override
@@ -37,26 +36,13 @@ public class InvoiceItemsTableModel extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        int carId = items.get(rowIndex).getCar().getIdCar().intValue();
         switch (columnIndex) {
             case 0:
                 return items.get(rowIndex).getNum();
             case 1:
-                for (Car car : cars) {
-                    if(car.getIdCar() == carId){
-                        return car.getBrand();
-                    }
-                }
-                System.out.println("Nije pronadjen auto");
-                break;
+                return items.get(rowIndex).getCar().getBrand();
             case 2:
-                for (Car car : cars) {
-                    if(car.getIdCar() == carId){
-                        return car.getModel();
-                    }
-                }
-                System.out.println("Nije pronadjen auto");
-                break;
+                return items.get(rowIndex).getCar().getModel();
             case 3:
                 return items.get(rowIndex).getPriceOfOne();
             case 4:
@@ -64,7 +50,7 @@ public class InvoiceItemsTableModel extends AbstractTableModel{
             case 5:
                 return items.get(rowIndex).getSum();
             default:
-                throw new AssertionError();
+                break;
         }
         return null;
     }
@@ -88,12 +74,9 @@ public class InvoiceItemsTableModel extends AbstractTableModel{
         return items;
     }
 
-    public void addInvoiceItem(int quantity, double priceOfOne, double sum, Car car) {
-        InvoiceItem item = new InvoiceItem(null, 0, quantity, priceOfOne, sum, car);
+    public void addInvoiceItem(InvoiceItem item) {
         item.setNum(items.size() + 1);
         items.add(item);
-        fireTableRowsInserted(items.size() - 1, items.size() - 1);
-        updateCars();
     }
 
     public void removeInvoiceItem(int rowId) {
@@ -102,21 +85,5 @@ public class InvoiceItemsTableModel extends AbstractTableModel{
             items.get(i).setNum(i+1);
         }
         fireTableRowsDeleted(items.size() - 1, items.size() - 1);
-        updateCars();
-    }
-    
-    private void updateCars(){
-        Car car = new Car();
-        car.setSearchCondition("id");
-        try {
-            ClientController controller = ClientController.getInstance();
-            for (InvoiceItem item : items) {
-                car.setSearchConditionValue(item.getCar().getIdCar().toString());
-                List<DefaultDomainObject> c = controller.getByCondition(car);
-                this.cars.add((Car) c.getFirst());
-            }
-        } catch (Exception e) {
-            System.out.println("Error: "+e.getMessage());
-        }
     }
 }

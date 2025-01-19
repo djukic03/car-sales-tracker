@@ -6,6 +6,7 @@ package carsalesclient.form.form_controllers;
 
 import carsalesclient.controller.ClientController;
 import carsalesclient.form.LoginForm;
+import carsalesclient.form.constants.CoordinatorParamConsts;
 import carsalesclient.form.form_coordinator.Coordinator;
 import domain.User;
 import java.awt.Color;
@@ -53,7 +54,7 @@ public class LoginController {
                         User loggedInUser = ClientController.getInstance().login(user);
                         JOptionPane.showMessageDialog(loginForm, "Login successfull! \nWelcome "+ loggedInUser.getFirstName() +"!");
                         loginForm.dispose();
-                        Coordinator.getInstance().addParam("Logged_in_user", loggedInUser);
+                        Coordinator.getInstance().addParam(CoordinatorParamConsts.LOGGED_IN_USER, loggedInUser);
                         Coordinator.getInstance().openMainForm();
                                 
                     } catch (Exception ex) {

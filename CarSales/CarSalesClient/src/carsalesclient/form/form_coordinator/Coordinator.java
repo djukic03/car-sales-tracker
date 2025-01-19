@@ -12,6 +12,7 @@ import carsalesclient.form.CustomersTableForm;
 import carsalesclient.form.LoginForm;
 import carsalesclient.form.MainForm;
 import carsalesclient.form.UsersTableForm;
+import carsalesclient.form.constants.CoordinatorParamConsts;
 import carsalesclient.form.form_controllers.CarController;
 import carsalesclient.form.form_controllers.CustomerController;
 import carsalesclient.form.form_controllers.LoginController;
@@ -20,7 +21,8 @@ import carsalesclient.form.form_controllers.InvoiceController;
 import carsalesclient.form.form_controllers.SeeAllCarsController;
 import carsalesclient.form.form_controllers.SeeAllCustomersController;
 import carsalesclient.form.form_controllers.SeeAllUsersController;
-import carsalesclient.form.modes.FormMode;
+import carsalesclient.form.modes.AddFormMode;
+import carsalesclient.form.modes.TableFormMode;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +33,7 @@ import java.util.Map;
 public class Coordinator {
     private static Coordinator instance;
     private final MainController mainController;
-    private final Map<String, Object> params;
+    private final Map<CoordinatorParamConsts, Object> params;
 
     private Coordinator() {
         mainController = new MainController(new MainForm());
@@ -58,11 +60,11 @@ public class Coordinator {
         return mainController;
     }
     
-    public void addParam(String name, Object key){
+    public void addParam(CoordinatorParamConsts name, Object key){
         params.put(name, key);
     }
     
-    public Object getParam(String name){
+    public Object getParam(CoordinatorParamConsts name){
         return params.get(name);
     }
 
@@ -80,23 +82,23 @@ public class Coordinator {
         controller.openForm();
     }
 
-    public void openAddCarForm(FormMode formMode) {
+    public void openAddCarForm(AddFormMode formMode) {
         CarController controller = new CarController(new AddCarForm(mainController.getMainForm(), true));
         controller.openForm(formMode);
     }
 
-    public void openCarsTableForm() {
+    public void openCarsTableForm(TableFormMode formMode) {
         SeeAllCarsController controller = new SeeAllCarsController(new CarsTableForm(mainController.getMainForm(), true));
-        controller.openForm();
+        controller.openForm(formMode);
     }
 
-    public void openAddCustomerForm(FormMode formMode) {
+    public void openAddCustomerForm(AddFormMode formMode) {
         CustomerController controller = new CustomerController(new AddCustomerForm(mainController.getMainForm(), true));
         controller.openForm(formMode);
     }
 
-    public void openCustomersTableForm() {
+    public void openCustomersTableForm(TableFormMode formMode) {
         SeeAllCustomersController controller = new SeeAllCustomersController(new CustomersTableForm(mainController.getMainForm(), true));
-        controller.openForm();
+        controller.openForm(formMode);
     }
 }

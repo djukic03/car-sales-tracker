@@ -6,8 +6,10 @@ package carsalesclient.form.form_controllers;
 
 import carsalesclient.controller.ClientController;
 import carsalesclient.form.MainForm;
+import carsalesclient.form.constants.CoordinatorParamConsts;
 import carsalesclient.form.form_coordinator.Coordinator;
-import carsalesclient.form.modes.FormMode;
+import carsalesclient.form.modes.AddFormMode;
+import carsalesclient.form.modes.TableFormMode;
 import domain.User;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,7 +33,7 @@ public class MainController {
     }
     
     public void openForm(){
-        User user = (User) Coordinator.getInstance().getParam("Logged_in_user");
+        User user = (User) Coordinator.getInstance().getParam(CoordinatorParamConsts.LOGGED_IN_USER);
         mainForm.getLblMain().setText("Welcome "+user.getFirstName() + " " + user.getLastName());
         mainForm.setVisible(true);
     }
@@ -61,28 +63,28 @@ public class MainController {
         mainForm.miAddNewCarAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Coordinator.getInstance().openAddCarForm(FormMode.ADD_FORM);
+                Coordinator.getInstance().openAddCarForm(AddFormMode.ADD_FORM);
             }
         });
         
         mainForm.miSeeAllCarsAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Coordinator.getInstance().openCarsTableForm();
+                Coordinator.getInstance().openCarsTableForm(TableFormMode.SEE_ALL_ITEMS);
             }
         });
         
         mainForm.miAddNewCustomerAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Coordinator.getInstance().openAddCustomerForm(FormMode.ADD_FORM);
+                Coordinator.getInstance().openAddCustomerForm(AddFormMode.ADD_FORM);
             }
         });
         
         mainForm.miSeeAllCustomersAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Coordinator.getInstance().openCustomersTableForm();
+                Coordinator.getInstance().openCustomersTableForm(TableFormMode.SEE_ALL_ITEMS);
             }
         });
         
@@ -92,8 +94,8 @@ public class MainController {
                 super.windowClosing(e);
                 try {
 //                    ClientController.getInstance().closeCon();
-                    System.out.println("log outujemo usera "+((User) Coordinator.getInstance().getParam("Logged_in_user")).getFirstName());
-                    ClientController.getInstance().logout((User) Coordinator.getInstance().getParam("Logged_in_user"));
+                    System.out.println("log outujemo usera "+((User) Coordinator.getInstance().getParam(CoordinatorParamConsts.LOGGED_IN_USER)).getFirstName());
+                    ClientController.getInstance().logout((User) Coordinator.getInstance().getParam(CoordinatorParamConsts.LOGGED_IN_USER));
 //Ako smislim nesto bolje za logout - dodaj SO
                 } catch (Exception ex) {
                     System.out.println("Error: " + ex.getMessage());

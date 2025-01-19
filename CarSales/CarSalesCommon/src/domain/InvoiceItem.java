@@ -83,6 +83,11 @@ public class InvoiceItem implements DefaultDomainObject, Serializable{
     public void setCar(Car car) {
         this.car = car;
     }
+
+    @Override
+    public String toString() {
+        return car.getBrand() + " " + car.getModel() + ", quantity: " + quantity + ", sum = " +sum;
+    }
     
     @Override
     public String getClassName() {

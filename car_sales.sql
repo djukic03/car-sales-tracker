@@ -33,7 +33,7 @@ CREATE TABLE `car` (
   `gearbox` varchar(20) NOT NULL,
   `price` double NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 /*Data for the table `car` */
 
@@ -47,7 +47,7 @@ insert  into `car`(`id`,`brand`,`model`,`first_reg`,`mileage`,`category`,`fuel`,
 (11,'BMW','M4','2011-01-01',0,'','',0,0,'',20000),
 (12,'Škoda','Superb','2021-01-01',150000,'Limousine/Salon','Petrol',1.5,90,'Automatic',10000),
 (13,'Nissan','Qashqai','2010-01-01',0,'','',0,0,'',12000),
-(14,'Volkswagen','Golf 8','2019-01-01',0,'','',0,0,'',15000),
+(14,'Volkswagen','Golf 8','2019-01-01',230000,'Hatchback','Petrol',1.4,85,'Automatic',15000),
 (15,'BMW','M3','2018-01-01',0,'','',0,0,'',50000),
 (16,'Audi','A3','2013-01-01',0,'','',0,0,'',6000),
 (17,'Volkswagen','Passat','2020-01-01',220885,'Estate/Wagon','Petrol',2,150,'Automatic',16999),
@@ -64,14 +64,14 @@ CREATE TABLE `customer` (
   `phone` varchar(15) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 /*Data for the table `customer` */
 
 insert  into `customer`(`id`,`name`,`phone`,`email`) values 
 (1,'Nemanja Đukić','0637412291','djukic.nemanja003@gmail.com'),
 (3,'Fakultet organizacionih nauka','011123456','fon@fon.bg.ac.rs'),
-(4,'Centro agrar','069661036','centro.agrar@gmail.com'),
+(4,'Centro Agrar','069661036','centro.agrar@gmail.com'),
 (5,'Teodora Đukić','0631748008','teka.djukic@gmail.com'),
 (6,'Nebojsa Đukić','069661036','nebojsa@gmail.com'),
 (7,'Ana Djukic','0656153878','ana@gmail.com'),
@@ -88,6 +88,7 @@ DROP TABLE IF EXISTS `invoice`;
 
 CREATE TABLE `invoice` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `invoice_num` bigint(20) unsigned NOT NULL,
   `date_of_issue` date NOT NULL,
   `total_amount` double NOT NULL,
   `user_id` bigint(20) unsigned NOT NULL,
@@ -97,21 +98,22 @@ CREATE TABLE `invoice` (
   KEY `costumer_fk` (`customer_id`),
   CONSTRAINT `costumer_fk` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
   CONSTRAINT `user_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 /*Data for the table `invoice` */
 
-insert  into `invoice`(`id`,`date_of_issue`,`total_amount`,`user_id`,`customer_id`) values 
-(8,'2024-12-21',50000,3,1),
-(9,'2024-12-21',5080000,3,3),
-(10,'2024-12-21',20000,2,5),
-(11,'2024-12-21',100000,1,4),
-(12,'2024-12-21',325000,3,8),
-(13,'2024-12-23',1000000,3,7),
-(14,'2024-12-24',100000,3,1),
-(15,'2024-12-25',20000,3,7),
-(16,'2024-12-26',330000,1,5),
-(17,'2024-12-26',24000,1,13);
+insert  into `invoice`(`id`,`invoice_num`,`date_of_issue`,`total_amount`,`user_id`,`customer_id`) values 
+(8,1,'2024-12-21',50000,3,1),
+(9,2,'2024-12-21',5080000,3,3),
+(10,3,'2024-12-21',20000,2,5),
+(11,4,'2024-12-21',100000,1,4),
+(12,5,'2024-12-21',325000,3,8),
+(13,6,'2024-12-23',1000000,3,7),
+(14,7,'2024-12-24',100000,3,1),
+(15,8,'2024-12-25',20000,3,7),
+(16,9,'2024-12-26',330000,1,5),
+(17,10,'2024-12-26',24000,1,13),
+(18,11,'2025-01-19',15000,3,13);
 
 /*Table structure for table `invoice_item` */
 
@@ -148,7 +150,8 @@ insert  into `invoice_item`(`invoice_id`,`rb`,`quantity`,`price_of_one`,`sum`,`c
 (15,2,1,12000,12000,13),
 (16,1,4,20000,80000,11),
 (16,2,5,50000,250000,15),
-(17,1,12,2000,24000,18);
+(17,1,12,2000,24000,18),
+(18,1,1,15000,15000,14);
 
 /*Table structure for table `user` */
 

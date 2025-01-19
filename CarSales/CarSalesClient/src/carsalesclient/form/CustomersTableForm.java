@@ -39,6 +39,8 @@ public class CustomersTableForm extends javax.swing.JDialog {
         tblCustomers = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         btnDelete = new javax.swing.JButton();
+        btnSelect = new javax.swing.JButton();
+        btnAddNew = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -92,6 +94,22 @@ public class CustomersTableForm extends javax.swing.JDialog {
             }
         });
 
+        btnSelect.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnSelect.setText("SELECT");
+        btnSelect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectActionPerformed(evt);
+            }
+        });
+
+        btnAddNew.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnAddNew.setText("Add New");
+        btnAddNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddNewActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,6 +127,10 @@ public class CustomersTableForm extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAddNew, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -127,7 +149,9 @@ public class CustomersTableForm extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddNew, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -145,10 +169,21 @@ public class CustomersTableForm extends javax.swing.JDialog {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSelectActionPerformed
+
+    private void btnAddNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddNewActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddNew;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnDetails;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnSelect;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblCustomers;
@@ -174,6 +209,14 @@ public class CustomersTableForm extends javax.swing.JDialog {
     public JTextField getTxtSearch() {
         return txtSearch;
     }
+
+    public JButton getBtnAddNew() {
+        return btnAddNew;
+    }
+
+    public JButton getBtnSelect() {
+        return btnSelect;
+    }
     
     public void btnSearchAddActionListener(ActionListener actionListener){
         btnSearch.addActionListener(actionListener);
@@ -185,6 +228,14 @@ public class CustomersTableForm extends javax.swing.JDialog {
     
     public void btnDetailsAddActionListener(ActionListener actionListener){
         btnDetails.addActionListener(actionListener);
+    }
+    
+    public void btnAddNewAddActionListener(ActionListener actionListener){
+        btnAddNew.addActionListener(actionListener);
+    }
+    
+    public void btnSelectAddActionListener(ActionListener actionListener){
+        btnSelect.addActionListener(actionListener);
     }
     
 }

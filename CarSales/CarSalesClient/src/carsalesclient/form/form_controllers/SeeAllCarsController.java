@@ -6,17 +6,23 @@ package carsalesclient.form.form_controllers;
 
 import carsalesclient.controller.ClientController;
 import carsalesclient.form.CarsTableForm;
+import carsalesclient.form.constants.CoordinatorParamConsts;
 import carsalesclient.form.form_coordinator.Coordinator;
-import carsalesclient.form.modes.FormMode;
+import carsalesclient.form.modes.AddFormMode;
+import carsalesclient.form.modes.TableFormMode;
 import carsalesclient.form.tableModels.CarsTableModel;
 import domain.Car;
+import domain.InvoiceItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -24,13 +30,15 @@ import javax.swing.JOptionPane;
  */
 public class SeeAllCarsController {
     private final CarsTableForm carsTableForm;
+    private List<InvoiceItem> selectedCars = new ArrayList<>();
 
     public SeeAllCarsController(CarsTableForm carsTableForm) {
         this.carsTableForm = carsTableForm;
         addListeners();
     }
     
-    public void openForm(){
+    public void openForm(TableFormMode formMode){
+        prepareForm(formMode);
         fillComboBox();
         fillTable(null);
         carsTableForm.setVisible(true);
@@ -96,8 +104,60 @@ public class SeeAllCarsController {
                     return;
                 }
                 Car car = ((CarsTableModel) carsTableForm.getTblCars().getModel()).getCarAt(rowId);
-                Coordinator.getInstance().addParam("Car_details", car);
-                Coordinator.getInstance().openAddCarForm(FormMode.DETAILS_FORM);
+                Coordinator.getInstance().addParam(CoordinatorParamConsts.CAR_DETAILS, car);
+                Coordinator.getInstance().openAddCarForm(AddFormMode.DETAILS_FORM);
+            }
+        });
+        
+        carsTableForm.btnAddNewAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Coordinator.getInstance().openAddCarForm(AddFormMode.ADD_FORM);
+            }
+        });
+        
+        carsTableForm.getTblCars().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if(!e.getValueIsAdjusting()){
+                    int rowId = carsTableForm.getTblCars().getSelectedRow();
+                    if(rowId != -1){
+                        Car car = ((CarsTableModel) carsTableForm.getTblCars().getModel()).getCarAt(rowId);
+                        carsTableForm.getTxtQuantity().setEnabled(true);
+                        carsTableForm.getTxtQuantity().setText("1");
+                        carsTableForm.getTxtQuantity().grabFocus();
+                        carsTableForm.getTxtQuantity().setSelectionStart(0);
+                    }
+                    else{
+                        carsTableForm.getTxtQuantity().setEnabled(false);
+                        carsTableForm.getTxtQuantity().setText("");
+                    }
+                }
+            }
+        });
+        
+        carsTableForm.btnSelectAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                selectCar();
+            }
+
+            private void selectCar() {
+                int rowId = carsTableForm.getTblCars().getSelectedRow();
+                if (rowId < 0) {
+                    JOptionPane.showMessageDialog(carsTableForm, "Please select car!");
+                    return;
+                }
+                Car car = ((CarsTableModel) carsTableForm.getTblCars().getModel()).getCarAt(rowId);
+                int quantity = Integer.parseInt(carsTableForm.getTxtQuantity().getText());
+                selectedCars.add(new InvoiceItem(null, 0, quantity, car.getPrice(), car.getPrice()*quantity, car));
+                if (JOptionPane.showConfirmDialog(carsTableForm, "Selected Cars:\n"+selectedCars.toString() + "\n Select more cars?", "Select more cars?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    return;
+                }
+                
+                Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_CAR, selectedCars);
+                List<InvoiceItem> NovaLista = (List<InvoiceItem>) Coordinator.getInstance().getParam(CoordinatorParamConsts.SELECTED_CAR);
+                carsTableForm.dispose();
             }
         });
         
@@ -133,6 +193,28 @@ public class SeeAllCarsController {
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private void prepareForm(TableFormMode formMode) {
+        switch (formMode) {
+            case TableFormMode.SEE_ALL_ITEMS:
+                carsTableForm.getBtnSelect().setVisible(false);
+                carsTableForm.getLblQuantity().setVisible(false);
+                carsTableForm.getTxtQuantity().setVisible(false);
+                carsTableForm.getBtnDelete().setVisible(true);
+                carsTableForm.getBtnDetails().setVisible(true);
+                break;
+            case TableFormMode.SELECT_ITEM:
+                selectedCars.clear();
+                carsTableForm.getBtnSelect().setVisible(true);
+                carsTableForm.getLblQuantity().setVisible(true);
+                carsTableForm.getTxtQuantity().setVisible(true);
+                carsTableForm.getBtnDelete().setVisible(false);
+                carsTableForm.getBtnDetails().setVisible(false);
+                break;
+            default:
+                break;
         }
     }
 }

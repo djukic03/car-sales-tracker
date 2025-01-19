@@ -6,13 +6,16 @@ package carsalesclient.form.form_controllers;
 
 import carsalesclient.controller.ClientController;
 import carsalesclient.form.AddInvoiceForm;
+import carsalesclient.form.constants.CoordinatorParamConsts;
 import carsalesclient.form.form_coordinator.Coordinator;
-import carsalesclient.form.modes.FormMode;
+import carsalesclient.form.modes.AddFormMode;
+import carsalesclient.form.modes.TableFormMode;
 import carsalesclient.form.tableModels.CarsTableModel;
 import carsalesclient.form.tableModels.CustomersTableModel;
 import carsalesclient.form.tableModels.InvoiceItemsTableModel;
 import domain.Car;
 import domain.Customer;
+import domain.DefaultDomainObject;
 import domain.Invoice;
 import domain.InvoiceItem;
 import domain.User;
@@ -20,10 +23,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -36,6 +42,7 @@ import javax.swing.event.ListSelectionListener;
 public class InvoiceController {
     private final AddInvoiceForm invoiceForm;
     private Customer customer;
+    private List<InvoiceItem> invoiceItems = new ArrayList<>();
 
     public InvoiceController(AddInvoiceForm invoiceForm) {
         this.invoiceForm = invoiceForm;
@@ -43,11 +50,7 @@ public class InvoiceController {
     }
     
     public void openForm(){
-        fillComboBox();
-        fillCustomersTable();
-        fillCarsTable(null);
-        fillInvoiceItemsTable();
-        fillDate();
+        prepareForm();
         invoiceForm.setVisible(true);
     }
 
@@ -55,120 +58,47 @@ public class InvoiceController {
         invoiceForm.addWindowListener(new WindowAdapter() {
             @Override
             public void windowActivated(WindowEvent e) {
-                fillCarsTable(null);
-                fillCustomersTable();
+                fillItemsTable();
+                fillSelectedCustomer();
             }
-        });
-        
-        invoiceForm.btnCustomerSearchAddActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                searchCustomers();
-            }
-            
-            private void searchCustomers(){
-                try {
-                    if(!invoiceForm.getTxtCustomerSearchCondition().getText().isBlank()){
-                        Customer customer = new Customer();
-                        customer.setSearchCondition("name");
-                        customer.setSearchConditionValue(invoiceForm.getTxtCustomerSearchCondition().getText());
-                        List<Customer> customers = ClientController.getInstance().searchCustomers(customer);
-                        invoiceForm.getTblCustomers().setModel(new CustomersTableModel(customers));
+
+            private void fillItemsTable() {
+                List<InvoiceItem> items = (List<InvoiceItem>) Coordinator.getInstance().getParam(CoordinatorParamConsts.SELECTED_CAR);
+                if (items != null) {
+                    InvoiceItemsTableModel model = (InvoiceItemsTableModel) invoiceForm.getTblInvoiceItems().getModel();
+                    for (InvoiceItem item : items) {
+                        model.addInvoiceItem(item);
                     }
-                } catch (Exception e) {
-                    System.out.println("Error: " + e.getMessage());
+                    invoiceItems = model.getInvoiceItems();
+                    invoiceForm.getTblInvoiceItems().setModel(new InvoiceItemsTableModel(invoiceItems));
+                    fillTotalAmount();
                 }
-                
+                Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_CAR, null);
             }
-        });
-        invoiceForm.getTxtCustomerSearchCondition().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                invoiceForm.getBtnCustomerSearch().doClick();
-            }
-        });
-        
-        invoiceForm.btnAddNewCustomerAddActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Coordinator.getInstance().openAddCustomerForm(FormMode.ADD_FORM);
+
+            private void fillSelectedCustomer() {
+                Customer customer = (Customer)Coordinator.getInstance().getParam(CoordinatorParamConsts.SELECTED_CUSTOMER);
+                if (customer == null) {
+                    invoiceForm.getTxtSelectedCustomer().setText("");
+                }
+                else{
+                    invoiceForm.getTxtSelectedCustomer().setText(customer.getName());
+                    setCustomer(customer);
+                }
             }
         });
         
         invoiceForm.btnSelectCustomerAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                selectCustomer();
-            }
-            
-            private void selectCustomer(){
-                int rowId = invoiceForm.getTblCustomers().getSelectedRow();
-                if (rowId < 0) {
-                    JOptionPane.showMessageDialog(invoiceForm, "Please select customer!");
-                    return;
-                }
-                Customer customer = ((CustomersTableModel) invoiceForm.getTblCustomers().getModel()).getCustomerAt(rowId);
-                invoiceForm.getTxtSelectedCustomer().setText(customer.getName() + ", " + customer.getPhone() + ", " + customer.getEmail());
-                setCustomer(customer);
+                Coordinator.getInstance().openCustomersTableForm(TableFormMode.SELECT_ITEM);
             }
         });
         
-        invoiceForm.cbCarSearchConditionAddActionListener(new ActionListener() {
+        invoiceForm.btnAddItemAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                searchCars();
-            }
-            
-            private void searchCars(){
-                try {
-                    invoiceForm.getTblCars().clearSelection();
-                    String conditionValue = invoiceForm.getCbCarSearchCondition().getSelectedItem().toString();
-                    if(conditionValue.equals("All brands")){
-                        fillCarsTable(null);
-                    }
-                    else{
-                        Car car = new Car();
-                        car.setSearchCondition("brand");
-                        car.setSearchConditionValue(conditionValue);
-                        List<Car> cars = ClientController.getInstance().searchCars(car);
-                        fillCarsTable(cars);
-                    }
-                } catch (Exception e) {
-                    System.out.println("Error: " + e.getMessage());
-                }
-            }
-        });
-        
-        invoiceForm.btnAddNewCarAddActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Coordinator.getInstance().openAddCarForm(FormMode.ADD_FORM);
-            }
-        });
-        
-        invoiceForm.btnAddInvoiceItemAddActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addInvoiceItem();
-            }
-            
-            private void addInvoiceItem(){
-                int rowId = invoiceForm.getTblCars().getSelectedRow();
-                if(rowId < 0){
-                    JOptionPane.showMessageDialog(invoiceForm, "Please select car to add to invoice!");
-                    return;
-                }
-                Car car = ((CarsTableModel) invoiceForm.getTblCars().getModel()).getCarAt(rowId);
-                int quantity = Integer.parseInt(invoiceForm.getTxtQuantity().getText());
-                InvoiceItemsTableModel model = (InvoiceItemsTableModel) invoiceForm.getTblInvoiceItems().getModel();
-                model.addInvoiceItem(quantity, car.getPrice(), car.getPrice()*quantity, car);
-                fillTotalAmount();
-            }
-        });
-        invoiceForm.getTxtQuantity().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                invoiceForm.getBtnAddInvoiceItem().doClick();
+                Coordinator.getInstance().openCarsTableForm(TableFormMode.SELECT_ITEM);
             }
         });
         
@@ -208,8 +138,8 @@ public class InvoiceController {
                     }
                     SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
                     Date d = formater.parse(invoiceForm.getTxtDate().getText());
-                    Invoice invoice = new Invoice(null, d, Double.valueOf(invoiceForm.getTxtTotalAmount().getText()),((User) Coordinator.getInstance().getParam("Logged_in_user")).getIdUser(), customer.getIdCustomer());
-
+                    Invoice invoice = new Invoice(null, Long.valueOf(invoiceForm.getTxtInvoiceNumber().getText()), d, Double.valueOf(invoiceForm.getTxtTotalAmount().getText()),((User) Coordinator.getInstance().getParam(CoordinatorParamConsts.LOGGED_IN_USER)).getIdUser(), customer.getIdCustomer());
+                    
                     if(JOptionPane.showConfirmDialog(invoiceForm, "Are you sure you want to CREATE and INSERT this invoice into the database? \n Please check all the data before clicking Yes!", "Create invoice", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                         ClientController controller = ClientController.getInstance();
                         Long invoiceId = controller.insertRowAndGetId(invoice);
@@ -221,7 +151,7 @@ public class InvoiceController {
                             }
                         }
                         if(JOptionPane.showConfirmDialog(invoiceForm, "Invoice has been successfully added to the database!!! \n\n Create more invoices?", "Success", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION){
-                            fillInvoiceItemsTable();
+                            prepareForm();
                             setCustomer(null);
                             invoiceForm.getTxtSelectedCustomer().setText("");
                             invoiceForm.getTxtTotalAmount().setText("");
@@ -243,88 +173,10 @@ public class InvoiceController {
                 invoiceForm.dispose();
             }
         });
-        
-        invoiceForm.getTblCars().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if(!e.getValueIsAdjusting()){
-                    int rowId = invoiceForm.getTblCars().getSelectedRow();
-                    if(rowId != -1){
-                        Car car = ((CarsTableModel) invoiceForm.getTblCars().getModel()).getCarAt(rowId);
-                        invoiceForm.getTxtSelectedCar().setText(car.getBrand() + " " + car.getModel() + ", " + car.getPrice());
-                        invoiceForm.getTxtQuantity().setEnabled(true);
-                        invoiceForm.getTxtQuantity().setText("1");
-                        invoiceForm.getTxtQuantity().grabFocus();
-                        invoiceForm.getTxtQuantity().setSelectionStart(0);
-                    }
-                    else{
-                        invoiceForm.getTxtSelectedCar().setText("");
-                        invoiceForm.getTxtQuantity().setEnabled(false);
-                        invoiceForm.getTxtQuantity().setText("");
-                    }
-                }
-            }
-        });
-        
-        invoiceForm.getTxtQuantity().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                invoiceForm.getBtnAddInvoiceItem().doClick();
-            }
-        });
     }
     
     private void setCustomer(Customer c){
         this.customer = c;
-    }
-    
-    @SuppressWarnings("unchecked")
-    public void fillComboBox() {
-        try {
-            DefaultComboBoxModel cbm = new DefaultComboBoxModel(ClientController.getInstance().getAllCarBrands().toArray());
-            cbm.insertElementAt("All brands", 0);
-            invoiceForm.getCbCarSearchCondition().setModel(cbm);
-            invoiceForm.getCbCarSearchCondition().setSelectedIndex(0);
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-    }
-    
-    public void fillCustomersTable() {
-        try {
-            List<Customer> customers = ClientController.getInstance().getAllCustomers();
-            invoiceForm.getTblCustomers().setModel(new CustomersTableModel(customers));
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-        
-    }
-    
-    public void fillCarsTable(List<Car> c) {
-        try {
-            if(c == null){
-                List<Car> cars = ClientController.getInstance().getAllCars();
-                invoiceForm.getTblCars().setModel(new CarsTableModel(cars));
-            }
-            else{
-                invoiceForm.getTblCars().setModel(new CarsTableModel(c));
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-        
-    }
-    
-    public void fillInvoiceItemsTable() {
-        try {
-            invoiceForm.getTblInvoiceItems().setModel(new InvoiceItemsTableModel(new ArrayList<>()));
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-    }
-    
-    public void fillDate() {
-        invoiceForm.getTxtDate().setText(new SimpleDateFormat("dd.MM.yyyy").format(new Date()));
     }
     
     public void fillTotalAmount() {
@@ -335,6 +187,16 @@ public class InvoiceController {
         }
         invoiceForm.getTxtTotalAmount().setText(Double.toString(total));
     }
-    
-    
+
+    private void prepareForm(){
+        invoiceForm.getTxtDate().setText(new SimpleDateFormat("dd.MM.yyyy").format(new Date()));
+        List<DefaultDomainObject> invoices = null;
+        try {
+            invoices = ClientController.getInstance().getAll(new Invoice()); // ovo baca exception
+        } catch (Exception ex) {
+            Logger.getLogger(InvoiceController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        invoiceForm.getTxtInvoiceNumber().setText(Integer.toString(invoices.size()+1));
+        invoiceForm.getTblInvoiceItems().setModel(new InvoiceItemsTableModel(new ArrayList<>()));
+    }
 }

@@ -6,8 +6,9 @@ package carsalesclient.form.form_controllers;
 
 import carsalesclient.controller.ClientController;
 import carsalesclient.form.AddCarForm;
+import carsalesclient.form.constants.CoordinatorParamConsts;
 import carsalesclient.form.form_coordinator.Coordinator;
-import carsalesclient.form.modes.FormMode;
+import carsalesclient.form.modes.AddFormMode;
 import domain.Car;
 import java.awt.Color;
 import java.awt.Font;
@@ -35,7 +36,7 @@ public class CarController {
         addListeners();
     }
 
-    public void openForm(FormMode formMode){
+    public void openForm(AddFormMode formMode){
         prepareForm(formMode);
         carForm.setVisible(true);
     }
@@ -44,7 +45,7 @@ public class CarController {
         carForm.btnEnableChangesAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                prepareForm(FormMode.UPDATE_FORM);
+                prepareForm(AddFormMode.UPDATE_FORM);
             }
         });
         
@@ -61,7 +62,7 @@ public class CarController {
                         Date reg = sdf.parse(carForm.getTxtFirstReg().getText());
                         Car car = new Car(null, carForm.getTxtBrand().getText(), carForm.getTxtModel().getText(), reg, Integer.parseInt(carForm.getTxtMileage().getText()), (String) carForm.getCbCategory().getSelectedItem(), (String) carForm.getCbFuel().getSelectedItem(), Double.valueOf(carForm.getTxtEngineCapacity().getText()), Double.valueOf(carForm.getTxtEnginePower().getText()), (String) carForm.getCbGearbox().getSelectedItem(), Double.parseDouble(carForm.getTxtPrice().getText()));
                         if(JOptionPane.showConfirmDialog(carForm, "Are you sure you want to SAVE the following changes into the database: \n"+car.getBrand()+" "+car.getModel()+", "+car.getPrice()+"$", "Change car details", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                            car.setIdCar(((Car) Coordinator.getInstance().getParam("Car_details")).getIdCar());
+                            car.setIdCar(((Car) Coordinator.getInstance().getParam(CoordinatorParamConsts.CAR_DETAILS)).getIdCar());
                             car.setUpdateConditionValue(car.getIdCar());
                             ClientController.getInstance().updateCar(car);
                             JOptionPane.showMessageDialog(carForm, car.getBrand()+" "+car.getModel()+" has been successfully added to the database!");
@@ -93,7 +94,7 @@ public class CarController {
                         if(JOptionPane.showConfirmDialog(carForm, "Are you sure you want to INSERT the following car into the database: \n"+car.getBrand()+" "+car.getModel()+", "+car.getPrice()+"$", "Add car", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                             ClientController.getInstance().insertCar(car);
                             if(JOptionPane.showConfirmDialog(carForm, car.getBrand()+" "+car.getModel()+" has been successfully added to the database!\n\nAdd more cars?", "Success", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                                prepareForm(FormMode.ADD_FORM);
+                                prepareForm(AddFormMode.ADD_FORM);
                             }
                             else{
                                 carForm.dispose();
@@ -139,9 +140,9 @@ public class CarController {
         });
     }
 
-    private void prepareForm(FormMode formMode) {
+    private void prepareForm(AddFormMode formMode) {
         switch(formMode){
-            case FormMode.ADD_FORM:
+            case AddFormMode.ADD_FORM:
                 carForm.getLblId().setVisible(false);
                 carForm.getTxtId().setVisible(false);
                 carForm.getTxtId().setEnabled(false);
@@ -173,8 +174,8 @@ public class CarController {
                 carForm.getBtnSave().setEnabled(true);
                 break;
                 
-            case FormMode.DETAILS_FORM:
-                Car car = (Car) Coordinator.getInstance().getParam("Car_details");
+            case AddFormMode.DETAILS_FORM:
+                Car car = (Car) Coordinator.getInstance().getParam(CoordinatorParamConsts.CAR_DETAILS);
                 carForm.getLblId().setVisible(true);
                 carForm.getTxtId().setVisible(true);
                 carForm.getTxtId().setText(car.getIdCar().toString());
@@ -210,7 +211,7 @@ public class CarController {
                 carForm.getBtnSave().setVisible(false);
                 break;
                 
-            case FormMode.UPDATE_FORM:
+            case AddFormMode.UPDATE_FORM:
                 carForm.getLblId().setVisible(true);
                 carForm.getTxtId().setVisible(true);
                 carForm.getTxtId().setEnabled(false);

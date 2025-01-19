@@ -8,8 +8,7 @@ package carsalesclient.form.modes;
  *
  * @author user
  */
-public enum FormMode {
-    ADD_FORM,
-    DETAILS_FORM,
-    UPDATE_FORM
+public enum TableFormMode {
+    SEE_ALL_ITEMS,
+    SELECT_ITEM
 }

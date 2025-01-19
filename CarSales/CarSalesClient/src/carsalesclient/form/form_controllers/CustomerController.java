@@ -6,8 +6,9 @@ package carsalesclient.form.form_controllers;
 
 import carsalesclient.controller.ClientController;
 import carsalesclient.form.AddCustomerForm;
+import carsalesclient.form.constants.CoordinatorParamConsts;
 import carsalesclient.form.form_coordinator.Coordinator;
-import carsalesclient.form.modes.FormMode;
+import carsalesclient.form.modes.AddFormMode;
 import domain.Customer;
 import java.awt.Color;
 import java.awt.Font;
@@ -31,7 +32,7 @@ public class CustomerController {
         addListeners();
     }
     
-    public void openForm(FormMode formMode){
+    public void openForm(AddFormMode formMode){
         prepareForm(formMode);
         customerForm.setVisible(true);
     }
@@ -40,7 +41,7 @@ public class CustomerController {
         customerForm.btnEnableChangesAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                prepareForm(FormMode.UPDATE_FORM);
+                prepareForm(AddFormMode.UPDATE_FORM);
             }
         });
         
@@ -55,7 +56,7 @@ public class CustomerController {
                     if(!emptyFields()){
                         Customer customer = new Customer(null, customerForm.getTxtName().getText(), customerForm.getTxtPhone().getText() , customerForm.getTxtEmail().getText());
                         if(JOptionPane.showConfirmDialog(customerForm, "Are you sure you want to SAVE the following changes into the database: \n"+customer.getName()+" "+customer.getPhone()+", "+customer.getEmail(), "Update customer", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                            customer.setIdCustomer(((Customer) Coordinator.getInstance().getParam("Customer_details")).getIdCustomer());
+                            customer.setIdCustomer(((Customer) Coordinator.getInstance().getParam(CoordinatorParamConsts.CUSTOMER_DETAILS)).getIdCustomer());
                             customer.setUpdateConditionValue(customer.getIdCustomer());
                             ClientController.getInstance().updateCustomer(customer);
                             JOptionPane.showMessageDialog(customerForm, customer.getName()+" has been successfully updated!");
@@ -85,7 +86,7 @@ public class CustomerController {
                         if(JOptionPane.showConfirmDialog(customerForm, "Are you sure you want to INSERT the following customer into the database: \n"+customer.getName()+" "+customer.getPhone()+", "+customer.getEmail(), "Add customer", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                             ClientController.getInstance().insertCustomer(customer);
                             if(JOptionPane.showConfirmDialog(customerForm, customer.getName()+" has been successfully added to the database!\n\nAdd more customers?", "Success", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                                prepareForm(FormMode.ADD_FORM);
+                                prepareForm(AddFormMode.ADD_FORM);
                             }
                             else{
                                 customerForm.dispose();
@@ -131,9 +132,9 @@ public class CustomerController {
         });
     }
 
-    private void prepareForm(FormMode formMode) {
+    private void prepareForm(AddFormMode formMode) {
         switch(formMode){
-            case FormMode.ADD_FORM:
+            case AddFormMode.ADD_FORM:
                 customerForm.getLblId().setVisible(false);
                 customerForm.getTxtId().setVisible(false);
                 customerForm.getTxtId().setEnabled(false);
@@ -151,8 +152,8 @@ public class CustomerController {
                 customerForm.getBtnSave().setEnabled(true);
                 break;
                 
-            case FormMode.DETAILS_FORM:
-                Customer customer = (Customer) Coordinator.getInstance().getParam("Customer_details");
+            case AddFormMode.DETAILS_FORM:
+                Customer customer = (Customer) Coordinator.getInstance().getParam(CoordinatorParamConsts.CUSTOMER_DETAILS);
                 customerForm.getLblId().setVisible(true);
                 customerForm.getTxtId().setVisible(true);
                 customerForm.getTxtId().setText(customer.getIdCustomer().toString());
@@ -172,7 +173,7 @@ public class CustomerController {
                 customerForm.getBtnSave().setVisible(false);
                 break;
                 
-            case FormMode.UPDATE_FORM:
+            case AddFormMode.UPDATE_FORM:
                 customerForm.getLblId().setVisible(true);
                 customerForm.getTxtId().setVisible(true);
                 customerForm.getTxtId().setEnabled(false);

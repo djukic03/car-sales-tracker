@@ -18,18 +18,25 @@ import java.util.List;
  */
 public class Invoice implements DefaultDomainObject, Serializable{
     private Long idInvoice;
+    private Long invoiceNum;
     private Date dateOfIssue;
     private Double totalAmount;
     private Long userId;
     private Long customerId;
 
-    public Invoice(Long idInvoice, Date dateOfIssue, Double totalAmount, Long userId, Long customerId) {
+    public Invoice(Long idInvoice, Long invoiceNum, Date dateOfIssue, Double totalAmount, Long userId, Long customerId) {
         this.idInvoice = idInvoice;
+        this.invoiceNum = invoiceNum;
         this.dateOfIssue = dateOfIssue;
         this.totalAmount = totalAmount;
         this.userId = userId;
         this.customerId = customerId;
     }
+
+    public Invoice() {
+    }
+    
+    
 
     public Long getCustomerId() {
         return customerId;
@@ -70,7 +77,15 @@ public class Invoice implements DefaultDomainObject, Serializable{
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+    
+    public Long getInvoiceNum() {
+        return invoiceNum;
+    }
 
+    public void setInvoiceNum(Long invoiceNum) {
+        this.invoiceNum = invoiceNum;
+    }
+    
     @Override
     public String getClassName() {
         return "invoice";
@@ -80,7 +95,7 @@ public class Invoice implements DefaultDomainObject, Serializable{
     public List<DefaultDomainObject> returnList(ResultSet rs) throws SQLException {
         List<DefaultDomainObject> invoices = new ArrayList<>();
         while(rs.next()){
-            invoices.add(new Invoice(rs.getLong("id"), rs.getDate("date_of_issue"), rs.getDouble("total_amount"), rs.getLong("user_id"), rs.getLong("customer_id")));
+            invoices.add(new Invoice(rs.getLong("id"), rs.getLong("invoice_num"), rs.getDate("date_of_issue"), rs.getDouble("total_amount"), rs.getLong("user_id"), rs.getLong("customer_id")));
         }
         return invoices;
     }
@@ -98,12 +113,12 @@ public class Invoice implements DefaultDomainObject, Serializable{
     @Override
     public String getInsertValues() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return "'"+ sdf.format(dateOfIssue) +"', "+ totalAmount +", "+ userId +", "+ customerId;
+        return invoiceNum +", '"+ sdf.format(dateOfIssue) +"', "+ totalAmount +", "+ userId +", "+ customerId;
     }
 
     @Override
     public String getInsertColumns() {
-        return "date_of_issue, total_amount, user_id, customer_id";
+        return "invoice_num, date_of_issue, total_amount, user_id, customer_id";
     }
 
     @Override
@@ -135,5 +150,5 @@ public class Invoice implements DefaultDomainObject, Serializable{
     public String getOrderCondition() {
         return "date_of_issue";
     }
-    
+
 }

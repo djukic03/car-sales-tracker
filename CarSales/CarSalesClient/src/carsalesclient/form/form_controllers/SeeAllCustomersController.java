@@ -6,8 +6,10 @@ package carsalesclient.form.form_controllers;
 
 import carsalesclient.controller.ClientController;
 import carsalesclient.form.CustomersTableForm;
+import carsalesclient.form.constants.CoordinatorParamConsts;
 import carsalesclient.form.form_coordinator.Coordinator;
-import carsalesclient.form.modes.FormMode;
+import carsalesclient.form.modes.AddFormMode;
+import carsalesclient.form.modes.TableFormMode;
 import carsalesclient.form.tableModels.CustomersTableModel;
 import domain.Customer;
 import java.awt.event.ActionEvent;
@@ -29,7 +31,8 @@ public class SeeAllCustomersController {
         addListeners();
     }
     
-    public void openForm(){
+    public void openForm(TableFormMode formMode){
+        prepareForm(formMode);
         fillTable();
         customersTableForm.setVisible(true);
     }
@@ -100,8 +103,29 @@ public class SeeAllCustomersController {
                     return;
                 }
                 Customer customer = ((CustomersTableModel) customersTableForm.getTblCustomers().getModel()).getCustomerAt(rowId);
-                Coordinator.getInstance().addParam("Customer_details", customer);
-                Coordinator.getInstance().openAddCustomerForm(FormMode.DETAILS_FORM);
+                Coordinator.getInstance().addParam(CoordinatorParamConsts.CUSTOMER_DETAILS, customer);
+                Coordinator.getInstance().openAddCustomerForm(AddFormMode.DETAILS_FORM);
+            }
+        });
+        
+        customersTableForm.btnAddNewAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Coordinator.getInstance().openAddCustomerForm(AddFormMode.ADD_FORM);
+            }
+        });
+        
+        customersTableForm.btnSelectAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int rowId = customersTableForm.getTblCustomers().getSelectedRow();
+                if (rowId < 0) {
+                    JOptionPane.showMessageDialog(customersTableForm, "Please select customer!");
+                    return;
+                }
+                Customer customer = ((CustomersTableModel) customersTableForm.getTblCustomers().getModel()).getCustomerAt(rowId);
+                Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_CUSTOMER, customer);
+                customersTableForm.dispose();
             }
         });
         
@@ -119,6 +143,23 @@ public class SeeAllCustomersController {
             customersTableForm.getTblCustomers().setModel(new CustomersTableModel(customers));
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private void prepareForm(TableFormMode formMode) {
+        switch (formMode) {
+            case TableFormMode.SEE_ALL_ITEMS:
+                customersTableForm.getBtnSelect().setVisible(false);
+                customersTableForm.getBtnDelete().setVisible(true);
+                customersTableForm.getBtnDetails().setVisible(true);
+                break;
+            case TableFormMode.SELECT_ITEM:
+                customersTableForm.getBtnSelect().setVisible(true);
+                customersTableForm.getBtnDelete().setVisible(false);
+                customersTableForm.getBtnDetails().setVisible(false);
+                break;
+            default:
+                break;
         }
     }
 }
