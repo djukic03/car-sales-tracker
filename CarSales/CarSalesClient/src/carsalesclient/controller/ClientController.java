@@ -12,6 +12,8 @@ import communication.Response;
 import communication.Sender;
 import domain.Car;
 import domain.Customer;
+import domain.Invoice;
+import domain.InvoiceItem;
 import domain.User;
 import java.io.IOException;
 import java.net.Socket;
@@ -108,6 +110,19 @@ public class ClientController {
         Response response = (Response) receiver.receive();
         if(response.getException() == null){
             return (List<Customer>) response.getResult();
+        }
+        else{
+            throw response.getException();
+        }
+    }
+    
+    public List<Invoice> getAllInvoices() throws Exception{
+        Request request = new Request(Operation.GET_ALL_INVOICES, null);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException() == null){
+            return (List<Invoice>) response.getResult();
         }
         else{
             throw response.getException();
@@ -231,6 +246,29 @@ public class ClientController {
         
         Response response = (Response) receiver.receive();
         if(response.getException() != null){
+            throw response.getException();
+        }
+    }
+    
+    public void insertInvoiceItem(InvoiceItem invoiceItem) throws Exception {
+        Request request = new Request(Operation.INSERT_INVOICE_ITEM, invoiceItem);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException() != null){
+            throw response.getException();
+        }
+    }
+    
+    public Long insertInvoice(Invoice invoice) throws Exception {
+        Request request = new Request(Operation.INSERT_INVOICE, invoice);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException() == null){
+            return (Long) response.getResult();
+        }
+        else{
             throw response.getException();
         }
     }

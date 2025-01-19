@@ -8,6 +8,8 @@ import database.DatabaseBroker;
 import domain.Car;
 import domain.Customer;
 import domain.DefaultDomainObject;
+import domain.Invoice;
+import domain.InvoiceItem;
 import domain.User;
 import java.util.List;
 import java.sql.SQLException;
@@ -24,6 +26,9 @@ import so.customer.GetAllCustomersSO;
 import so.customer.InsertCustomerSO;
 import so.customer.SearchCustomersSO;
 import so.customer.UpdateCustomerSO;
+import so.invoice.GetAllInvoicesSO;
+import so.invoice.InsertInvoiceSO;
+import so.invoiceItem.InsertInvoiceItemSO;
 import so.user.GetAllUsersSO;
 import so.user.LoginUserSO;
 import so.user.SearchUsersSO;
@@ -95,6 +100,12 @@ public class ServerController {
         so.executeSO(null);
         return so.getCustomers();
     }
+    
+    public List<DefaultDomainObject> getAllInvoices() throws Exception{
+        GetAllInvoicesSO so = new GetAllInvoicesSO();
+        so.executeSO(null);
+        return so.getInvoices();
+    }
     ///////////////////////////////////////////////////////////////////////////////////////////////
     
     
@@ -146,10 +157,20 @@ public class ServerController {
         InsertCarSO so = new InsertCarSO();
         so.executeSO(car);
     }
+    
+    public void insertInvoiceItem(InvoiceItem invoiceItem) throws Exception {
+        InsertInvoiceItemSO so = new InsertInvoiceItemSO();
+        so.executeSO(invoiceItem);
+    }
     ///////////////////////////////////////////////////////////////////////////////////////////////
     
     public Long insertRowAndGetId(DefaultDomainObject ddo) throws SQLException {
         return dbBroker.insertRowAndGetId(ddo);
+    }
+    public Long insertInvoice(Invoice invoice) throws Exception {
+        InsertInvoiceSO so = new InsertInvoiceSO();
+        so.executeSO(invoice);
+        return so.getInvoiceId();
     }
     
     

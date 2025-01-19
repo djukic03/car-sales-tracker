@@ -18,6 +18,7 @@ public enum Operation {
     GET_ALL_USERS,
     GET_ALL_CARS,
     GET_ALL_CUSTOMERS,
+    GET_ALL_INVOICES,
     /////////////////
     GET_ALL_ORDERED,
     
@@ -34,6 +35,8 @@ public enum Operation {
     //////////////////////////////////////////
     INSERT_CUSTOMER,
     INSERT_CAR,
+    INSERT_INVOICE,
+    INSERT_INVOICE_ITEM,
     //////////////////////////////////////////
     INSERT_ROW_AND_GET_ID,
     

@@ -13,12 +13,11 @@ import controller.ServerController;
 import domain.Car;
 import domain.Customer;
 import domain.DefaultDomainObject;
+import domain.Invoice;
+import domain.InvoiceItem;
 import domain.User;
 import form.coordinator.Coordinator;
-import java.io.IOException;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -75,6 +74,9 @@ public class HandleClientThread extends Thread{
                         case Operation.GET_ALL_CUSTOMERS:
                             response.setResult(controller.getAllCustomers());
                             break;
+                        case Operation.GET_ALL_INVOICES:
+                            response.setResult(controller.getAllInvoices());
+                            break;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         case Operation.GET_ALL_ORDERED:
                             response.setResult(controller.getAllOrdered((DefaultDomainObject) request.getArgument()));
@@ -111,9 +113,15 @@ public class HandleClientThread extends Thread{
                         case Operation.INSERT_CAR:
                             controller.insertCar((Car) request.getArgument());
                             break;
+                        case Operation.INSERT_INVOICE_ITEM:
+                            controller.insertInvoiceItem((InvoiceItem) request.getArgument());
+                            break;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         case Operation.INSERT_ROW_AND_GET_ID:
                             response.setResult(controller.insertRowAndGetId((DefaultDomainObject) request.getArgument()));
+                            break;
+                        case Operation.INSERT_INVOICE:
+                            response.setResult(controller.insertInvoice((Invoice) request.getArgument()));
                             break;
                         
                         

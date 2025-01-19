@@ -74,11 +74,6 @@ public class InvoiceItemsTableModel extends AbstractTableModel{
         return items;
     }
 
-    public void addInvoiceItem(InvoiceItem item) {
-        item.setNum(items.size() + 1);
-        items.add(item);
-    }
-
     public void removeInvoiceItem(int rowId) {
         items.remove(rowId);
         for (int i = rowId; i < items.size(); i++) {

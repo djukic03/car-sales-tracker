@@ -33,7 +33,7 @@ CREATE TABLE `car` (
   `gearbox` varchar(20) NOT NULL,
   `price` double NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 /*Data for the table `car` */
 
@@ -52,7 +52,8 @@ insert  into `car`(`id`,`brand`,`model`,`first_reg`,`mileage`,`category`,`fuel`,
 (16,'Audi','A3','2013-01-01',0,'','',0,0,'',6000),
 (17,'Volkswagen','Passat','2020-01-01',220885,'Estate/Wagon','Petrol',2,150,'Automatic',16999),
 (18,'Opel','Astra','2006-01-01',420000,'Estate/Wagon','Diesel',1.6,120,'Manual',2000),
-(19,'Mercedes Benz','E 200','2009-01-01',235800,'Limousine/Salon','Petrol',2.2,136,'Manual',11000);
+(19,'Mercedes Benz','E 200','2009-01-01',235800,'Limousine/Salon','Petrol',2.2,136,'Manual',11000),
+(23,'Volkswagen','Polo','2012-01-01',460000,'Hatchback','Diesel',1.2,65,'Manual',4000);
 
 /*Table structure for table `customer` */
 
@@ -64,7 +65,7 @@ CREATE TABLE `customer` (
   `phone` varchar(15) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 /*Data for the table `customer` */
 
@@ -80,7 +81,8 @@ insert  into `customer`(`id`,`name`,`phone`,`email`) values
 (12,'Mileta Đukić','064845612','mileta@gmail.com'),
 (13,'Metalac Valjevo','014111111','metalac.to.je.tim.iz.valjeva@valjevo.com'),
 (15,'KK Crvena Zvezda','011456123','kkczv@beograd.rs'),
-(16,'Studenjak','011111111','stud@stud.stud');
+(16,'Studenjak','011111111','stud@stud.stud'),
+(20,'Djukic Prevoz','014568565','prevoz@prevoz.djukic');
 
 /*Table structure for table `invoice` */
 
@@ -98,7 +100,7 @@ CREATE TABLE `invoice` (
   KEY `costumer_fk` (`customer_id`),
   CONSTRAINT `costumer_fk` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
   CONSTRAINT `user_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 /*Data for the table `invoice` */
 
@@ -113,7 +115,8 @@ insert  into `invoice`(`id`,`invoice_num`,`date_of_issue`,`total_amount`,`user_i
 (15,8,'2024-12-25',20000,3,7),
 (16,9,'2024-12-26',330000,1,5),
 (17,10,'2024-12-26',24000,1,13),
-(18,11,'2025-01-19',15000,3,13);
+(18,11,'2025-01-19',15000,3,13),
+(19,12,'2025-01-19',85000,2,3);
 
 /*Table structure for table `invoice_item` */
 
@@ -151,7 +154,9 @@ insert  into `invoice_item`(`invoice_id`,`rb`,`quantity`,`price_of_one`,`sum`,`c
 (16,1,4,20000,80000,11),
 (16,2,5,50000,250000,15),
 (17,1,12,2000,24000,18),
-(18,1,1,15000,15000,14);
+(18,1,1,15000,15000,14),
+(19,1,10,6000,60000,16),
+(19,2,5,5000,25000,3);
 
 /*Table structure for table `user` */
 
