@@ -35,7 +35,7 @@ public class AddCarForm extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        lblTitle = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnEdit = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
@@ -70,9 +70,9 @@ public class AddCarForm extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add new car");
 
-        jLabel1.setFont(new java.awt.Font("Gill Sans MT", 1, 16)); // NOI18N
-        jLabel1.setText("Add new car");
-        jLabel1.setName("title"); // NOI18N
+        lblTitle.setFont(new java.awt.Font("Gill Sans MT", 1, 16)); // NOI18N
+        lblTitle.setText("Add new car");
+        lblTitle.setName("title"); // NOI18N
 
         btnEdit.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         btnEdit.setText("Edit");
@@ -326,14 +326,14 @@ public class AddCarForm extends javax.swing.JDialog {
                         .addContainerGap())
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(lblTitle)
                 .addGap(18, 18, 18)
                 .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, Short.MAX_VALUE)
@@ -366,7 +366,6 @@ public class AddCarForm extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cbCategory;
     private javax.swing.JComboBox<String> cbFuel;
     private javax.swing.JComboBox<String> cbGearbox;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
@@ -382,6 +381,7 @@ public class AddCarForm extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JLabel lblId;
+    private javax.swing.JLabel lblTitle;
     private javax.swing.JTextField txtBrand;
     private javax.swing.JTextField txtEngineCapacity;
     private javax.swing.JTextField txtEnginePower;
@@ -451,9 +451,11 @@ public class AddCarForm extends javax.swing.JDialog {
     public JTextField getTxtMileage() {
         return txtMileage;
     }
-    
-    
 
+    public JLabel getLblTitle() {
+        return lblTitle;
+    }
+    
     public JTextField getTxtPrice() {
         return txtPrice;
     }

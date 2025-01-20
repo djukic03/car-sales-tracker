@@ -44,11 +44,11 @@ public class InvoiceItemsTableModel extends AbstractTableModel{
             case 2:
                 return items.get(rowIndex).getCar().getModel();
             case 3:
-                return items.get(rowIndex).getPriceOfOne();
+                return items.get(rowIndex).getPriceOfOne() + " €";
             case 4:
                 return items.get(rowIndex).getQuantity();
             case 5:
-                return items.get(rowIndex).getSum();
+                return items.get(rowIndex).getSum()  + " €";
             default:
                 break;
         }

@@ -100,7 +100,7 @@ CREATE TABLE `invoice` (
   KEY `costumer_fk` (`customer_id`),
   CONSTRAINT `costumer_fk` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
   CONSTRAINT `user_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 /*Data for the table `invoice` */
 
@@ -116,7 +116,8 @@ insert  into `invoice`(`id`,`invoice_num`,`date_of_issue`,`total_amount`,`user_i
 (16,9,'2024-12-26',330000,1,5),
 (17,10,'2024-12-26',24000,1,13),
 (18,11,'2025-01-19',15000,3,13),
-(19,12,'2025-01-19',85000,2,3);
+(19,12,'2025-01-19',85000,2,3),
+(20,13,'2025-01-20',30000,3,20);
 
 /*Table structure for table `invoice_item` */
 
@@ -156,7 +157,8 @@ insert  into `invoice_item`(`invoice_id`,`rb`,`quantity`,`price_of_one`,`sum`,`c
 (17,1,12,2000,24000,18),
 (18,1,1,15000,15000,14),
 (19,1,10,6000,60000,16),
-(19,2,5,5000,25000,3);
+(19,2,5,5000,25000,3),
+(20,1,3,10000,30000,12);
 
 /*Table structure for table `user` */
 

@@ -207,6 +207,32 @@ public class ClientController {
         }
     }
     
+    public List<Invoice> searchInvoices(Invoice invoice) throws Exception {
+        Request request = new Request(Operation.SEARCH_INVOICES, invoice);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException() == null){
+            return (List<Invoice>) response.getResult();
+        }
+        else{
+            throw response.getException();
+        }
+    }
+    
+    public List<InvoiceItem> searchInvoiceItems(InvoiceItem item) throws Exception{
+        Request request = new Request(Operation.SEARCH_INVOICE_ITEMS, item);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException() == null){
+            return (List<InvoiceItem>) response.getResult();
+        }
+        else{
+            throw response.getException();
+        }
+    }
+    
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     

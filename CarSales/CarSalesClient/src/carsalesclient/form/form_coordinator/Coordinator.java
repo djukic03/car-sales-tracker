@@ -9,6 +9,8 @@ import carsalesclient.form.AddCustomerForm;
 import carsalesclient.form.AddInvoiceForm;
 import carsalesclient.form.CarsTableForm;
 import carsalesclient.form.CustomersTableForm;
+import carsalesclient.form.InvoiceItemsTableForm;
+import carsalesclient.form.InvoicesTableForm;
 import carsalesclient.form.LoginForm;
 import carsalesclient.form.MainForm;
 import carsalesclient.form.UsersTableForm;
@@ -20,10 +22,14 @@ import carsalesclient.form.form_controllers.MainController;
 import carsalesclient.form.form_controllers.InvoiceController;
 import carsalesclient.form.form_controllers.SeeAllCarsController;
 import carsalesclient.form.form_controllers.SeeAllCustomersController;
+import carsalesclient.form.form_controllers.SeeAllInvoicesController;
 import carsalesclient.form.form_controllers.SeeAllUsersController;
+import carsalesclient.form.form_controllers.SeeItemsController;
 import carsalesclient.form.modes.AddFormMode;
 import carsalesclient.form.modes.TableFormMode;
+import domain.InvoiceItem;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -74,7 +80,13 @@ public class Coordinator {
     }
 
     public void openInvoicesTableForm() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        SeeAllInvoicesController controller = new SeeAllInvoicesController(new InvoicesTableForm(mainController.getMainForm(), true));
+        controller.openForm();
+    }
+    
+    public void openInvoiceItemsTableForm(List<InvoiceItem> items) {
+        SeeItemsController controller = new SeeItemsController(new InvoiceItemsTableForm(mainController.getMainForm(), true));
+        controller.openForm(items);
     }
 
     public void openUsersTableForm() {

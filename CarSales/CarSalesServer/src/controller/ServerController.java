@@ -28,6 +28,8 @@ import so.customer.SearchCustomersSO;
 import so.customer.UpdateCustomerSO;
 import so.invoice.GetAllInvoicesSO;
 import so.invoice.InsertInvoiceSO;
+import so.invoice.SearchInvoicesSO;
+import so.invoiceItem.SearchInvoiceItemsSO;
 import so.invoiceItem.InsertInvoiceItemSO;
 import so.user.GetAllUsersSO;
 import so.user.LoginUserSO;
@@ -135,6 +137,18 @@ public class ServerController {
         SearchCustomersSO so = new SearchCustomersSO();
         so.executeSO(customer);
         return so.getCustomers();
+    }
+    
+    public List<DefaultDomainObject> searchInvoices(Invoice invoice) throws Exception {
+        SearchInvoicesSO so = new SearchInvoicesSO();
+        so.executeSO(invoice);
+        return so.getInvoices();
+    }
+    
+    public List<DefaultDomainObject> searchInvoiceItems(InvoiceItem item) throws Exception{
+        SearchInvoiceItemsSO so = new SearchInvoiceItemsSO();
+        so.executeSO(item);
+        return so.getItems();
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////
     

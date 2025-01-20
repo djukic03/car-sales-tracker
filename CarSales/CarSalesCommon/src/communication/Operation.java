@@ -28,6 +28,8 @@ public enum Operation {
     SEARCH_USERS,
     SEARCH_CARS,
     SEARCH_CUSTOMERS,
+    SEARCH_INVOICES,
+    SEARCH_INVOICE_ITEMS,
     ////////////////////
     
     

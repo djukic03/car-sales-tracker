@@ -77,6 +77,7 @@ public class HandleClientThread extends Thread{
                         case Operation.GET_ALL_INVOICES:
                             response.setResult(controller.getAllInvoices());
                             break;
+                        
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         case Operation.GET_ALL_ORDERED:
                             response.setResult(controller.getAllOrdered((DefaultDomainObject) request.getArgument()));
@@ -97,6 +98,12 @@ public class HandleClientThread extends Thread{
                             break;
                         case Operation.SEARCH_CUSTOMERS:
                             response.setResult(controller.searchCustomers((Customer) request.getArgument()));
+                            break;
+                        case Operation.SEARCH_INVOICES:
+                            response.setResult(controller.searchInvoices((Invoice) request.getArgument()));
+                            break;
+                        case Operation.SEARCH_INVOICE_ITEMS:
+                            response.setResult(controller.searchInvoiceItems((InvoiceItem) request.getArgument()));
                             break;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         

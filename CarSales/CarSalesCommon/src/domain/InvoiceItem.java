@@ -23,6 +23,8 @@ public class InvoiceItem implements DefaultDomainObject, Serializable{
     private double priceOfOne;
     private double sum;
     private Car car;
+    String searchCondition;
+    String searchConditionValue;
 
     public InvoiceItem() {
     }
@@ -83,10 +85,18 @@ public class InvoiceItem implements DefaultDomainObject, Serializable{
     public void setCar(Car car) {
         this.car = car;
     }
+    
+    public void setSearchCondition(String condition) {
+        this.searchCondition = condition;
+    }
+
+    public void setSearchConditionValue(String conditionValue) {
+        this.searchConditionValue = conditionValue;
+    }
 
     @Override
     public String toString() {
-        return car.getBrand() + " " + car.getModel() + ", quantity: " + quantity + ", sum = " +sum;
+        return car.getBrand() + " " + car.getModel() + ", quantity: " + quantity + ", sum = " +sum+"\n";
     }
     
     @Override
@@ -97,27 +107,22 @@ public class InvoiceItem implements DefaultDomainObject, Serializable{
     @Override
     public List<DefaultDomainObject> returnList(ResultSet rs) throws SQLException {
         List<DefaultDomainObject> items = new ArrayList<>();
-        try {
-            while(rs.next()){
-                Car car = new Car();
-                car.setIdCar(rs.getLong("car_id"));
-                items.add(new InvoiceItem(rs.getLong("invoice_id"), rs.getInt("rb"), rs.getInt("quantity"), rs.getDouble("price_of_one"),rs.getDouble("sum"), car));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(InvoiceItem.class.getName()).log(Level.SEVERE, null, ex);
-            throw ex;
+        while(rs.next()){
+            Car car = new Car();
+            car.setIdCar(rs.getLong("car_id"));
+            items.add(new InvoiceItem(rs.getLong("invoice_id"), rs.getInt("rb"), rs.getInt("quantity"), rs.getDouble("price_of_one"),rs.getDouble("sum"), car));
         }
         return items;
     }
 
     @Override
     public String getSearchCondition() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return searchCondition;
     }
 
     @Override
     public String getSearchConditionValue() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return searchConditionValue;
     }
 
     @Override

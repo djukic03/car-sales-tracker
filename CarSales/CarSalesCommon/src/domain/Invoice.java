@@ -21,29 +21,22 @@ public class Invoice implements DefaultDomainObject, Serializable{
     private Long invoiceNum;
     private Date dateOfIssue;
     private Double totalAmount;
-    private Long userId;
-    private Long customerId;
+    private User user;
+    private Customer customer;
+    String searchCondition;
+    String searchConditionValue;
 
-    public Invoice(Long idInvoice, Long invoiceNum, Date dateOfIssue, Double totalAmount, Long userId, Long customerId) {
+    public Invoice(Long idInvoice, Long invoiceNum, Date dateOfIssue, Double totalAmount, User user, Customer customer) {
         this.idInvoice = idInvoice;
         this.invoiceNum = invoiceNum;
         this.dateOfIssue = dateOfIssue;
         this.totalAmount = totalAmount;
-        this.userId = userId;
-        this.customerId = customerId;
+        this.user = user;
+        this.customer = customer;
     }
+
 
     public Invoice() {
-    }
-    
-    
-
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
     }
 
     public Long getIdInvoice() {
@@ -70,12 +63,20 @@ public class Invoice implements DefaultDomainObject, Serializable{
         this.totalAmount = totalAmount;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
     
     public Long getInvoiceNum() {
@@ -84,6 +85,14 @@ public class Invoice implements DefaultDomainObject, Serializable{
 
     public void setInvoiceNum(Long invoiceNum) {
         this.invoiceNum = invoiceNum;
+    }
+
+    public void setSearchCondition(String searchCondition) {
+        this.searchCondition = searchCondition;
+    }
+
+    public void setSearchConditionValue(String searchConditionValue) {
+        this.searchConditionValue = searchConditionValue;
     }
     
     @Override
@@ -95,25 +104,29 @@ public class Invoice implements DefaultDomainObject, Serializable{
     public List<DefaultDomainObject> returnList(ResultSet rs) throws SQLException {
         List<DefaultDomainObject> invoices = new ArrayList<>();
         while(rs.next()){
-            invoices.add(new Invoice(rs.getLong("id"), rs.getLong("invoice_num"), rs.getDate("date_of_issue"), rs.getDouble("total_amount"), rs.getLong("user_id"), rs.getLong("customer_id")));
+            User user = new User();
+            user.setIdUser(rs.getLong("user_id"));
+            Customer customer = new Customer();
+            customer.setIdCustomer(rs.getLong("customer_id"));
+            invoices.add(new Invoice(rs.getLong("id"), rs.getLong("invoice_num"), rs.getDate("date_of_issue"), rs.getDouble("total_amount"), user, customer));
         }
         return invoices;
     }
 
     @Override
     public String getSearchCondition() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return searchCondition;
     }
 
     @Override
     public String getSearchConditionValue() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return searchConditionValue;
     }
 
     @Override
     public String getInsertValues() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return invoiceNum +", '"+ sdf.format(dateOfIssue) +"', "+ totalAmount +", "+ userId +", "+ customerId;
+        return invoiceNum +", '"+ sdf.format(dateOfIssue) +"', "+ totalAmount +", "+ user.getIdUser() +", "+ customer.getIdCustomer();
     }
 
     @Override

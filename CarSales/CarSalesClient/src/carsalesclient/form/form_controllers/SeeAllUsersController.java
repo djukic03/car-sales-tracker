@@ -22,11 +22,11 @@ public class SeeAllUsersController {
 
     public SeeAllUsersController(UsersTableForm usersTableForm) {
         this.usersTableForm = usersTableForm;
+        addListeners();
     }
     
     public void openForm(){
         fillTable();
-        addListeners();
         usersTableForm.setVisible(true);
     }
     
