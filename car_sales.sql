@@ -174,14 +174,15 @@ CREATE TABLE `user` (
   `first_name` varchar(100) NOT NULL,
   `last_name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 /*Data for the table `user` */
 
 insert  into `user`(`id`,`username`,`password`,`first_name`,`last_name`) values 
-(1,'admin','admin','Admin','Adminić'),
+(1,'admin','admin','Admin','Admin'),
 (2,'nemanja','nemanja','Nemanja','Đukić'),
-(3,'a','a','A','A');
+(3,'a','a','A','A'),
+(4,'teka','teka','Teodora','Đukić');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

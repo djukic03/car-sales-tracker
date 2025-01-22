@@ -6,10 +6,16 @@ package carsalesclient.form.form_controllers;
 
 import carsalesclient.controller.ClientController;
 import carsalesclient.form.UsersTableForm;
+import carsalesclient.form.constants.CoordinatorParamConsts;
+import carsalesclient.form.form_coordinator.Coordinator;
+import carsalesclient.form.modes.AddFormMode;
 import carsalesclient.form.tableModels.UsersTableModel;
 import domain.User;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.net.CookieHandler;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -57,6 +63,24 @@ public class SeeAllUsersController {
             public void actionPerformed(ActionEvent e) {
                 usersTableForm.getBtnSearch().doClick();
             }
+        });
+        
+        usersTableForm.btnDetailsAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int row = usersTableForm.getTblUsers().getSelectedRow();
+                User user = ((UsersTableModel)usersTableForm.getTblUsers().getModel()).getUserAt(row);
+                Coordinator.getInstance().addParam(CoordinatorParamConsts.USER_DETAILS, user);
+                Coordinator.getInstance().openAddUserForm(AddFormMode.DETAILS_FORM);
+            }
+        });
+        
+        usersTableForm.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowActivated(WindowEvent e) {
+                fillTable();
+            }
+            
         });
     }
     

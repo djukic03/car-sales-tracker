@@ -45,7 +45,7 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="btnSelect" min="-2" pref="90" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="btnAddNew" min="-2" pref="90" max="-2" attributes="0"/>
+                              <Component id="btnAddNew" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btnDelete" min="-2" pref="90" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>

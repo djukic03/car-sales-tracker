@@ -5,6 +5,7 @@
 package carsalesclient.form;
 
 import java.awt.event.ActionListener;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -36,6 +37,7 @@ public class MainForm extends javax.swing.JFrame {
         menuItemCreateNewInvoice = new javax.swing.JMenuItem();
         menuItemSeeAllInvoices = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        menuItemAddSalesman = new javax.swing.JMenuItem();
         menuItemSeeAllSalesmen = new javax.swing.JMenuItem();
         menuAddNewCar = new javax.swing.JMenu();
         menuItemAddNewCar = new javax.swing.JMenuItem();
@@ -75,6 +77,10 @@ public class MainForm extends javax.swing.JFrame {
 
         jMenu2.setText("Salesmen");
         jMenu2.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+
+        menuItemAddSalesman.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuItemAddSalesman.setText("Add new salesman");
+        jMenu2.add(menuItemAddSalesman);
 
         menuItemSeeAllSalesmen.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         menuItemSeeAllSalesmen.setText("See all salesmen");
@@ -206,6 +212,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenu menuAddNewCar;
     private javax.swing.JMenuItem menuItemAddNewCar;
     private javax.swing.JMenuItem menuItemAddNewCustomer;
+    private javax.swing.JMenuItem menuItemAddSalesman;
     private javax.swing.JMenuItem menuItemCreateNewInvoice;
     private javax.swing.JCheckBoxMenuItem menuItemEnglish;
     private javax.swing.JMenuItem menuItemLogOut;
@@ -216,12 +223,24 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem menuItemSerbian;
     // End of variables declaration//GEN-END:variables
 
+    public JMenuItem getMenuItemEnglish() {
+        return menuItemEnglish;
+    }
+    
+    public JMenuItem getMenuItemSerbian() {
+        return menuItemSerbian;
+    }
+    
     public void miCreateNewInvoiceAddActionListener(ActionListener actionListener){
         menuItemCreateNewInvoice.addActionListener(actionListener);
     }
     
     public void miSeeAllInvoicesAddActionListener(ActionListener actionListener){
         menuItemSeeAllInvoices.addActionListener(actionListener);
+    }
+    
+    public void miAddNewSalesmanAddActionListener(ActionListener actionListener){
+        menuItemAddSalesman.addActionListener(actionListener);
     }
     
     public void miSeeAllSalesmenAddActionListener(ActionListener actionListener){
@@ -252,4 +271,11 @@ public class MainForm extends javax.swing.JFrame {
         return menuItemCreateNewInvoice;
     }
     
+    public void miEnglishAddActionListener(ActionListener actionListener){
+        menuItemEnglish.addActionListener(actionListener);
+    }
+    
+    public void miSerbianAddActionListener(ActionListener actionListener){
+        menuItemSerbian.addActionListener(actionListener);
+    }
 }

@@ -46,6 +46,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
@@ -243,12 +244,21 @@ public class SeeAllInvoicesController {
             setLayout(new GridBagLayout());
             button = new JButton();
             button.setMargin(new Insets(1, 7, 1, 7));
+            button.setFocusable(true);
             add(button);
         }
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             button.setText(value == null ? "" : value.toString());
+            if (isSelected){
+                setBackground(UIManager.getColor("Table.selectionBackground"));;
+                setForeground(UIManager.getColor("Table.selectionForeground"));
+            }
+            else {
+                setBackground(UIManager.getColor("Table.background"));
+                setForeground(UIManager.getColor("Table.foreground"));
+            }
             return this;
         }
     }
@@ -262,6 +272,7 @@ public class SeeAllInvoicesController {
             panel = new JPanel(new GridBagLayout());
             button = new JButton(label);
             button.setMargin(new Insets(1,7,1,7));
+            button.setFocusable(true);
             panel.add(button);
 
             button.addActionListener((ActionEvent e) -> {
@@ -287,6 +298,11 @@ public class SeeAllInvoicesController {
             label = value.toString();
             button.setText(label);
             button.putClientProperty("row", row);
+            if (isSelected) {
+                panel.setBackground(UIManager.getColor("Table.selectionBackground"));
+            } else {
+                panel.setBackground(UIManager.getColor("Table.background"));
+            }
             return panel;
         }
 
@@ -308,8 +324,19 @@ public class SeeAllInvoicesController {
             panel.add(button);
 
             button.addActionListener((ActionEvent e) -> {
-                System.out.println("Button clicked in row: " + button.getClientProperty("row"));
-                fireEditingStopped();
+                try {
+                    int row = (int) button.getClientProperty("row");
+                    User user = ((InvoicesTableModel) invoicesTableForm.getTblInvoices().getModel()).getInvoiceAt(row).getUser();
+                    user.setSearchCondition("id");
+                    user.setSearchConditionValue(user.getIdUser().toString());
+                    user = ClientController.getInstance().searchUsers(user).getFirst();
+                    Coordinator.getInstance().addParam(CoordinatorParamConsts.USER_DETAILS, user);
+                    Coordinator.getInstance().openAddUserForm(AddFormMode.DETAILS_FORM);
+                    fireEditingStopped();
+                } catch (Exception ex) {
+                    System.out.println("Error: " +ex.getMessage());
+                    ex.printStackTrace();
+                }
             });
         }
 

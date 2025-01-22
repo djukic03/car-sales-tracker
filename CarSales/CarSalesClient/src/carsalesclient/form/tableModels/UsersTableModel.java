@@ -55,4 +55,8 @@ public class UsersTableModel extends AbstractTableModel{
     public Class<?> getColumnClass(int columnIndex) {
         return Object.class;
     }
+    
+    public User getUserAt(int row){
+        return users.get(row);
+    }
 }

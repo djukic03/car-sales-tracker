@@ -11,10 +11,15 @@ import carsalesclient.form.form_coordinator.Coordinator;
 import carsalesclient.form.modes.AddFormMode;
 import carsalesclient.form.modes.TableFormMode;
 import domain.User;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.InputStream;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -53,6 +58,13 @@ public class MainController {
             }
         });
         
+        mainForm.miAddNewSalesmanAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Coordinator.getInstance().openAddUserForm(AddFormMode.ADD_FORM);
+            }
+        });
+        
         mainForm.miSeeAllSalesmenAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -88,6 +100,39 @@ public class MainController {
             }
         });
         
+        mainForm.miEnglishAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!mainForm.getMenuItemEnglish().isSelected()) {
+                    mainForm.getMenuItemSerbian().setSelected(false);
+                    Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_LANGUAGE, "en");
+                    changeLanguage();
+                }
+                else{
+                    JOptionPane.showMessageDialog(mainForm, "English is already selected");
+                    mainForm.getMenuItemEnglish().setSelected(true);
+                }
+                
+            }
+        });
+        
+        mainForm.miSerbianAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!mainForm.getMenuItemSerbian().isSelected()) {
+                    mainForm.getMenuItemEnglish().setSelected(false);
+                    Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_LANGUAGE, "sr");
+                    changeLanguage();
+                }
+                else{
+                    JOptionPane.showMessageDialog(mainForm, "Српски је већ изабран");
+                    mainForm.getMenuItemSerbian().setSelected(true);
+                }
+                
+            }
+        });
+        
+        
         mainForm.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -105,5 +150,18 @@ public class MainController {
         });
     }
     
-    
+    private void changeLanguage(){
+        String language = Coordinator.getInstance().getParam(CoordinatorParamConsts.SELECTED_LANGUAGE).toString();
+        System.out.println(language);
+        Locale locale = Locale.of(language);
+        ResourceBundle bundle = ResourceBundle.getBundle("resources.language", locale);
+        
+        try {
+            InputStream is = MainController.class.getResourceAsStream("/resources/Andika-Regular.ttf");
+            Font customFont = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(13f);
+            mainForm.getMenuItemCreateNewInvoice().setText(bundle.getString("Create_New_Invoice"));
+            mainForm.getMenuItemCreateNewInvoice().setFont(customFont);
+        } catch (Exception e) {
+        }
+    }
 }

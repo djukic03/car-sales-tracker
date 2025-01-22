@@ -114,6 +114,9 @@ public class HandleClientThread extends Thread{
                             controller.insertRow((DefaultDomainObject) request.getArgument());
                             break;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        case Operation.INSERT_USER:
+                            controller.insertUser((User) request.getArgument());
+                            break;
                         case Operation.INSERT_CUSTOMER:
                             controller.insertCustomer((Customer) request.getArgument());
                             break;
@@ -159,6 +162,9 @@ public class HandleClientThread extends Thread{
                             break;
                         case Operation.UPDATE_CAR:
                             controller.updateCar((Car) request.getArgument());
+                            break;
+                        case Operation.UPDATE_USER:
+                            controller.updateUser((User) request.getArgument());
                             break;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         

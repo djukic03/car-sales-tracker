@@ -7,6 +7,7 @@ package carsalesclient.form.form_coordinator;
 import carsalesclient.form.AddCarForm;
 import carsalesclient.form.AddCustomerForm;
 import carsalesclient.form.AddInvoiceForm;
+import carsalesclient.form.AddUserForm;
 import carsalesclient.form.CarsTableForm;
 import carsalesclient.form.CustomersTableForm;
 import carsalesclient.form.InvoiceItemsTableForm;
@@ -25,6 +26,7 @@ import carsalesclient.form.form_controllers.SeeAllCustomersController;
 import carsalesclient.form.form_controllers.SeeAllInvoicesController;
 import carsalesclient.form.form_controllers.SeeAllUsersController;
 import carsalesclient.form.form_controllers.SeeItemsController;
+import carsalesclient.form.form_controllers.UserController;
 import carsalesclient.form.modes.AddFormMode;
 import carsalesclient.form.modes.TableFormMode;
 import domain.InvoiceItem;
@@ -87,6 +89,11 @@ public class Coordinator {
     public void openInvoiceItemsTableForm(List<InvoiceItem> items) {
         SeeItemsController controller = new SeeItemsController(new InvoiceItemsTableForm(mainController.getMainForm(), true));
         controller.openForm(items);
+    }
+    
+    public void openAddUserForm(AddFormMode formMode) {
+        UserController controller = new UserController(new AddUserForm(mainController.getMainForm(), true));
+        controller.openForm(formMode);
     }
 
     public void openUsersTableForm() {

@@ -256,6 +256,16 @@ public class ClientController {
         }
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public void insertUser(User user) throws Exception {
+        Request request = new Request(Operation.INSERT_USER, user);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException() != null){
+            throw response.getException();
+        }
+    }
+    
     public void insertCustomer(Customer customer) throws Exception {
         Request request = new Request(Operation.INSERT_CUSTOMER, customer);
         sender.send(request);
@@ -389,6 +399,16 @@ public class ClientController {
     
     public void updateCar(Car car) throws Exception {
         Request request = new Request(Operation.UPDATE_CAR, car);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException() != null){
+            throw response.getException();
+        }
+    }
+    
+    public void updateUser(User user) throws Exception {
+        Request request = new Request(Operation.UPDATE_USER, user);
         sender.send(request);
         
         Response response = (Response) receiver.receive();

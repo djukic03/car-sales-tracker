@@ -26,6 +26,7 @@ public class User implements DefaultDomainObject, Serializable{
     String searchCondition;
     String searchConditionValue;
     Long deleteConditionValue;
+    Long updateConditionValue;
 
     public User() {
     }
@@ -90,6 +91,10 @@ public class User implements DefaultDomainObject, Serializable{
         this.deleteConditionValue = deleteConditionValue;
     }
 
+    public void setUpdateConditionValue(Long updateConditionValue) {
+        this.updateConditionValue = updateConditionValue;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof User){
@@ -131,12 +136,12 @@ public class User implements DefaultDomainObject, Serializable{
 
     @Override
     public String getInsertValues() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "'"+ username +"', '"+ password +"', '"+ firstName +"', '"+ lastName +"'";
     }
 
     @Override
     public String getInsertColumns() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "username, password, first_name, last_name";
     }
 
     @Override
@@ -151,17 +156,17 @@ public class User implements DefaultDomainObject, Serializable{
 
     @Override
     public String getUpdateValues() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "username = '"+ username +"', password = '"+ password +"', first_name = '"+ firstName +"', last_name = '"+ lastName +"'";
     }
 
     @Override
     public String getUpdateCondition() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "id";
     }
 
     @Override
     public String getUpdateConditionValue() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return updateConditionValue.toString();
     }
 
     @Override

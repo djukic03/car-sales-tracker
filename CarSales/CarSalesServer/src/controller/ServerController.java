@@ -32,8 +32,10 @@ import so.invoice.SearchInvoicesSO;
 import so.invoiceItem.SearchInvoiceItemsSO;
 import so.invoiceItem.InsertInvoiceItemSO;
 import so.user.GetAllUsersSO;
+import so.user.InsertUserSO;
 import so.user.LoginUserSO;
 import so.user.SearchUsersSO;
+import so.user.UpdateUserSO;
 
 /**
  *
@@ -162,6 +164,11 @@ public class ServerController {
         dbBroker.insertRow(ddo);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////
+    public void insertUser(User user) throws Exception {
+        InsertUserSO so = new InsertUserSO();
+        so.executeSO(user);
+    }
+    
     public void insertCustomer(Customer customer) throws Exception {
         InsertCustomerSO so = new InsertCustomerSO();
         so.executeSO(customer);
@@ -226,6 +233,11 @@ public class ServerController {
     public void updateCar(Car car) throws Exception {
         UpdateCarSO so = new UpdateCarSO();
         so.executeSO(car);
+    }
+    
+    public void updateUser(User user) throws Exception {
+        UpdateUserSO so = new UpdateUserSO();
+        so.executeSO(user);
     }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
     

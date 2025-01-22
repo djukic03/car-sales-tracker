@@ -35,6 +35,7 @@ public enum Operation {
     
     INSERT_ROW,
     //////////////////////////////////////////
+    INSERT_USER,
     INSERT_CUSTOMER,
     INSERT_CAR,
     INSERT_INVOICE,
@@ -54,6 +55,7 @@ public enum Operation {
     //////////////////////////////////////////////
     UPDATE_CUSTOMER,
     UPDATE_CAR,
+    UPDATE_USER,
     //////////////////////////////////////////////
     
     GET_ALL_CAR_BRANDS,
