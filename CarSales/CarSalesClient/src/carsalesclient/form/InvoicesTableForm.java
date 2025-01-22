@@ -5,6 +5,8 @@
 package carsalesclient.form;
 
 import com.github.lgooddatepicker.components.DatePicker;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -36,14 +38,14 @@ public class InvoicesTableForm extends javax.swing.JDialog {
         tblInvoices = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         datePicker = new com.github.lgooddatepicker.components.DatePicker();
-        jButton1 = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         txtDate = new javax.swing.JTextField();
+        btnGeneratePdf = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jScrollPane1.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
 
-        tblInvoices.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         tblInvoices.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -55,8 +57,10 @@ public class InvoicesTableForm extends javax.swing.JDialog {
                 "Invoice Number", "Issues Date", "Amount", "Salesperson", "Customer", "Items"
             }
         ));
+        tblInvoices.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         tblInvoices.setRowHeight(30);
-        tblInvoices.setRowSelectionAllowed(false);
+        tblInvoices.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        tblInvoices.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblInvoices.setShowGrid(true);
         tblInvoices.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblInvoices);
@@ -66,12 +70,15 @@ public class InvoicesTableForm extends javax.swing.JDialog {
 
         datePicker.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
 
-        jButton1.setText("jButton1");
-        jButton1.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnCancel.setText("Cancel");
+        btnCancel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
 
         txtDate.setEditable(false);
-        txtDate.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         txtDate.setEnabled(false);
+        txtDate.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+
+        btnGeneratePdf.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnGeneratePdf.setText("Generate PDF");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,7 +97,9 @@ public class InvoicesTableForm extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnGeneratePdf)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -102,9 +111,11 @@ public class InvoicesTableForm extends javax.swing.JDialog {
                     .addComponent(datePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGeneratePdf, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -154,8 +165,9 @@ public class InvoicesTableForm extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnGeneratePdf;
     private com.github.lgooddatepicker.components.DatePicker datePicker;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblInvoices;
@@ -174,6 +186,15 @@ public class InvoicesTableForm extends javax.swing.JDialog {
         return txtDate;
     }
 
+    public JButton getBtnCancel() {
+        return btnCancel;
+    }
+
+    public void btnCancelAddActionListener(ActionListener actionListener){
+        btnCancel.addActionListener(actionListener);
+    }
     
-    
+    public void btnGeneratePdfAddActionListener(ActionListener actionListener){
+        btnGeneratePdf.addActionListener(actionListener);
+    }
 }

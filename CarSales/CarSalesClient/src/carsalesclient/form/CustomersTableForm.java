@@ -67,7 +67,7 @@ public class CustomersTableForm extends javax.swing.JDialog {
             }
         });
 
-        tblCustomers.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        tblCustomers.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         tblCustomers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -79,6 +79,7 @@ public class CustomersTableForm extends javax.swing.JDialog {
                 "Full Name", "Phone", "Email"
             }
         ));
+        tblCustomers.setRowHeight(30);
         tblCustomers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         tblCustomers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblCustomers);

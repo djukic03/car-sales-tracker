@@ -44,7 +44,7 @@ public class UsersTableForm extends javax.swing.JDialog {
         setTitle("All Users");
         setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
 
-        tblUsers.setFont(new java.awt.Font("Gill Sans MT", 0, 12)); // NOI18N
+        tblUsers.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         tblUsers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -56,6 +56,7 @@ public class UsersTableForm extends javax.swing.JDialog {
                 "First Name", "Last Name", "Username"
             }
         ));
+        tblUsers.setRowHeight(30);
         tblUsers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         tblUsers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblUsers);

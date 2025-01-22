@@ -13,29 +13,39 @@ import carsalesclient.form.tableModels.InvoicesTableModel;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.github.lgooddatepicker.optionalusertools.DateChangeListener;
 import com.github.lgooddatepicker.zinternaltools.DateChangeEvent;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.AcroFields;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfStamper;
+import domain.Car;
 import domain.Customer;
 import domain.Invoice;
 import domain.InvoiceItem;
+import domain.User;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Cursor;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.text.SimpleDateFormat;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
@@ -81,6 +91,36 @@ public class SeeAllInvoicesController {
                 
             }
         });
+        
+        invoicesTableForm.btnGeneratePdfAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int row = invoicesTableForm.getTblInvoices().getSelectedRow();
+                if(row < 0){
+                    JOptionPane.showMessageDialog(invoicesTableForm, "Please select invoice.");
+                    return;
+                }
+                Invoice invoice = ((InvoicesTableModel) invoicesTableForm.getTblInvoices().getModel()).getInvoiceAt(row);
+                
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                
+                int result = fileChooser.showOpenDialog(null);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    generatePdf(invoice, selectedFile.getAbsolutePath());
+                } else if (result == JFileChooser.CANCEL_OPTION) {
+                    System.out.println("No file selected.");
+                }
+            }
+        });
+        
+        invoicesTableForm.btnCancelAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                invoicesTableForm.dispose();
+            }
+        });
     }
 
     private void prepareForm() {
@@ -110,6 +150,88 @@ public class SeeAllInvoicesController {
         invoicesTableForm.getTblInvoices().getColumn("Customer").setCellEditor(new ButtonSeeCustomerCellEditor("See customer"));
     }
 
+    private void generatePdf(Invoice invoice, String path) {
+        String inputPdf = "invoice_template_good_one.pdf";
+        String outputPdf = path + "\\" + invoice.getInvoiceNum() + ".pdf";
+
+        try {
+            Customer customer = invoice.getCustomer();
+            customer.setSearchCondition("id");
+            customer.setSearchConditionValue(customer.getIdCustomer().toString());
+            customer = ClientController.getInstance().searchCustomers(customer).getFirst();
+            
+            User salesperson = invoice.getUser();
+            salesperson.setSearchCondition("id");
+            salesperson.setSearchConditionValue(salesperson.getIdUser().toString());
+            salesperson = ClientController.getInstance().searchUsers(salesperson).getFirst();
+            
+            InvoiceItem item = new InvoiceItem();
+            item.setSearchCondition("invoice_id");
+            item.setSearchConditionValue(invoice.getIdInvoice().toString());
+            List<InvoiceItem> items = ClientController.getInstance().searchInvoiceItems(item);
+            
+            
+            PdfReader pdfReader = new PdfReader(inputPdf);
+            PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileOutputStream(outputPdf));
+
+            AcroFields formFields = pdfStamper.getAcroFields();
+
+            formFields.setField("InvNum", invoice.getInvoiceNum().toString());
+            formFields.setField("invDate", invoice.getDateOfIssue().toString());
+            formFields.setField("customer", customer.getName());
+            formFields.setField("salesmanName", salesperson.getFirstName()+" "+salesperson.getLastName());
+            formFields.setField("username", salesperson.getUsername());
+            formFields.setField("job", "Manager");
+            formFields.setField("total", invoice.getTotalAmount().toString());
+            
+            pdfStamper.setFormFlattening(true);
+            
+            
+            PdfContentByte canvas = pdfStamper.getOverContent(pdfReader.getNumberOfPages());
+            PdfPTable table = new PdfPTable(4);
+            float[] widths = {52f, 306f, 72f, 72f};
+            table.setTotalWidth(widths);
+            
+            BaseFont baseFont = BaseFont.createFont(BaseFont.COURIER, BaseFont.WINANSI, BaseFont.EMBEDDED);
+            Font font = new Font(baseFont, 10, Font.NORMAL, BaseColor.BLACK);
+            PdfPCell cell;
+            for (InvoiceItem i : items) {
+                cell = new PdfPCell(new Phrase(Integer.toString(i.getQuantity()), font));
+                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                cell.setBorderWidth(0);
+                cell.setFixedHeight(20.5f);
+                table.addCell(cell);
+                i.getCar().setSearchCondition("id");
+                i.getCar().setSearchConditionValue(i.getCar().getIdCar().toString());
+                i.setCar(ClientController.getInstance().searchCars(i.getCar()).getFirst());
+                cell = new PdfPCell(new Phrase(i.getCar().getBrand() + " " + i.getCar().getModel(), font));
+                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                cell.setBorderWidth(0);
+                cell.setFixedHeight(20.5f);
+                table.addCell(cell);
+                cell = new PdfPCell(new Phrase(Double.toString(i.getPriceOfOne()), font));
+                cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                cell.setBorderWidth(0);
+                cell.setFixedHeight(20.5f);
+                table.addCell(cell);
+                cell = new PdfPCell(new Phrase(Double.toString(i.getSum()), font));
+                cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                cell.setBorderWidth(0);
+                cell.setFixedHeight(20.5f);
+                table.addCell(cell);
+            }
+            
+            table.writeSelectedRows(0, -1, 55, 449, canvas);
+            
+            pdfStamper.close();
+            pdfReader.close();
+            
+            JOptionPane.showMessageDialog(invoicesTableForm, "PDF generated successfully!");
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
     
     
     

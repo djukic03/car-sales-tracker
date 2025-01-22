@@ -4,6 +4,8 @@
  */
 package carsalesclient.form;
 
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JTable;
 
 /**
@@ -32,10 +34,11 @@ public class InvoiceItemsTableForm extends javax.swing.JDialog {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblInvoiceItems = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnDetails = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        tblInvoiceItems.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         tblInvoiceItems.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -50,8 +53,8 @@ public class InvoiceItemsTableForm extends javax.swing.JDialog {
         tblInvoiceItems.setRowHeight(30);
         jScrollPane1.setViewportView(tblInvoiceItems);
 
-        jButton1.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        jButton1.setText("Details");
+        btnDetails.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnDetails.setText("Details");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -63,7 +66,7 @@ public class InvoiceItemsTableForm extends javax.swing.JDialog {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -72,7 +75,7 @@ public class InvoiceItemsTableForm extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -123,7 +126,7 @@ public class InvoiceItemsTableForm extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnDetails;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblInvoiceItems;
     // End of variables declaration//GEN-END:variables
@@ -132,4 +135,11 @@ public class InvoiceItemsTableForm extends javax.swing.JDialog {
         return tblInvoiceItems;
     }
 
+    public JButton getBtnDetails() {
+        return btnDetails;
+    }
+    
+    public void btnDetailsAddActionListener(ActionListener actionListener){
+        btnDetails.addActionListener(actionListener);
+    }
 }

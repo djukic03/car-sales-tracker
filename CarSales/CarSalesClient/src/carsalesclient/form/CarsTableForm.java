@@ -48,6 +48,7 @@ public class CarsTableForm extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("All Cars");
 
+        tblCars.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         tblCars.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -74,6 +75,7 @@ public class CarsTableForm extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tblCars.setRowHeight(30);
         tblCars.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         tblCars.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblCars);
