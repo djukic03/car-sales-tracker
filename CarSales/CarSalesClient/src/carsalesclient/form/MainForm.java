@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 /**
@@ -33,20 +34,20 @@ public class MainForm extends javax.swing.JFrame {
 
         lblMain = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu5 = new javax.swing.JMenu();
+        menuInvoice = new javax.swing.JMenu();
         menuItemCreateNewInvoice = new javax.swing.JMenuItem();
         menuItemSeeAllInvoices = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        menuSalespersons = new javax.swing.JMenu();
         menuItemAddSalesman = new javax.swing.JMenuItem();
         menuItemSeeAllSalesmen = new javax.swing.JMenuItem();
-        menuAddNewCar = new javax.swing.JMenu();
+        menuCars = new javax.swing.JMenu();
         menuItemAddNewCar = new javax.swing.JMenuItem();
         menuItemSeeAllCars = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
+        menuCustomers = new javax.swing.JMenu();
         menuItemAddNewCustomer = new javax.swing.JMenuItem();
         menuItemSeeAllCustomers = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
+        menuOptions = new javax.swing.JMenu();
+        menuItemLanguage = new javax.swing.JMenu();
         menuItemEnglish = new javax.swing.JCheckBoxMenuItem();
         menuItemSerbian = new javax.swing.JCheckBoxMenuItem();
         menuItemLogOut = new javax.swing.JMenuItem();
@@ -57,8 +58,8 @@ public class MainForm extends javax.swing.JFrame {
         lblMain.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
         lblMain.setText("jLabel1");
 
-        jMenu5.setText("Invoice");
-        jMenu5.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuInvoice.setText("Invoice");
+        menuInvoice.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
 
         menuItemCreateNewInvoice.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         menuItemCreateNewInvoice.setText("Create new invoice");
@@ -67,20 +68,20 @@ public class MainForm extends javax.swing.JFrame {
                 menuItemCreateNewInvoiceActionPerformed(evt);
             }
         });
-        jMenu5.add(menuItemCreateNewInvoice);
+        menuInvoice.add(menuItemCreateNewInvoice);
 
         menuItemSeeAllInvoices.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         menuItemSeeAllInvoices.setText("See all invoices");
-        jMenu5.add(menuItemSeeAllInvoices);
+        menuInvoice.add(menuItemSeeAllInvoices);
 
-        jMenuBar1.add(jMenu5);
+        jMenuBar1.add(menuInvoice);
 
-        jMenu2.setText("Salesmen");
-        jMenu2.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuSalespersons.setText("Salesmen");
+        menuSalespersons.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
 
         menuItemAddSalesman.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         menuItemAddSalesman.setText("Add new salesman");
-        jMenu2.add(menuItemAddSalesman);
+        menuSalespersons.add(menuItemAddSalesman);
 
         menuItemSeeAllSalesmen.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         menuItemSeeAllSalesmen.setText("See all salesmen");
@@ -89,12 +90,12 @@ public class MainForm extends javax.swing.JFrame {
                 menuItemSeeAllSalesmenActionPerformed(evt);
             }
         });
-        jMenu2.add(menuItemSeeAllSalesmen);
+        menuSalespersons.add(menuItemSeeAllSalesmen);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(menuSalespersons);
 
-        menuAddNewCar.setText("Cars");
-        menuAddNewCar.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuCars.setText("Cars");
+        menuCars.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
 
         menuItemAddNewCar.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         menuItemAddNewCar.setText("Add new car");
@@ -103,7 +104,7 @@ public class MainForm extends javax.swing.JFrame {
                 menuItemAddNewCarActionPerformed(evt);
             }
         });
-        menuAddNewCar.add(menuItemAddNewCar);
+        menuCars.add(menuItemAddNewCar);
 
         menuItemSeeAllCars.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         menuItemSeeAllCars.setText("See all cars");
@@ -112,12 +113,12 @@ public class MainForm extends javax.swing.JFrame {
                 menuItemSeeAllCarsActionPerformed(evt);
             }
         });
-        menuAddNewCar.add(menuItemSeeAllCars);
+        menuCars.add(menuItemSeeAllCars);
 
-        jMenuBar1.add(menuAddNewCar);
+        jMenuBar1.add(menuCars);
 
-        jMenu1.setText("Customers");
-        jMenu1.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuCustomers.setText("Customers");
+        menuCustomers.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
 
         menuItemAddNewCustomer.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         menuItemAddNewCustomer.setText("Add new customer");
@@ -126,7 +127,7 @@ public class MainForm extends javax.swing.JFrame {
                 menuItemAddNewCustomerActionPerformed(evt);
             }
         });
-        jMenu1.add(menuItemAddNewCustomer);
+        menuCustomers.add(menuItemAddNewCustomer);
 
         menuItemSeeAllCustomers.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         menuItemSeeAllCustomers.setText("See all customers");
@@ -135,32 +136,32 @@ public class MainForm extends javax.swing.JFrame {
                 menuItemSeeAllCustomersActionPerformed(evt);
             }
         });
-        jMenu1.add(menuItemSeeAllCustomers);
+        menuCustomers.add(menuItemSeeAllCustomers);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(menuCustomers);
 
-        jMenu3.setText("Options");
-        jMenu3.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuOptions.setText("Options");
+        menuOptions.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
 
-        jMenu4.setText("Language");
-        jMenu4.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuItemLanguage.setText("Language");
+        menuItemLanguage.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
 
         menuItemEnglish.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         menuItemEnglish.setSelected(true);
         menuItemEnglish.setText("English");
-        jMenu4.add(menuItemEnglish);
+        menuItemLanguage.add(menuItemEnglish);
 
         menuItemSerbian.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        menuItemSerbian.setText("Serbian");
-        jMenu4.add(menuItemSerbian);
+        menuItemSerbian.setText("Српски");
+        menuItemLanguage.add(menuItemSerbian);
 
-        jMenu3.add(jMenu4);
+        menuOptions.add(menuItemLanguage);
 
         menuItemLogOut.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         menuItemLogOut.setText("Log out");
-        jMenu3.add(menuItemLogOut);
+        menuOptions.add(menuItemLogOut);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(menuOptions);
 
         setJMenuBar(jMenuBar1);
 
@@ -202,32 +203,32 @@ public class MainForm extends javax.swing.JFrame {
     private void menuItemCreateNewInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCreateNewInvoiceActionPerformed
     }//GEN-LAST:event_menuItemCreateNewInvoiceActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel lblMain;
-    private javax.swing.JMenu menuAddNewCar;
+    private javax.swing.JMenu menuCars;
+    private javax.swing.JMenu menuCustomers;
+    private javax.swing.JMenu menuInvoice;
     private javax.swing.JMenuItem menuItemAddNewCar;
     private javax.swing.JMenuItem menuItemAddNewCustomer;
     private javax.swing.JMenuItem menuItemAddSalesman;
     private javax.swing.JMenuItem menuItemCreateNewInvoice;
     private javax.swing.JCheckBoxMenuItem menuItemEnglish;
+    private javax.swing.JMenu menuItemLanguage;
     private javax.swing.JMenuItem menuItemLogOut;
     private javax.swing.JMenuItem menuItemSeeAllCars;
     private javax.swing.JMenuItem menuItemSeeAllCustomers;
     private javax.swing.JMenuItem menuItemSeeAllInvoices;
     private javax.swing.JMenuItem menuItemSeeAllSalesmen;
     private javax.swing.JCheckBoxMenuItem menuItemSerbian;
+    private javax.swing.JMenu menuOptions;
+    private javax.swing.JMenu menuSalespersons;
     // End of variables declaration//GEN-END:variables
 
-    public JMenuItem getMenuItemEnglish() {
+    public JCheckBoxMenuItem getMenuItemEnglish() {
         return menuItemEnglish;
     }
     
-    public JMenuItem getMenuItemSerbian() {
+    public JCheckBoxMenuItem getMenuItemSerbian() {
         return menuItemSerbian;
     }
     
@@ -278,4 +279,62 @@ public class MainForm extends javax.swing.JFrame {
     public void miSerbianAddActionListener(ActionListener actionListener){
         menuItemSerbian.addActionListener(actionListener);
     }
+
+    public JMenu getMenuCars() {
+        return menuCars;
+    }
+
+    public JMenu getMenuCustomers() {
+        return menuCustomers;
+    }
+
+    public JMenu getMenuInvoice() {
+        return menuInvoice;
+    }
+
+    public JMenu getMenuOptions() {
+        return menuOptions;
+    }
+
+    public JMenu getMenuSalespersons() {
+        return menuSalespersons;
+    }
+
+    public JMenuItem getMenuItemAddNewCar() {
+        return menuItemAddNewCar;
+    }
+
+    public JMenuItem getMenuItemAddNewCustomer() {
+        return menuItemAddNewCustomer;
+    }
+
+    public JMenuItem getMenuItemAddSalesman() {
+        return menuItemAddSalesman;
+    }
+
+    public JMenu getMenuItemLanguage() {
+        return menuItemLanguage;
+    }
+
+    public JMenuItem getMenuItemSeeAllCars() {
+        return menuItemSeeAllCars;
+    }
+
+    public JMenuItem getMenuItemSeeAllCustomers() {
+        return menuItemSeeAllCustomers;
+    }
+
+    public JMenuItem getMenuItemSeeAllInvoices() {
+        return menuItemSeeAllInvoices;
+    }
+
+    public JMenuItem getMenuItemSeeAllSalesmen() {
+        return menuItemSeeAllSalesmen;
+    }
+
+    public JMenuItem getMenuItemLogOut() {
+        return menuItemLogOut;
+    }
+    
+    
 }

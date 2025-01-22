@@ -15,6 +15,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.InputStream;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -27,6 +30,7 @@ import javax.swing.plaf.metal.MetalBorders;
  */
 public class LoginController {
     private final LoginForm loginForm; 
+    private ResourceBundle bundle;
 
     public LoginController(LoginForm loginForm) {
         this.loginForm = loginForm;
@@ -34,6 +38,7 @@ public class LoginController {
     }
     
     public void openForm(){
+        prepareForm();
         loginForm.setVisible(true);
     }
 
@@ -52,7 +57,7 @@ public class LoginController {
                     
                     try {
                         User loggedInUser = ClientController.getInstance().login(user);
-                        JOptionPane.showMessageDialog(loginForm, "Login successfull! \nWelcome "+ loggedInUser.getFirstName() +"!");
+                        JOptionPane.showMessageDialog(loginForm, bundle.getString("Login_successfull!_Welcome")+" "+ loggedInUser.getFirstName() +"!");
                         loginForm.dispose();
                         Coordinator.getInstance().addParam(CoordinatorParamConsts.LOGGED_IN_USER, loggedInUser);
                         Coordinator.getInstance().openMainForm();
@@ -62,7 +67,7 @@ public class LoginController {
                     }
                 }
                 else{
-                    JOptionPane.showMessageDialog(loginForm, "Fill all required fields");
+                    JOptionPane.showMessageDialog(loginForm, bundle.getString("Fill_all_required_fields"));
                 }
             }
         });
@@ -78,6 +83,18 @@ public class LoginController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 loginForm.getBtnLogin().doClick();
+            }
+        });
+        
+        loginForm.cbLanguageAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                selectLanguage();
+            }
+
+            private void selectLanguage() {
+                Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_LANGUAGE, loginForm.getCbLanguage().getSelectedItem().toString());
+                setLanguage();
             }
         });
         
@@ -103,7 +120,7 @@ public class LoginController {
         
         
         if(loginForm.getTxtUsername().getText().isBlank()){
-            loginForm.getTxtUsername().setBorder(new TitledBorder(border, "Required Field", 0, 0, font, Color.RED));
+            loginForm.getTxtUsername().setBorder(new TitledBorder(border, bundle.getString("Required_Field"), 0, 0, font, Color.RED));
             empty = true;
         }
         else{
@@ -111,7 +128,7 @@ public class LoginController {
                 
         }
         if(String.valueOf(loginForm.getTxtPassword().getPassword()).isBlank()){
-            loginForm.getTxtPassword().setBorder(new TitledBorder(border, "Required Field", 0, 0, font, Color.RED));
+            loginForm.getTxtPassword().setBorder(new TitledBorder(border, bundle.getString("Required_Field"), 0, 0, font, Color.RED));
             empty = true;
         }
         else{
@@ -120,6 +137,35 @@ public class LoginController {
         }
         
         return empty;
+    }
+
+    private void prepareForm() {
+        Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_LANGUAGE, "en");
+        try {
+            InputStream is = LoginController.class.getResourceAsStream("/resources/Andika-Regular.ttf");
+            Font regularFont = Font.createFont(Font.TRUETYPE_FONT, is);
+            loginForm.getLblTitle().setFont(regularFont.deriveFont(Font.BOLD, 18f));
+            loginForm.getLblUsername().setFont(regularFont.deriveFont(13f));
+            loginForm.getLblPassword().setFont(regularFont.deriveFont(13f));
+            loginForm.getBtnLogin().setFont(regularFont.deriveFont(15f));
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+        setLanguage();
+    }
+
+    private void setLanguage() {
+        String language = Coordinator.getInstance().getParam(CoordinatorParamConsts.SELECTED_LANGUAGE).toString();
+        Locale locale = Locale.of(language);
+        bundle = ResourceBundle.getBundle("resources.language", locale);
+
+
+        loginForm.getLblTitle().setText(bundle.getString("LOGIN"));
+        loginForm.getLblUsername().setText(bundle.getString("Username")+":");
+        loginForm.getLblPassword().setText(bundle.getString("Password")+":");
+        loginForm.getBtnLogin().setText(bundle.getString("Login"));
+        loginForm.setTitle(bundle.getString("Login_form"));
     }
     
 }

@@ -38,8 +38,7 @@ public class MainController {
     }
     
     public void openForm(){
-        User user = (User) Coordinator.getInstance().getParam(CoordinatorParamConsts.LOGGED_IN_USER);
-        mainForm.getLblMain().setText("Welcome "+user.getFirstName() + " " + user.getLastName());
+        prepareForm();
         mainForm.setVisible(true);
     }
 
@@ -103,10 +102,10 @@ public class MainController {
         mainForm.miEnglishAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!mainForm.getMenuItemEnglish().isSelected()) {
+                if (mainForm.getMenuItemEnglish().isSelected()) {
                     mainForm.getMenuItemSerbian().setSelected(false);
                     Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_LANGUAGE, "en");
-                    changeLanguage();
+                    setLanguage();
                 }
                 else{
                     JOptionPane.showMessageDialog(mainForm, "English is already selected");
@@ -119,10 +118,10 @@ public class MainController {
         mainForm.miSerbianAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!mainForm.getMenuItemSerbian().isSelected()) {
+                if (mainForm.getMenuItemSerbian().isSelected()) {
                     mainForm.getMenuItemEnglish().setSelected(false);
                     Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_LANGUAGE, "sr");
-                    changeLanguage();
+                    setLanguage();
                 }
                 else{
                     JOptionPane.showMessageDialog(mainForm, "Српски је већ изабран");
@@ -150,18 +149,78 @@ public class MainController {
         });
     }
     
-    private void changeLanguage(){
+    private void setLanguage(){
         String language = Coordinator.getInstance().getParam(CoordinatorParamConsts.SELECTED_LANGUAGE).toString();
-        System.out.println(language);
         Locale locale = Locale.of(language);
         ResourceBundle bundle = ResourceBundle.getBundle("resources.language", locale);
         
+        mainForm.setTitle(bundle.getString("Main_form"));
+        
+        User user = (User) Coordinator.getInstance().getParam(CoordinatorParamConsts.LOGGED_IN_USER);
+        mainForm.getLblMain().setText(bundle.getString("Welcome") + " "+user.getFirstName() + " " + user.getLastName());
+        
+        mainForm.getMenuInvoice().setText(bundle.getString("Invoices"));
+            mainForm.getMenuItemCreateNewInvoice().setText(bundle.getString("Create_New_Invoice"));
+            mainForm.getMenuItemSeeAllInvoices().setText(bundle.getString("See_All_Invoices"));
+                
+        mainForm.getMenuSalespersons().setText(bundle.getString("Salespersons"));
+            mainForm.getMenuItemAddSalesman().setText(bundle.getString("Add_New_Salesperson"));
+            mainForm.getMenuItemSeeAllSalesmen().setText(bundle.getString("See_All_Salespersons"));
+                
+        mainForm.getMenuCars().setText(bundle.getString("Cars"));
+            mainForm.getMenuItemAddNewCar().setText(bundle.getString("Add_New_Car"));
+            mainForm.getMenuItemSeeAllCars().setText(bundle.getString("See_All_Cars"));
+                
+        mainForm.getMenuCustomers().setText(bundle.getString("Customers"));
+            mainForm.getMenuItemAddNewCustomer().setText(bundle.getString("Add_New_Customer"));
+            mainForm.getMenuItemSeeAllCustomers().setText(bundle.getString("See_All_Customers"));
+                
+        mainForm.getMenuOptions().setText(bundle.getString("Options"));
+            mainForm.getMenuItemLanguage().setText(bundle.getString("Language"));
+            mainForm.getMenuItemLogOut().setText(bundle.getString("Log_Out"));
+    }
+
+    private void prepareForm() {
+        if(Coordinator.getInstance().getParam(CoordinatorParamConsts.SELECTED_LANGUAGE).toString().equals("en")){
+            mainForm.getMenuItemEnglish().setSelected(true);
+            mainForm.getMenuItemSerbian().setSelected(false);
+        }
+        else{
+            mainForm.getMenuItemEnglish().setSelected(false);
+            mainForm.getMenuItemSerbian().setSelected(true);
+        }
         try {
             InputStream is = MainController.class.getResourceAsStream("/resources/Andika-Regular.ttf");
-            Font customFont = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(13f);
-            mainForm.getMenuItemCreateNewInvoice().setText(bundle.getString("Create_New_Invoice"));
-            mainForm.getMenuItemCreateNewInvoice().setFont(customFont);
+            Font regularFont = Font.createFont(Font.TRUETYPE_FONT, is);
+            
+            mainForm.getLblMain().setFont(regularFont.deriveFont(Font.BOLD, 20f));
+            
+            mainForm.getMenuInvoice().setFont(regularFont.deriveFont(14f));
+                mainForm.getMenuItemCreateNewInvoice().setFont(regularFont.deriveFont(14f));
+                mainForm.getMenuItemSeeAllInvoices().setFont(regularFont.deriveFont(14f));
+                
+            mainForm.getMenuSalespersons().setFont(regularFont.deriveFont(14f));
+                mainForm.getMenuItemAddSalesman().setFont(regularFont.deriveFont(14f));
+                mainForm.getMenuItemSeeAllSalesmen().setFont(regularFont.deriveFont(14f));
+                
+            mainForm.getMenuCars().setFont(regularFont.deriveFont(14f));
+                mainForm.getMenuItemAddNewCar().setFont(regularFont.deriveFont(14f));
+                mainForm.getMenuItemSeeAllCars().setFont(regularFont.deriveFont(14f));
+                
+            mainForm.getMenuCustomers().setFont(regularFont.deriveFont(14f));
+                mainForm.getMenuItemAddNewCustomer().setFont(regularFont.deriveFont(14f));
+                mainForm.getMenuItemSeeAllCustomers().setFont(regularFont.deriveFont(14f));
+                
+            mainForm.getMenuOptions().setFont(regularFont.deriveFont(14f));
+                mainForm.getMenuItemLanguage().setFont(regularFont.deriveFont(14f));
+                    mainForm.getMenuItemEnglish().setFont(regularFont.deriveFont(14f));
+                    mainForm.getMenuItemSerbian().setFont(regularFont.deriveFont(14f));
+                    
+                mainForm.getMenuItemLogOut().setFont(regularFont.deriveFont(14f));
         } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            e.printStackTrace();
         }
+        setLanguage();
     }
 }
