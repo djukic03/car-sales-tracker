@@ -11,12 +11,10 @@ import carsalesclient.form.form_coordinator.Coordinator;
 import carsalesclient.form.modes.AddFormMode;
 import carsalesclient.form.modes.TableFormMode;
 import domain.User;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.InputStream;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
@@ -138,7 +136,6 @@ public class MainController {
                 super.windowClosing(e);
                 try {
 //                    ClientController.getInstance().closeCon();
-                    System.out.println("log outujemo usera "+((User) Coordinator.getInstance().getParam(CoordinatorParamConsts.LOGGED_IN_USER)).getFirstName());
                     ClientController.getInstance().logout((User) Coordinator.getInstance().getParam(CoordinatorParamConsts.LOGGED_IN_USER));
 //Ako smislim nesto bolje za logout - dodaj SO
                 } catch (Exception ex) {
@@ -188,38 +185,6 @@ public class MainController {
         else{
             mainForm.getMenuItemEnglish().setSelected(false);
             mainForm.getMenuItemSerbian().setSelected(true);
-        }
-        try {
-            InputStream is = MainController.class.getResourceAsStream("/resources/Andika-Regular.ttf");
-            Font regularFont = Font.createFont(Font.TRUETYPE_FONT, is);
-            
-            mainForm.getLblMain().setFont(regularFont.deriveFont(Font.BOLD, 20f));
-            
-            mainForm.getMenuInvoice().setFont(regularFont.deriveFont(14f));
-                mainForm.getMenuItemCreateNewInvoice().setFont(regularFont.deriveFont(14f));
-                mainForm.getMenuItemSeeAllInvoices().setFont(regularFont.deriveFont(14f));
-                
-            mainForm.getMenuSalespersons().setFont(regularFont.deriveFont(14f));
-                mainForm.getMenuItemAddSalesman().setFont(regularFont.deriveFont(14f));
-                mainForm.getMenuItemSeeAllSalesmen().setFont(regularFont.deriveFont(14f));
-                
-            mainForm.getMenuCars().setFont(regularFont.deriveFont(14f));
-                mainForm.getMenuItemAddNewCar().setFont(regularFont.deriveFont(14f));
-                mainForm.getMenuItemSeeAllCars().setFont(regularFont.deriveFont(14f));
-                
-            mainForm.getMenuCustomers().setFont(regularFont.deriveFont(14f));
-                mainForm.getMenuItemAddNewCustomer().setFont(regularFont.deriveFont(14f));
-                mainForm.getMenuItemSeeAllCustomers().setFont(regularFont.deriveFont(14f));
-                
-            mainForm.getMenuOptions().setFont(regularFont.deriveFont(14f));
-                mainForm.getMenuItemLanguage().setFont(regularFont.deriveFont(14f));
-                    mainForm.getMenuItemEnglish().setFont(regularFont.deriveFont(14f));
-                    mainForm.getMenuItemSerbian().setFont(regularFont.deriveFont(14f));
-                    
-                mainForm.getMenuItemLogOut().setFont(regularFont.deriveFont(14f));
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-            e.printStackTrace();
         }
         setLanguage();
     }

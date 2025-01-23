@@ -55,13 +55,13 @@ public class MainForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Car Sales Tracker");
 
-        lblMain.setFont(new java.awt.Font("Gill Sans MT", 0, 18)); // NOI18N
+        lblMain.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         lblMain.setText("jLabel1");
 
         menuInvoice.setText("Invoice");
-        menuInvoice.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuInvoice.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
 
-        menuItemCreateNewInvoice.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuItemCreateNewInvoice.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         menuItemCreateNewInvoice.setText("Create new invoice");
         menuItemCreateNewInvoice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,20 +70,20 @@ public class MainForm extends javax.swing.JFrame {
         });
         menuInvoice.add(menuItemCreateNewInvoice);
 
-        menuItemSeeAllInvoices.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuItemSeeAllInvoices.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         menuItemSeeAllInvoices.setText("See all invoices");
         menuInvoice.add(menuItemSeeAllInvoices);
 
         jMenuBar1.add(menuInvoice);
 
         menuSalespersons.setText("Salesmen");
-        menuSalespersons.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuSalespersons.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
 
-        menuItemAddSalesman.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuItemAddSalesman.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         menuItemAddSalesman.setText("Add new salesman");
         menuSalespersons.add(menuItemAddSalesman);
 
-        menuItemSeeAllSalesmen.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuItemSeeAllSalesmen.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         menuItemSeeAllSalesmen.setText("See all salesmen");
         menuItemSeeAllSalesmen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,9 +95,9 @@ public class MainForm extends javax.swing.JFrame {
         jMenuBar1.add(menuSalespersons);
 
         menuCars.setText("Cars");
-        menuCars.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuCars.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
 
-        menuItemAddNewCar.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuItemAddNewCar.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         menuItemAddNewCar.setText("Add new car");
         menuItemAddNewCar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,7 +106,7 @@ public class MainForm extends javax.swing.JFrame {
         });
         menuCars.add(menuItemAddNewCar);
 
-        menuItemSeeAllCars.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuItemSeeAllCars.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         menuItemSeeAllCars.setText("See all cars");
         menuItemSeeAllCars.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,9 +118,9 @@ public class MainForm extends javax.swing.JFrame {
         jMenuBar1.add(menuCars);
 
         menuCustomers.setText("Customers");
-        menuCustomers.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuCustomers.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
 
-        menuItemAddNewCustomer.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuItemAddNewCustomer.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         menuItemAddNewCustomer.setText("Add new customer");
         menuItemAddNewCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,7 +129,7 @@ public class MainForm extends javax.swing.JFrame {
         });
         menuCustomers.add(menuItemAddNewCustomer);
 
-        menuItemSeeAllCustomers.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuItemSeeAllCustomers.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         menuItemSeeAllCustomers.setText("See all customers");
         menuItemSeeAllCustomers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,23 +141,23 @@ public class MainForm extends javax.swing.JFrame {
         jMenuBar1.add(menuCustomers);
 
         menuOptions.setText("Options");
-        menuOptions.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuOptions.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
 
         menuItemLanguage.setText("Language");
-        menuItemLanguage.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuItemLanguage.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
 
-        menuItemEnglish.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuItemEnglish.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         menuItemEnglish.setSelected(true);
         menuItemEnglish.setText("English");
         menuItemLanguage.add(menuItemEnglish);
 
-        menuItemSerbian.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuItemSerbian.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         menuItemSerbian.setText("Српски");
         menuItemLanguage.add(menuItemSerbian);
 
         menuOptions.add(menuItemLanguage);
 
-        menuItemLogOut.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        menuItemLogOut.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         menuItemLogOut.setText("Log out");
         menuOptions.add(menuItemLogOut);
 
@@ -179,7 +179,7 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblMain)
-                .addContainerGap(375, Short.MAX_VALUE))
+                .addContainerGap(367, Short.MAX_VALUE))
         );
 
         pack();

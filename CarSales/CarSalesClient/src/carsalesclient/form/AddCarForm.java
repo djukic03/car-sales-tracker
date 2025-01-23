@@ -43,26 +43,26 @@ public class AddCarForm extends javax.swing.JDialog {
         btnEnableChanges = new javax.swing.JButton();
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        lblFirstReg = new javax.swing.JLabel();
         txtBrand = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        lblModel = new javax.swing.JLabel();
         txtModel = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        lblBrand = new javax.swing.JLabel();
         txtMileage = new javax.swing.JTextField();
         txtFirstReg = new javax.swing.JTextField();
         txtId = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
+        lblCategory = new javax.swing.JLabel();
         lblId = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lblMileage = new javax.swing.JLabel();
         cbCategory = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        lblFuel = new javax.swing.JLabel();
+        lblGearbox = new javax.swing.JLabel();
+        lblEngPower = new javax.swing.JLabel();
         txtEnginePower = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        lblPrice = new javax.swing.JLabel();
         txtEngineCapacity = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
+        lblEngCapacity = new javax.swing.JLabel();
         txtPrice = new javax.swing.JTextField();
         cbFuel = new javax.swing.JComboBox<>();
         cbGearbox = new javax.swing.JComboBox<>();
@@ -70,12 +70,12 @@ public class AddCarForm extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add new car");
 
-        lblTitle.setFont(new java.awt.Font("Gill Sans MT", 1, 16)); // NOI18N
+        lblTitle.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Add new car");
         lblTitle.setName("title"); // NOI18N
 
-        btnEdit.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnEdit.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnEdit.setText("Edit");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,7 +83,7 @@ public class AddCarForm extends javax.swing.JDialog {
             }
         });
 
-        btnSave.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnSave.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,7 +91,7 @@ public class AddCarForm extends javax.swing.JDialog {
             }
         });
 
-        btnCancel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnCancel.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnCancel.setText("Cancel");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,7 +99,7 @@ public class AddCarForm extends javax.swing.JDialog {
             }
         });
 
-        btnEnableChanges.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnEnableChanges.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnEnableChanges.setText("Enable changes");
         btnEnableChanges.setName("btnEnableChanges"); // NOI18N
         btnEnableChanges.addActionListener(new java.awt.event.ActionListener() {
@@ -120,7 +120,7 @@ public class AddCarForm extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancel)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -140,42 +140,42 @@ public class AddCarForm extends javax.swing.JDialog {
         jSplitPane1.setResizeWeight(0.5);
         jSplitPane1.setFocusable(false);
 
-        jLabel5.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        jLabel5.setText("First registration(Y): ");
+        lblFirstReg.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblFirstReg.setText("First registration(Y): ");
 
-        txtBrand.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtBrand.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         txtBrand.setName("brand"); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        jLabel4.setText("Model:");
+        lblModel.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblModel.setText("Модел");
 
-        txtModel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtModel.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         txtModel.setName("model"); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        jLabel2.setText("Brand:");
+        lblBrand.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblBrand.setText("Brand:");
 
-        txtMileage.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtMileage.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         txtMileage.setName("model"); // NOI18N
 
-        txtFirstReg.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtFirstReg.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         txtFirstReg.setName("model"); // NOI18N
 
-        txtId.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtId.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         txtId.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtId.setName("id"); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        jLabel7.setText("Category:");
+        lblCategory.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblCategory.setText("Category:");
 
-        lblId.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        lblId.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         lblId.setText("ID:");
         lblId.setName("id"); // NOI18N
 
-        jLabel6.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        jLabel6.setText("Mileage(KM):");
+        lblMileage.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblMileage.setText("Mileage(KM):");
 
-        cbCategory.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        cbCategory.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         cbCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cabrio", "Coupe", "Estate/Wagon", "Hatchback", "Limousine/Salon", "Minivan/Van", "SUV" }));
         cbCategory.setSelectedIndex(-1);
 
@@ -186,19 +186,19 @@ public class AddCarForm extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblModel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblBrand, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblFirstReg, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblMileage, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblCategory, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtMileage)
                     .addComponent(txtModel)
                     .addComponent(txtFirstReg, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtBrand, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cbCategory, 0, 153, Short.MAX_VALUE)
+                    .addComponent(cbCategory, 0, 132, Short.MAX_VALUE)
                     .addComponent(txtId))
                 .addContainerGap())
         );
@@ -211,58 +211,58 @@ public class AddCarForm extends javax.swing.JDialog {
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(lblBrand)
                     .addComponent(txtBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(lblModel)
                     .addComponent(txtModel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                    .addComponent(lblFirstReg)
                     .addComponent(txtFirstReg, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
+                    .addComponent(lblMileage)
                     .addComponent(txtMileage, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
+                    .addComponent(lblCategory)
                     .addComponent(cbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
 
-        jLabel8.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        jLabel8.setText("Fuel:");
+        lblFuel.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblFuel.setText("Fuel:");
 
-        jLabel11.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        jLabel11.setText("Gearbox:");
+        lblGearbox.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblGearbox.setText("Gearbox:");
 
-        jLabel10.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        jLabel10.setText("Engine Power(HP):");
+        lblEngPower.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblEngPower.setText("Engine Power(HP):");
 
-        txtEnginePower.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtEnginePower.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         txtEnginePower.setName("model"); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        jLabel3.setText("Price(€):");
+        lblPrice.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblPrice.setText("Price(€):");
 
-        txtEngineCapacity.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtEngineCapacity.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         txtEngineCapacity.setName("model"); // NOI18N
 
-        jLabel9.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
-        jLabel9.setText("Engine Capacity(L):");
+        lblEngCapacity.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblEngCapacity.setText("Engine Capacity(L):");
 
-        txtPrice.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtPrice.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         txtPrice.setName("price"); // NOI18N
 
-        cbFuel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        cbFuel.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         cbFuel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Petrol", "Diesel", "CNG", "Hybrid", "Electric" }));
         cbFuel.setSelectedIndex(-1);
 
-        cbGearbox.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        cbGearbox.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         cbGearbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Manual", "Automatic", "Semi-automatic" }));
         cbGearbox.setSelectedIndex(-1);
 
@@ -273,16 +273,16 @@ public class AddCarForm extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblFuel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblEngCapacity, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblEngPower, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblGearbox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtPrice)
                     .addComponent(txtEnginePower)
-                    .addComponent(cbGearbox, 0, 153, Short.MAX_VALUE)
+                    .addComponent(cbGearbox, 0, 151, Short.MAX_VALUE)
                     .addComponent(txtEngineCapacity)
                     .addComponent(cbFuel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -292,23 +292,23 @@ public class AddCarForm extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
+                    .addComponent(lblFuel)
                     .addComponent(cbFuel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
+                    .addComponent(lblEngCapacity)
                     .addComponent(txtEngineCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
+                    .addComponent(lblEngPower)
                     .addComponent(txtEnginePower, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
+                    .addComponent(lblGearbox)
                     .addComponent(cbGearbox, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(lblPrice)
                     .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
@@ -366,21 +366,21 @@ public class AddCarForm extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cbCategory;
     private javax.swing.JComboBox<String> cbFuel;
     private javax.swing.JComboBox<String> cbGearbox;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JLabel lblBrand;
+    private javax.swing.JLabel lblCategory;
+    private javax.swing.JLabel lblEngCapacity;
+    private javax.swing.JLabel lblEngPower;
+    private javax.swing.JLabel lblFirstReg;
+    private javax.swing.JLabel lblFuel;
+    private javax.swing.JLabel lblGearbox;
     private javax.swing.JLabel lblId;
+    private javax.swing.JLabel lblMileage;
+    private javax.swing.JLabel lblModel;
+    private javax.swing.JLabel lblPrice;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JTextField txtBrand;
     private javax.swing.JTextField txtEngineCapacity;
@@ -459,6 +459,48 @@ public class AddCarForm extends javax.swing.JDialog {
     public JTextField getTxtPrice() {
         return txtPrice;
     }
+
+    public JLabel getLblBrand() {
+        return lblBrand;
+    }
+
+    public JLabel getLblCategory() {
+        return lblCategory;
+    }
+
+    public JLabel getLblEngCapacity() {
+        return lblEngCapacity;
+    }
+
+    public JLabel getLblEngPower() {
+        return lblEngPower;
+    }
+
+    public JLabel getLblFirstReg() {
+        return lblFirstReg;
+    }
+
+    public JLabel getLblFuel() {
+        return lblFuel;
+    }
+
+    public JLabel getLblGearbox() {
+        return lblGearbox;
+    }
+
+    public JLabel getLblMileage() {
+        return lblMileage;
+    }
+
+    public JLabel getLblModel() {
+        return lblModel;
+    }
+
+    public JLabel getLblPrice() {
+        return lblPrice;
+    }
+    
+    
     
     public void btnEnableChangesAddActionListener(ActionListener actionListener){
         btnEnableChanges.addActionListener(actionListener);

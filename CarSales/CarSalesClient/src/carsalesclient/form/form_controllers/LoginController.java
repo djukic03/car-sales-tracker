@@ -115,7 +115,7 @@ public class LoginController {
     
     private boolean emptyFields(){
         Border border = new LineBorder(Color.red, 1,true);
-        Font font = new Font("Gill Sans MT", 1, 8);
+        Font font = new Font("Comic Sans MS", 1, 9);
         boolean empty = false;
         
         
@@ -141,17 +141,6 @@ public class LoginController {
 
     private void prepareForm() {
         Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_LANGUAGE, "en");
-        try {
-            InputStream is = LoginController.class.getResourceAsStream("/resources/Andika-Regular.ttf");
-            Font regularFont = Font.createFont(Font.TRUETYPE_FONT, is);
-            loginForm.getLblTitle().setFont(regularFont.deriveFont(Font.BOLD, 18f));
-            loginForm.getLblUsername().setFont(regularFont.deriveFont(13f));
-            loginForm.getLblPassword().setFont(regularFont.deriveFont(13f));
-            loginForm.getBtnLogin().setFont(regularFont.deriveFont(15f));
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-            e.printStackTrace();
-        }
         setLanguage();
     }
 

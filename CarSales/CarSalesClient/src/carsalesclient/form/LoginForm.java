@@ -47,19 +47,19 @@ public class LoginForm extends javax.swing.JFrame {
         setTitle("Login form");
         setResizable(false);
 
-        lblTitle.setFont(new java.awt.Font("Gill Sans MT", 1, 18)); // NOI18N
+        lblTitle.setFont(new java.awt.Font("Comic Sans MS", 1, 16)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("LOG IN");
 
-        lblUsername.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        lblUsername.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
         lblUsername.setText("Username:");
 
-        txtUsername.setFont(new java.awt.Font("Gill Sans MT", 0, 16)); // NOI18N
+        txtUsername.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
 
-        lblPassword.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        lblPassword.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
         lblPassword.setText("Password:");
 
-        btnLogin.setFont(new java.awt.Font("Gill Sans MT", 0, 16)); // NOI18N
+        btnLogin.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnLogin.setText("Log in");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,7 +67,7 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
-        txtPassword.setFont(new java.awt.Font("Gill Sans MT", 0, 16)); // NOI18N
+        txtPassword.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         txtPassword.setToolTipText("");
         txtPassword.setActionCommand("<Not Set>");
         txtPassword.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
