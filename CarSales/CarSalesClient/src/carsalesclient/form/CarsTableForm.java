@@ -48,7 +48,7 @@ public class CarsTableForm extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("All Cars");
 
-        tblCars.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        tblCars.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         tblCars.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -80,7 +80,7 @@ public class CarsTableForm extends javax.swing.JDialog {
         tblCars.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblCars);
 
-        btnDetails.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnDetails.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnDetails.setText("Details");
         btnDetails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,7 +88,7 @@ public class CarsTableForm extends javax.swing.JDialog {
             }
         });
 
-        btnDelete.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnDelete.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,20 +96,20 @@ public class CarsTableForm extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Gill Sans MT", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         jLabel1.setText("Select brand:");
 
-        cbBrand.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        cbBrand.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         cbBrand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbBrandActionPerformed(evt);
             }
         });
 
-        lblQuantity.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        lblQuantity.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         lblQuantity.setText("Quantity:");
 
-        txtQuantity.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtQuantity.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         txtQuantity.setEnabled(false);
         txtQuantity.setName("price"); // NOI18N
         txtQuantity.addActionListener(new java.awt.event.ActionListener() {
@@ -118,7 +118,7 @@ public class CarsTableForm extends javax.swing.JDialog {
             }
         });
 
-        btnSelect.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnSelect.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnSelect.setText("SELECT");
         btnSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,7 +126,7 @@ public class CarsTableForm extends javax.swing.JDialog {
             }
         });
 
-        btnAddNew.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnAddNew.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnAddNew.setText("Add New");
         btnAddNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

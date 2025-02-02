@@ -57,7 +57,7 @@ public class InvoicesTableForm extends javax.swing.JDialog {
                 "Invoice Number", "Issues Date", "Amount", "Salesperson", "Customer", "Items"
             }
         ));
-        tblInvoices.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        tblInvoices.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         tblInvoices.setRowHeight(30);
         tblInvoices.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         tblInvoices.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -66,19 +66,19 @@ public class InvoicesTableForm extends javax.swing.JDialog {
         jScrollPane1.setViewportView(tblInvoices);
 
         jLabel1.setText("Date of issue:");
-        jLabel1.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
 
         datePicker.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
 
         btnCancel.setText("Cancel");
-        btnCancel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnCancel.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
 
         txtDate.setEditable(false);
         txtDate.setEnabled(false);
-        txtDate.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtDate.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
 
-        btnGeneratePdf.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
         btnGeneratePdf.setText("Generate PDF");
+        btnGeneratePdf.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,7 +111,7 @@ public class InvoicesTableForm extends javax.swing.JDialog {
                     .addComponent(datePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)

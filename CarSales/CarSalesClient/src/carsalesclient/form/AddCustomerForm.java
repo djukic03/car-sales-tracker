@@ -50,16 +50,16 @@ public class AddCustomerForm extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        txtName.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtName.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         txtName.setName("name"); // NOI18N
 
-        txtPhone.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtPhone.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         txtPhone.setName("phone"); // NOI18N
 
-        txtEmail.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtEmail.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         txtEmail.setName("email"); // NOI18N
 
-        btnSave.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnSave.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,7 +67,7 @@ public class AddCustomerForm extends javax.swing.JDialog {
             }
         });
 
-        btnCancel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnCancel.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnCancel.setText("Cancel");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,17 +75,18 @@ public class AddCustomerForm extends javax.swing.JDialog {
             }
         });
 
-        lblId.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        lblId.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         lblId.setText("ID:");
         lblId.setName("id"); // NOI18N
 
-        txtId.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtId.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         txtId.setName("id"); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Gill Sans MT", 1, 16)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Add new customer");
 
-        btnEnableChanges.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnEnableChanges.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnEnableChanges.setText("Enable changes");
         btnEnableChanges.setName("btnEnableChanges"); // NOI18N
         btnEnableChanges.addActionListener(new java.awt.event.ActionListener() {
@@ -94,16 +95,16 @@ public class AddCustomerForm extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         jLabel2.setText("Full Name:");
 
-        jLabel3.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         jLabel3.setText("Email:");
 
-        jLabel4.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         jLabel4.setText("Phone:");
 
-        btnEdit.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnEdit.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnEdit.setText("Edit");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,13 +119,11 @@ public class AddCustomerForm extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -135,12 +134,12 @@ public class AddCustomerForm extends javax.swing.JDialog {
                             .addComponent(txtId)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnEnableChanges)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCancel)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -164,7 +163,7 @@ public class AddCustomerForm extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)

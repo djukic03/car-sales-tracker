@@ -40,8 +40,8 @@ public class HandleClientThread extends Thread{
     
     @Override
     public void run() {
-        while (!socket.isClosed()) {
-            try {
+        try {
+            while (!socket.isClosed()) {
                 Request request = (Request) receiver.receive();
                 Response response = new Response();
                 try {
@@ -61,10 +61,6 @@ public class HandleClientThread extends Thread{
                             
                             
                             
-                        case Operation.GET_ALL:
-                            response.setResult(controller.getAll((DefaultDomainObject) request.getArgument()));
-                            break;
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         case Operation.GET_ALL_USERS:
                             response.setResult(controller.getAllUsers());
                             break;
@@ -78,18 +74,9 @@ public class HandleClientThread extends Thread{
                             response.setResult(controller.getAllInvoices());
                             break;
                         
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        case Operation.GET_ALL_ORDERED:
-                            response.setResult(controller.getAllOrdered((DefaultDomainObject) request.getArgument()));
-                            break;
                             
                             
                             
-                            
-                        case Operation.GET_BY_CONDITION:
-                            response.setResult(controller.getByCondition((DefaultDomainObject) request.getArgument()));
-                            break;
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         case Operation.SEARCH_USERS:
                             response.setResult(controller.searchUsers((User) request.getArgument()));
                             break;
@@ -105,15 +92,9 @@ public class HandleClientThread extends Thread{
                         case Operation.SEARCH_INVOICE_ITEMS:
                             response.setResult(controller.searchInvoiceItems((InvoiceItem) request.getArgument()));
                             break;
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         
                         
                         
-                        
-                        case Operation.INSERT_ROW:
-                            controller.insertRow((DefaultDomainObject) request.getArgument());
-                            break;
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         case Operation.INSERT_USER:
                             controller.insertUser((User) request.getArgument());
                             break;
@@ -126,37 +107,21 @@ public class HandleClientThread extends Thread{
                         case Operation.INSERT_INVOICE_ITEM:
                             controller.insertInvoiceItem((InvoiceItem) request.getArgument());
                             break;
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        case Operation.INSERT_ROW_AND_GET_ID:
-                            response.setResult(controller.insertRowAndGetId((DefaultDomainObject) request.getArgument()));
-                            break;
                         case Operation.INSERT_INVOICE:
                             response.setResult(controller.insertInvoice((Invoice) request.getArgument()));
                             break;
                         
                         
                         
-                        
-                        
-                        case Operation.DELETE_ROW:
-                            controller.deleteRow((DefaultDomainObject) request.getArgument());
-                            break;
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         case Operation.DELETE_CAR:
                             controller.deleteCar((Car) request.getArgument());
                             break;
                         case Operation.DELETE_CUSTOMER:
                             controller.deleteCustomer((Customer) request.getArgument());
                             break;
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         
                         
                         
-                        
-                        case Operation.UPDATE_ROW:
-                            controller.updateRow((DefaultDomainObject) request.getArgument());
-                            break;
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         case Operation.UPDATE_CUSTOMER:
                             controller.updateCustomer((Customer) request.getArgument());
                             break;
@@ -166,7 +131,6 @@ public class HandleClientThread extends Thread{
                         case Operation.UPDATE_USER:
                             controller.updateUser((User) request.getArgument());
                             break;
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         
                         
                         case Operation.GET_ALL_CAR_BRANDS:
@@ -181,9 +145,9 @@ public class HandleClientThread extends Thread{
                     response.setException(e);
                 }
                 sender.send(response);
-            } catch (Exception ex) {
-                ex.printStackTrace();
             }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         System.out.println("Socket is closed!");
     }

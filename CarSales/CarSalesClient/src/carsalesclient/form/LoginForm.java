@@ -47,16 +47,16 @@ public class LoginForm extends javax.swing.JFrame {
         setTitle("Login form");
         setResizable(false);
 
-        lblTitle.setFont(new java.awt.Font("Comic Sans MS", 1, 16)); // NOI18N
+        lblTitle.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("LOG IN");
 
-        lblUsername.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
+        lblUsername.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         lblUsername.setText("Username:");
 
         txtUsername.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
 
-        lblPassword.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
+        lblPassword.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         lblPassword.setText("Password:");
 
         btnLogin.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
@@ -115,7 +115,7 @@ public class LoginForm extends javax.swing.JFrame {
                         .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37)
                         .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(cbLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

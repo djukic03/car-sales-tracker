@@ -8,19 +8,18 @@ import carsalesclient.controller.ClientController;
 import carsalesclient.form.AddCarForm;
 import carsalesclient.form.constants.CoordinatorParamConsts;
 import carsalesclient.form.form_coordinator.Coordinator;
+import carsalesclient.form.language.LanguageManager;
 import carsalesclient.form.modes.AddFormMode;
 import domain.Car;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -35,7 +34,6 @@ import javax.swing.plaf.metal.MetalBorders;
  */
 public class CarController {
     private final AddCarForm carForm;
-    ResourceBundle bundle;
 
     public CarController(AddCarForm carForm) {
         this.carForm = carForm;
@@ -108,7 +106,7 @@ public class CarController {
                         }
                     }
                     else{
-                        JOptionPane.showMessageDialog(carForm, bundle.getString("Fill_all_required_fields"));
+                        JOptionPane.showMessageDialog(carForm, LanguageManager.getValue("Fill_all_required_fields"));
                     }
                 } catch (Exception e) {
                     System.out.println("Error: " + e.getMessage());
@@ -207,7 +205,7 @@ public class CarController {
         
         
         if(carForm.getTxtBrand().getText().isBlank()){
-            carForm.getTxtBrand().setBorder(new TitledBorder(border, bundle.getString("Required_Field"), 0, 0, font, Color.RED));
+            carForm.getTxtBrand().setBorder(new TitledBorder(border, LanguageManager.getValue("Required_Field"), 0, 0, font, Color.RED));
             empty = true;
         }
         else{
@@ -215,7 +213,7 @@ public class CarController {
         }
         
         if(carForm.getTxtModel().getText().isBlank()){
-            carForm.getTxtModel().setBorder(new TitledBorder(border, bundle.getString("Required_Field"), 0, 0, font, Color.RED));
+            carForm.getTxtModel().setBorder(new TitledBorder(border, LanguageManager.getValue("Required_Field"), 0, 0, font, Color.RED));
             empty = true;
         }
         else{
@@ -223,7 +221,7 @@ public class CarController {
         }
         
         if(carForm.getTxtFirstReg().getText().isBlank()){
-            carForm.getTxtFirstReg().setBorder(new TitledBorder(border, bundle.getString("Required_Field"), 0, 0, font, Color.RED));
+            carForm.getTxtFirstReg().setBorder(new TitledBorder(border, LanguageManager.getValue("Required_Field"), 0, 0, font, Color.RED));
             empty = true;
         }
         else{
@@ -231,7 +229,7 @@ public class CarController {
         }
         
         if(carForm.getTxtMileage().getText().isBlank()){
-            carForm.getTxtMileage().setBorder(new TitledBorder(border, bundle.getString("Required_Field"), 0, 0, font, Color.RED));
+            carForm.getTxtMileage().setBorder(new TitledBorder(border, LanguageManager.getValue("Required_Field"), 0, 0, font, Color.RED));
             empty = true;
         }
         else{
@@ -239,7 +237,7 @@ public class CarController {
         }
         
         if(carForm.getCbCategory().getSelectedIndex() == -1){
-            carForm.getCbCategory().setBorder(new TitledBorder(border, bundle.getString("Required_Field"), 0, 0, font, Color.RED));
+            carForm.getCbCategory().setBorder(new TitledBorder(border, LanguageManager.getValue("Required_Field"), 0, 0, font, Color.RED));
             empty = true;
         }
         else{
@@ -247,7 +245,7 @@ public class CarController {
         }
         
         if(carForm.getCbFuel().getSelectedIndex() == -1){
-            carForm.getCbFuel().setBorder(new TitledBorder(border, bundle.getString("Required_Field"), 0, 0, font, Color.RED));
+            carForm.getCbFuel().setBorder(new TitledBorder(border, LanguageManager.getValue("Required_Field"), 0, 0, font, Color.RED));
             empty = true;
         }
         else{
@@ -255,7 +253,7 @@ public class CarController {
         }
         
         if(carForm.getTxtEngineCapacity().getText().isBlank()){
-            carForm.getTxtEngineCapacity().setBorder(new TitledBorder(border, bundle.getString("Required_Field"), 0, 0, font, Color.RED));
+            carForm.getTxtEngineCapacity().setBorder(new TitledBorder(border, LanguageManager.getValue("Required_Field"), 0, 0, font, Color.RED));
             empty = true;
         }
         else{
@@ -263,7 +261,7 @@ public class CarController {
         }
         
         if(carForm.getTxtEnginePower().getText().isBlank()){
-            carForm.getTxtEnginePower().setBorder(new TitledBorder(border, bundle.getString("Required_Field"), 0, 0, font, Color.RED));
+            carForm.getTxtEnginePower().setBorder(new TitledBorder(border, LanguageManager.getValue("Required_Field"), 0, 0, font, Color.RED));
             empty = true;
         }
         else{
@@ -271,7 +269,7 @@ public class CarController {
         }
         
         if(carForm.getCbGearbox().getSelectedIndex() == -1){
-            carForm.getCbGearbox().setBorder(new TitledBorder(border, bundle.getString("Required_Field"), 0, 0, font, Color.RED));
+            carForm.getCbGearbox().setBorder(new TitledBorder(border, LanguageManager.getValue("Required_Field"), 0, 0, font, Color.RED));
             empty = true;
         }
         else{
@@ -279,7 +277,7 @@ public class CarController {
         }
         
         if(carForm.getTxtPrice().getText().isBlank()){
-            carForm.getTxtPrice().setBorder(new TitledBorder(border, bundle.getString("Required_Field"), 0, 0, font, Color.RED));
+            carForm.getTxtPrice().setBorder(new TitledBorder(border, LanguageManager.getValue("Required_Field"), 0, 0, font, Color.RED));
             empty = true;
         }
         else{
@@ -293,7 +291,7 @@ public class CarController {
         setLanguage();
         switch(formMode){
             case AddFormMode.ADD_FORM:
-                carForm.getLblTitle().setText(bundle.getString("ADD_NEW_CAR"));
+                carForm.getLblTitle().setText(LanguageManager.getValue("ADD_NEW_CAR"));
                 
                 carForm.getLblId().setVisible(false);
                 carForm.getTxtId().setVisible(false);
@@ -327,7 +325,7 @@ public class CarController {
                 break;
                 
             case AddFormMode.DETAILS_FORM:
-                carForm.getLblTitle().setText(bundle.getString("CAR_DETAILS"));
+                carForm.getLblTitle().setText(LanguageManager.getValue("CAR_DETAILS"));
                 
                 Car car = (Car) Coordinator.getInstance().getParam(CoordinatorParamConsts.CAR_DETAILS);
                 carForm.getLblId().setVisible(true);
@@ -395,51 +393,50 @@ public class CarController {
     private void setLanguage() {
         try {
             String language = Coordinator.getInstance().getParam(CoordinatorParamConsts.SELECTED_LANGUAGE).toString();
-            Locale locale = Locale.of(language);
-            bundle = ResourceBundle.getBundle("resources.language", locale);
+            LanguageManager.setLocale(Locale.of(language));
             
-            carForm.getLblBrand().setText(bundle.getString("Brand")+":");
-            carForm.getLblModel().setText(bundle.getString("Model")+":");
-            carForm.getLblFirstReg().setText(bundle.getString("First_Registration")+bundle.getString("(Y)")+":");
-            carForm.getLblMileage().setText(bundle.getString("Mileage")+"(km):");
-            carForm.getLblCategory().setText(bundle.getString("Category")+":");
+            carForm.getLblBrand().setText(LanguageManager.getValue("Brand")+":");
+            carForm.getLblModel().setText(LanguageManager.getValue("Model")+":");
+            carForm.getLblFirstReg().setText(LanguageManager.getValue("First_Registration")+LanguageManager.getValue("(Y)")+":");
+            carForm.getLblMileage().setText(LanguageManager.getValue("Mileage")+"(km):");
+            carForm.getLblCategory().setText(LanguageManager.getValue("Category")+":");
             String[] categories = {
-                bundle.getString("Cabrio"),
-                bundle.getString("Coupe"),
-                bundle.getString("Estate/Wagon"),
-                bundle.getString("Hatchback"),
-                bundle.getString("Limousine/Salon"),
-                bundle.getString("Minivan/Van"),
-                bundle.getString("SUV"),  
+                LanguageManager.getValue("Cabrio"),
+                LanguageManager.getValue("Coupe"),
+                LanguageManager.getValue("Estate/Wagon"),
+                LanguageManager.getValue("Hatchback"),
+                LanguageManager.getValue("Limousine/Salon"),
+                LanguageManager.getValue("Minivan/Van"),
+                LanguageManager.getValue("SUV"),  
             };
             carForm.getCbCategory().setModel(new DefaultComboBoxModel<>(categories));
             
-            carForm.getLblFuel().setText(bundle.getString("Fuel")+":");
+            carForm.getLblFuel().setText(LanguageManager.getValue("Fuel")+":");
             String[] fuel = {
-                bundle.getString("Petrol"),
-                bundle.getString("Diesel"),
-                bundle.getString("CNG"),
-                bundle.getString("Hybrid"),
-                bundle.getString("Electric")
+                LanguageManager.getValue("Petrol"),
+                LanguageManager.getValue("Diesel"),
+                LanguageManager.getValue("CNG"),
+                LanguageManager.getValue("Hybrid"),
+                LanguageManager.getValue("Electric")
             };
             carForm.getCbFuel().setModel(new DefaultComboBoxModel<>(fuel));
             
-            carForm.getLblEngCapacity().setText(bundle.getString("Engine_Capacity")+"(L):");
-            carForm.getLblEngPower().setText(bundle.getString("Engine_Power")+bundle.getString("(HP)")+":");
-            carForm.getLblGearbox().setText(bundle.getString("Gearbox")+":");
+            carForm.getLblEngCapacity().setText(LanguageManager.getValue("Engine_Capacity")+"(L):");
+            carForm.getLblEngPower().setText(LanguageManager.getValue("Engine_Power")+LanguageManager.getValue("(HP)")+":");
+            carForm.getLblGearbox().setText(LanguageManager.getValue("Gearbox")+":");
             String[] gearbox = {
-                bundle.getString("Manual"),
-                bundle.getString("Automatic"),
-                bundle.getString("Semi-automatic")
+                LanguageManager.getValue("Manual"),
+                LanguageManager.getValue("Automatic"),
+                LanguageManager.getValue("Semi-automatic")
             };
             carForm.getCbGearbox().setModel(new DefaultComboBoxModel<>(gearbox));
             
-            carForm.getLblPrice().setText(bundle.getString("Price")+"(€):");
+            carForm.getLblPrice().setText(LanguageManager.getValue("Price")+"(€):");
             
-            carForm.getBtnEnableChanges().setText(bundle.getString("Enable_changes"));
-            carForm.getBtnEdit().setText(bundle.getString("Edit"));
-            carForm.getBtnSave().setText(bundle.getString("Save"));
-            carForm.getBtnCancel().setText(bundle.getString("Cancel"));
+            carForm.getBtnEnableChanges().setText(LanguageManager.getValue("Enable_changes"));
+            carForm.getBtnEdit().setText(LanguageManager.getValue("Edit"));
+            carForm.getBtnSave().setText(LanguageManager.getValue("Save"));
+            carForm.getBtnCancel().setText(LanguageManager.getValue("Cancel"));
             
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());

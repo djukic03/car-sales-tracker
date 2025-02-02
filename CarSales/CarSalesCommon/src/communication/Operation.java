@@ -12,51 +12,29 @@ public enum Operation {
     LOGIN,
     LOG_OUT,
     
-    
-    GET_ALL,
-    ////////////////
     GET_ALL_USERS,
     GET_ALL_CARS,
     GET_ALL_CUSTOMERS,
     GET_ALL_INVOICES,
-    /////////////////
-    GET_ALL_ORDERED,
     
-    
-    GET_BY_CONDITION,
-    /////////////////////
     SEARCH_USERS,
     SEARCH_CARS,
     SEARCH_CUSTOMERS,
     SEARCH_INVOICES,
     SEARCH_INVOICE_ITEMS,
-    ////////////////////
     
-    
-    INSERT_ROW,
-    //////////////////////////////////////////
     INSERT_USER,
     INSERT_CUSTOMER,
     INSERT_CAR,
     INSERT_INVOICE,
     INSERT_INVOICE_ITEM,
-    //////////////////////////////////////////
-    INSERT_ROW_AND_GET_ID,
     
-    
-    DELETE_ROW,
-    //////////////////////////////////////////////
     DELETE_CAR,
     DELETE_CUSTOMER,
-    ////////////////////////////////////////////////
     
-    
-    UPDATE_ROW,
-    //////////////////////////////////////////////
     UPDATE_CUSTOMER,
     UPDATE_CAR,
     UPDATE_USER,
-    //////////////////////////////////////////////
     
     GET_ALL_CAR_BRANDS,
     CLOSE_CON

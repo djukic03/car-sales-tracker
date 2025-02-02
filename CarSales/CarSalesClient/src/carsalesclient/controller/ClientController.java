@@ -4,7 +4,6 @@
  */
 package carsalesclient.controller;
 
-import domain.DefaultDomainObject;
 import communication.Operation;
 import communication.Receiver;
 import communication.Request;
@@ -58,25 +57,6 @@ public class ClientController {
     
     
     
-    
-    
-    
-    
-    
-    public List<DefaultDomainObject> getAll(DefaultDomainObject ddo) throws Exception{
-        Request request = new Request(Operation.GET_ALL, ddo);
-        sender.send(request);
-        
-        Response response = (Response) receiver.receive();
-        if(response.getException() == null){
-            return (List<DefaultDomainObject>) response.getResult();
-        }
-        else{
-            throw response.getException();
-        }
-    }
-    /////////////////////////////////////////////////////////////////////////////////
-    
     public List<User> getAllUsers() throws Exception{
         Request request = new Request(Operation.GET_ALL_USERS, null);
         sender.send(request);
@@ -129,45 +109,11 @@ public class ClientController {
         }
     }
     
-    /////////////////////////////////////////////////////////////////////////////////
-    
-    
-    public List<DefaultDomainObject> getAllOrdered(DefaultDomainObject ddo) throws Exception {
-        Request request = new Request(Operation.GET_ALL_ORDERED, ddo);
-        sender.send(request);
-        
-        Response response = (Response) receiver.receive();
-        if(response.getException() == null){
-            return (List<DefaultDomainObject>) response.getResult();
-        }
-        else{
-            throw response.getException();
-        }
-    }
     
     
     
     
     
-    
-    
-    
-    
-    
-    
-    public List<DefaultDomainObject> getByCondition(DefaultDomainObject ddo) throws Exception {
-        Request request = new Request(Operation.GET_BY_CONDITION, ddo);
-        sender.send(request);
-        
-        Response response = (Response) receiver.receive();
-        if(response.getException() == null){
-            return (List<DefaultDomainObject>) response.getResult();
-        }
-        else{
-            throw response.getException();
-        }
-    }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public List<User> searchUsers(User u) throws Exception {
         Request request = new Request(Operation.SEARCH_USERS, u);
         sender.send(request);
@@ -233,7 +179,6 @@ public class ClientController {
         }
     }
     
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     
     
@@ -242,20 +187,6 @@ public class ClientController {
     
     
     
-    
-    
-    
-    
-    public void insertRow(DefaultDomainObject ddo) throws Exception {
-        Request request = new Request(Operation.INSERT_ROW, ddo);
-        sender.send(request);
-        
-        Response response = (Response) receiver.receive();
-        if(response.getException() != null){
-            throw response.getException();
-        }
-    }
-////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void insertUser(User user) throws Exception {
         Request request = new Request(Operation.INSERT_USER, user);
         sender.send(request);
@@ -308,20 +239,6 @@ public class ClientController {
             throw response.getException();
         }
     }
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    public Long insertRowAndGetId(DefaultDomainObject ddo) throws Exception {
-        Request request = new Request(Operation.INSERT_ROW_AND_GET_ID, ddo);
-        sender.send(request);
-        
-        Response response = (Response) receiver.receive();
-        if(response.getException() == null){
-            return (Long) response.getResult();
-        }
-        else{
-            throw response.getException();
-        }
-    }
     
     
     
@@ -332,18 +249,6 @@ public class ClientController {
     
     
     
-    
-    
-    public void deleteRow(DefaultDomainObject ddo) throws Exception {
-        Request request = new Request(Operation.DELETE_ROW, ddo);
-        sender.send(request);
-        
-        Response response = (Response) receiver.receive();
-        if(response.getException() != null){
-            throw response.getException();
-        }
-    }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void deleteCar(Car car) throws Exception {
         Request request = new Request(Operation.DELETE_CAR, car);
         sender.send(request);
@@ -363,7 +268,6 @@ public class ClientController {
             throw response.getException();
         }
     }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     
     
@@ -373,20 +277,6 @@ public class ClientController {
     
     
     
-    
-    
-    
-    
-    public void updateRow(DefaultDomainObject ddo) throws Exception {
-        Request request = new Request(Operation.UPDATE_ROW, ddo);
-        sender.send(request);
-        
-        Response response = (Response) receiver.receive();
-        if(response.getException() != null){
-            throw response.getException();
-        }
-    }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void updateCustomer(Customer customer) throws Exception {
         Request request = new Request(Operation.UPDATE_CUSTOMER, customer);
         sender.send(request);
@@ -416,7 +306,6 @@ public class ClientController {
             throw response.getException();
         }
     }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     
     

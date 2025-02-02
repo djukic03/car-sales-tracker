@@ -38,7 +38,7 @@ public class InvoiceItemsTableForm extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        tblInvoiceItems.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        tblInvoiceItems.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         tblInvoiceItems.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -53,7 +53,7 @@ public class InvoiceItemsTableForm extends javax.swing.JDialog {
         tblInvoiceItems.setRowHeight(30);
         jScrollPane1.setViewportView(tblInvoiceItems);
 
-        btnDetails.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnDetails.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnDetails.setText("Details");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -50,36 +50,36 @@ public class AddUserForm extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        lblId.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        lblId.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         lblId.setText("ID:");
 
-        txtId.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtId.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         txtId.setEnabled(false);
 
-        txtLastName.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtLastName.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         jLabel2.setText("Last name:");
 
-        txtUsername.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtUsername.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         jLabel3.setText("Username");
 
-        jLabel4.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         jLabel4.setText("Password");
 
-        txtPassword.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtPassword.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
 
-        btnSave.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnSave.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnSave.setText("Save");
 
-        jLabel5.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         jLabel5.setText("First name:");
 
-        txtFirstName.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtFirstName.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
 
-        btnEnableChanges.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnEnableChanges.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnEnableChanges.setText("Enable changes");
         btnEnableChanges.setName("btnEnableChanges"); // NOI18N
         btnEnableChanges.addActionListener(new java.awt.event.ActionListener() {
@@ -88,7 +88,7 @@ public class AddUserForm extends javax.swing.JDialog {
             }
         });
 
-        btnEdit.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnEdit.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnEdit.setText("Edit");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,10 +96,10 @@ public class AddUserForm extends javax.swing.JDialog {
             }
         });
 
-        btnCancel.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnCancel.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnCancel.setText("Cancel");
 
-        lblTitle.setFont(new java.awt.Font("Gill Sans MT", 1, 14)); // NOI18N
+        lblTitle.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("ADD NEW SALESPERSON");
 
@@ -133,7 +133,7 @@ public class AddUserForm extends javax.swing.JDialog {
                         .addComponent(txtUsername))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnEnableChanges)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -166,7 +166,7 @@ public class AddUserForm extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEnableChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)

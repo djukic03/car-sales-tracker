@@ -8,6 +8,7 @@ import carsalesclient.controller.ClientController;
 import carsalesclient.form.LoginForm;
 import carsalesclient.form.constants.CoordinatorParamConsts;
 import carsalesclient.form.form_coordinator.Coordinator;
+import carsalesclient.form.language.LanguageManager;
 import domain.User;
 import java.awt.Color;
 import java.awt.Font;
@@ -15,9 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.InputStream;
 import java.util.Locale;
-import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -29,8 +28,7 @@ import javax.swing.plaf.metal.MetalBorders;
  * @author user
  */
 public class LoginController {
-    private final LoginForm loginForm; 
-    private ResourceBundle bundle;
+    private final LoginForm loginForm;
 
     public LoginController(LoginForm loginForm) {
         this.loginForm = loginForm;
@@ -57,7 +55,7 @@ public class LoginController {
                     
                     try {
                         User loggedInUser = ClientController.getInstance().login(user);
-                        JOptionPane.showMessageDialog(loginForm, bundle.getString("Login_successfull!_Welcome")+" "+ loggedInUser.getFirstName() +"!");
+                        JOptionPane.showMessageDialog(loginForm, LanguageManager.getValue("Login_successfull!_Welcome")+" "+ loggedInUser.getFirstName() +"!");
                         loginForm.dispose();
                         Coordinator.getInstance().addParam(CoordinatorParamConsts.LOGGED_IN_USER, loggedInUser);
                         Coordinator.getInstance().openMainForm();
@@ -67,7 +65,7 @@ public class LoginController {
                     }
                 }
                 else{
-                    JOptionPane.showMessageDialog(loginForm, bundle.getString("Fill_all_required_fields"));
+                    JOptionPane.showMessageDialog(loginForm, LanguageManager.getValue("Fill_all_required_fields"));
                 }
             }
         });
@@ -120,7 +118,7 @@ public class LoginController {
         
         
         if(loginForm.getTxtUsername().getText().isBlank()){
-            loginForm.getTxtUsername().setBorder(new TitledBorder(border, bundle.getString("Required_Field"), 0, 0, font, Color.RED));
+            loginForm.getTxtUsername().setBorder(new TitledBorder(border, LanguageManager.getValue("Required_Field"), 0, 0, font, Color.RED));
             empty = true;
         }
         else{
@@ -128,7 +126,7 @@ public class LoginController {
                 
         }
         if(String.valueOf(loginForm.getTxtPassword().getPassword()).isBlank()){
-            loginForm.getTxtPassword().setBorder(new TitledBorder(border, bundle.getString("Required_Field"), 0, 0, font, Color.RED));
+            loginForm.getTxtPassword().setBorder(new TitledBorder(border, LanguageManager.getValue("Required_Field"), 0, 0, font, Color.RED));
             empty = true;
         }
         else{
@@ -146,15 +144,13 @@ public class LoginController {
 
     private void setLanguage() {
         String language = Coordinator.getInstance().getParam(CoordinatorParamConsts.SELECTED_LANGUAGE).toString();
-        Locale locale = Locale.of(language);
-        bundle = ResourceBundle.getBundle("resources.language", locale);
+        LanguageManager.setLocale(Locale.of(language));
 
-
-        loginForm.getLblTitle().setText(bundle.getString("LOGIN"));
-        loginForm.getLblUsername().setText(bundle.getString("Username")+":");
-        loginForm.getLblPassword().setText(bundle.getString("Password")+":");
-        loginForm.getBtnLogin().setText(bundle.getString("Login"));
-        loginForm.setTitle(bundle.getString("Login_form"));
+        loginForm.getLblTitle().setText(LanguageManager.getValue("LOGIN"));
+        loginForm.getLblUsername().setText(LanguageManager.getValue("Username")+":");
+        loginForm.getLblPassword().setText(LanguageManager.getValue("Password")+":");
+        loginForm.getBtnLogin().setText(LanguageManager.getValue("Login"));
+        loginForm.setTitle(LanguageManager.getValue("Login_form"));
     }
     
 }

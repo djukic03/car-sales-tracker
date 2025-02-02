@@ -135,7 +135,7 @@ public class AddCarForm extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jSplitPane1.setDividerLocation(294);
+        jSplitPane1.setDividerLocation(325);
         jSplitPane1.setDividerSize(0);
         jSplitPane1.setResizeWeight(0.5);
         jSplitPane1.setFocusable(false);
@@ -198,7 +198,7 @@ public class AddCarForm extends javax.swing.JDialog {
                     .addComponent(txtModel)
                     .addComponent(txtFirstReg, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtBrand, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cbCategory, 0, 132, Short.MAX_VALUE)
+                    .addComponent(cbCategory, 0, 163, Short.MAX_VALUE)
                     .addComponent(txtId))
                 .addContainerGap())
         );

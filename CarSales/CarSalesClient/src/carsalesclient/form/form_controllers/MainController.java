@@ -8,6 +8,7 @@ import carsalesclient.controller.ClientController;
 import carsalesclient.form.MainForm;
 import carsalesclient.form.constants.CoordinatorParamConsts;
 import carsalesclient.form.form_coordinator.Coordinator;
+import carsalesclient.form.language.LanguageManager;
 import carsalesclient.form.modes.AddFormMode;
 import carsalesclient.form.modes.TableFormMode;
 import domain.User;
@@ -16,7 +17,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Locale;
-import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 /**
@@ -148,33 +148,32 @@ public class MainController {
     
     private void setLanguage(){
         String language = Coordinator.getInstance().getParam(CoordinatorParamConsts.SELECTED_LANGUAGE).toString();
-        Locale locale = Locale.of(language);
-        ResourceBundle bundle = ResourceBundle.getBundle("resources.language", locale);
+        LanguageManager.setLocale(Locale.of(language));
         
-        mainForm.setTitle(bundle.getString("Main_form"));
+        mainForm.setTitle(LanguageManager.getValue("Main_form"));
         
         User user = (User) Coordinator.getInstance().getParam(CoordinatorParamConsts.LOGGED_IN_USER);
-        mainForm.getLblMain().setText(bundle.getString("Welcome") + " "+user.getFirstName() + " " + user.getLastName());
+        mainForm.getLblMain().setText(LanguageManager.getValue("Welcome") + " "+user.getFirstName() + " " + user.getLastName());
         
-        mainForm.getMenuInvoice().setText(bundle.getString("Invoices"));
-            mainForm.getMenuItemCreateNewInvoice().setText(bundle.getString("Create_New_Invoice"));
-            mainForm.getMenuItemSeeAllInvoices().setText(bundle.getString("See_All_Invoices"));
+        mainForm.getMenuInvoice().setText(LanguageManager.getValue("Invoices"));
+            mainForm.getMenuItemCreateNewInvoice().setText(LanguageManager.getValue("Create_New_Invoice"));
+            mainForm.getMenuItemSeeAllInvoices().setText(LanguageManager.getValue("See_All_Invoices"));
                 
-        mainForm.getMenuSalespersons().setText(bundle.getString("Salespersons"));
-            mainForm.getMenuItemAddSalesman().setText(bundle.getString("Add_New_Salesperson"));
-            mainForm.getMenuItemSeeAllSalesmen().setText(bundle.getString("See_All_Salespersons"));
+        mainForm.getMenuSalespersons().setText(LanguageManager.getValue("Salespersons"));
+            mainForm.getMenuItemAddSalesman().setText(LanguageManager.getValue("Add_New_Salesperson"));
+            mainForm.getMenuItemSeeAllSalesmen().setText(LanguageManager.getValue("See_All_Salespersons"));
                 
-        mainForm.getMenuCars().setText(bundle.getString("Cars"));
-            mainForm.getMenuItemAddNewCar().setText(bundle.getString("Add_New_Car"));
-            mainForm.getMenuItemSeeAllCars().setText(bundle.getString("See_All_Cars"));
+        mainForm.getMenuCars().setText(LanguageManager.getValue("Cars"));
+            mainForm.getMenuItemAddNewCar().setText(LanguageManager.getValue("Add_New_Car"));
+            mainForm.getMenuItemSeeAllCars().setText(LanguageManager.getValue("See_All_Cars"));
                 
-        mainForm.getMenuCustomers().setText(bundle.getString("Customers"));
-            mainForm.getMenuItemAddNewCustomer().setText(bundle.getString("Add_New_Customer"));
-            mainForm.getMenuItemSeeAllCustomers().setText(bundle.getString("See_All_Customers"));
+        mainForm.getMenuCustomers().setText(LanguageManager.getValue("Customers"));
+            mainForm.getMenuItemAddNewCustomer().setText(LanguageManager.getValue("Add_New_Customer"));
+            mainForm.getMenuItemSeeAllCustomers().setText(LanguageManager.getValue("See_All_Customers"));
                 
-        mainForm.getMenuOptions().setText(bundle.getString("Options"));
-            mainForm.getMenuItemLanguage().setText(bundle.getString("Language"));
-            mainForm.getMenuItemLogOut().setText(bundle.getString("Log_Out"));
+        mainForm.getMenuOptions().setText(LanguageManager.getValue("Options"));
+            mainForm.getMenuItemLanguage().setText(LanguageManager.getValue("Language"));
+            mainForm.getMenuItemLogOut().setText(LanguageManager.getValue("Log_Out"));
     }
 
     private void prepareForm() {

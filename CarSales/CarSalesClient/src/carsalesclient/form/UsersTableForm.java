@@ -44,7 +44,7 @@ public class UsersTableForm extends javax.swing.JDialog {
         setTitle("All Users");
         setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
 
-        tblUsers.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        tblUsers.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         tblUsers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -61,17 +61,17 @@ public class UsersTableForm extends javax.swing.JDialog {
         tblUsers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblUsers);
 
-        jLabel1.setFont(new java.awt.Font("Gill Sans MT", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         jLabel1.setText("Search by Last Name:");
 
-        txtSearch.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        txtSearch.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         txtSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSearchActionPerformed(evt);
             }
         });
 
-        btnSearch.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnSearch.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,7 +79,7 @@ public class UsersTableForm extends javax.swing.JDialog {
             }
         });
 
-        btnDetails.setFont(new java.awt.Font("Gill Sans MT", 0, 14)); // NOI18N
+        btnDetails.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnDetails.setText("Details");
         btnDetails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

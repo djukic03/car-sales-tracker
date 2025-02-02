@@ -147,7 +147,7 @@
     </Container>
     <Container class="javax.swing.JSplitPane" name="jSplitPane1">
       <Properties>
-        <Property name="dividerLocation" type="int" value="294"/>
+        <Property name="dividerLocation" type="int" value="325"/>
         <Property name="dividerSize" type="int" value="0"/>
         <Property name="resizeWeight" type="double" value="0.5"/>
         <Property name="focusable" type="boolean" value="false"/>
@@ -181,7 +181,7 @@
                           <Component id="txtModel" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtFirstReg" alignment="1" max="32767" attributes="0"/>
                           <Component id="txtBrand" alignment="1" max="32767" attributes="0"/>
-                          <Component id="cbCategory" alignment="0" pref="132" max="32767" attributes="0"/>
+                          <Component id="cbCategory" alignment="0" pref="163" max="32767" attributes="0"/>
                           <Component id="txtId" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>

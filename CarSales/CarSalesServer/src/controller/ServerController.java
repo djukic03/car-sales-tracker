@@ -82,11 +82,6 @@ public class ServerController {
     
     
     
-    
-    public List<DefaultDomainObject> getAll(DefaultDomainObject ddo) throws SQLException{
-        return dbBroker.getAll(ddo);
-    }
-    //////////////////////////////////////////////////////////////////////////////////////////////
     public List<DefaultDomainObject> getAllUsers() throws Exception{
         GetAllUsersSO so = new GetAllUsersSO();
         so.executeSO(null);
@@ -110,19 +105,10 @@ public class ServerController {
         so.executeSO(null);
         return so.getInvoices();
     }
-    ///////////////////////////////////////////////////////////////////////////////////////////////
     
     
     
     
-    
-    
-    
-    
-    public List<DefaultDomainObject> getByCondition(DefaultDomainObject ddo) throws SQLException {
-        return dbBroker.getByCondition(ddo);
-    }
-    ///////////////////////////////////////////////////////////////////////////////////////////////
     public List<DefaultDomainObject> searchUsers(User u) throws Exception {
         SearchUsersSO so = new SearchUsersSO();
         so.executeSO(u);
@@ -152,18 +138,11 @@ public class ServerController {
         so.executeSO(item);
         return so.getItems();
     }
-    ///////////////////////////////////////////////////////////////////////////////////////////////
     
     
     
     
     
-    
-    
-    public void insertRow(DefaultDomainObject ddo) throws SQLException {
-        dbBroker.insertRow(ddo);
-    }
-    ///////////////////////////////////////////////////////////////////////////////////////////////
     public void insertUser(User user) throws Exception {
         InsertUserSO so = new InsertUserSO();
         so.executeSO(user);
@@ -183,11 +162,7 @@ public class ServerController {
         InsertInvoiceItemSO so = new InsertInvoiceItemSO();
         so.executeSO(invoiceItem);
     }
-    ///////////////////////////////////////////////////////////////////////////////////////////////
     
-    public Long insertRowAndGetId(DefaultDomainObject ddo) throws SQLException {
-        return dbBroker.insertRowAndGetId(ddo);
-    }
     public Long insertInvoice(Invoice invoice) throws Exception {
         InsertInvoiceSO so = new InsertInvoiceSO();
         so.executeSO(invoice);
@@ -200,11 +175,6 @@ public class ServerController {
     
     
     
-    
-    public void deleteRow(DefaultDomainObject ddo) throws SQLException {
-        dbBroker.deleteRow(ddo);
-    }
-////////////////////////////////////////////////////////////////////////////////////////////////////
     public void deleteCar(Car car) throws Exception {
         DeleteCarSO so = new DeleteCarSO();
         so.executeSO(car);
@@ -214,17 +184,12 @@ public class ServerController {
         DeleteCustomerSO so = new DeleteCustomerSO();
         so.executeSO(customer);
     }
-///////////////////////////////////////////////////////////////////////////////////////////////////
     
     
     
     
     
     
-    public void updateRow(DefaultDomainObject ddo) throws SQLException {
-        dbBroker.updateRow(ddo);
-    }
-///////////////////////////////////////////////////////////////////////////////////////////////////
     public void updateCustomer(Customer customer) throws Exception {
         UpdateCustomerSO so = new UpdateCustomerSO();
         so.executeSO(customer);
@@ -239,7 +204,6 @@ public class ServerController {
         UpdateUserSO so = new UpdateUserSO();
         so.executeSO(user);
     }
-///////////////////////////////////////////////////////////////////////////////////////////////////
     
     
     
@@ -257,7 +221,4 @@ public class ServerController {
         dbBroker.closeCon();
     }
 
-    public List<DefaultDomainObject> getAllOrdered(DefaultDomainObject ddo) throws SQLException {
-        return dbBroker.getAllOrdered(ddo);
-    }
 }
