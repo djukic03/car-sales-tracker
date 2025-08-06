@@ -20,6 +20,7 @@ public class AddUserForm extends javax.swing.JDialog {
      */
     public AddUserForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        setLocationRelativeTo(parent);
         initComponents();
     }
 
