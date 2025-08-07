@@ -198,7 +198,7 @@ public class Car implements DefaultDomainObject, Serializable{
                         s = CarStatus.SOLD;
                         break;
                     default:
-                        s = CarStatus.AVAILABLE;
+                        s = null;
                         break;
                 }
                 cars.add(new Car(rs.getLong("id"), rs.getString("vin"), rs.getString("brand"), rs.getString("model"),rs.getDate("first_reg"), rs.getInt("mileage"), rs.getString("category"), rs.getString("fuel"), rs.getDouble("engine_capacity"), rs.getDouble("engine_power"), rs.getString("gearbox"), rs.getDouble("price"), s));

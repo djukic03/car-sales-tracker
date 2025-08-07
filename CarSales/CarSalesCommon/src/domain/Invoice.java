@@ -23,7 +23,6 @@ public class Invoice implements DefaultDomainObject, Serializable{
     private Double totalAmount;
     private User user;
     private Customer customer;
-    //DODAJ LISTU INVOICE ITEM-A
     private List<InvoiceItem> invoiceItems;
     String searchCondition;
     String searchConditionValue;

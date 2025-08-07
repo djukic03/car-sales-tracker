@@ -5,6 +5,7 @@
 package carsalesclient.form;
 
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -413,5 +414,20 @@ public class MainForm extends javax.swing.JFrame {
     public JLabel getLblImage() {
         return lblImage;
     }
+
+    public JButton getBtnReserve() {
+        return btnReserve;
+    }
+
+    public JButton getBtnSell() {
+        return btnSell;
+    }
     
+    public void btnSellCarAddActionListener(ActionListener actionListener){
+        btnSell.addActionListener(actionListener);
+    }
+    
+    public void btnReserveAddActionListener(ActionListener actionListener){
+        btnReserve.addActionListener(actionListener);
+    }
 }

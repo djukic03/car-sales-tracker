@@ -12,12 +12,20 @@ import carsalesclient.form.modes.AddFormMode;
 import carsalesclient.form.modes.TableFormMode;
 import carsalesclient.form.tableModels.CarsTableModel;
 import domain.Car;
+import domain.CarStatus;
+import domain.Customer;
 import domain.InvoiceItem;
+import domain.Reservation;
+import domain.ReservationStatus;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -30,6 +38,7 @@ import javax.swing.event.ListSelectionListener;
  */
 public class SeeAllCarsController {
     private final CarsTableForm carsTableForm;
+    private Customer customer;
     private List<InvoiceItem> selectedCars = new ArrayList<>();
 
     public SeeAllCarsController(CarsTableForm carsTableForm) {
@@ -146,6 +155,10 @@ public class SeeAllCarsController {
                     return;
                 }
                 Car car = ((CarsTableModel) carsTableForm.getTblCars().getModel()).getCarAt(rowId);
+                if (car.getStatus() != CarStatus.AVAILABLE) {
+                    JOptionPane.showMessageDialog(carsTableForm, "Selected car is not available for sale!");
+                    return;
+                }
                 String note = carsTableForm.getTxtNote().getText();
                 selectedCars.add(new InvoiceItem(null, 0, car.getPrice(), note, car));
                 if (JOptionPane.showConfirmDialog(carsTableForm, "Selected Cars:\n"+selectedCars.toString() + "\n Select more cars?", "Select more cars?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
@@ -153,8 +166,59 @@ public class SeeAllCarsController {
                 }
                 
                 Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_CAR, selectedCars);
-                List<InvoiceItem> NovaLista = (List<InvoiceItem>) Coordinator.getInstance().getParam(CoordinatorParamConsts.SELECTED_CAR);
                 carsTableForm.dispose();
+            }
+        });
+        
+        carsTableForm.btnSelectCustomerAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                selectCustomer();
+            }
+
+            private void selectCustomer() {
+                Coordinator.getInstance().openCustomersTableForm(TableFormMode.SELECT_ITEM);
+                customer = (Customer)Coordinator.getInstance().getParam(CoordinatorParamConsts.SELECTED_CUSTOMER);
+                carsTableForm.getTxtCustomer().setText(customer.getName());
+            }
+        });
+        
+        carsTableForm.btnReserveAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                reserveCar();
+            }
+
+            private void reserveCar() {
+                int rowId = carsTableForm.getTblCars().getSelectedRow();
+                if (rowId < 0) {
+                    JOptionPane.showMessageDialog(carsTableForm, "Please select car!");
+                    return;
+                }
+                Car car = ((CarsTableModel) carsTableForm.getTblCars().getModel()).getCarAt(rowId);
+                if (car.getStatus() == CarStatus.RESERVED) {
+                    JOptionPane.showMessageDialog(carsTableForm, "Selected car is already reserved!");
+                    return;
+                }
+                if (car.getStatus() == CarStatus.SOLD) {
+                    JOptionPane.showMessageDialog(carsTableForm, "Selected car is already sold!");
+                    return;
+                }
+                if (customer == null) {
+                    JOptionPane.showMessageDialog(carsTableForm, "Please select customer!");
+                    return;
+                }
+                Date date = new Date();
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.DAY_OF_MONTH, 7);
+                Date deadline = cal.getTime();
+                Reservation reservation = new Reservation(null, date, deadline, ReservationStatus.ACTIVE, "blabla", car, customer);
+
+
+//SACUVAJ REZERVACIJU -----------------------------------------------------------
+
+
+                Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_CUSTOMER, null);
             }
         });
         
@@ -196,17 +260,34 @@ public class SeeAllCarsController {
     private void prepareForm(TableFormMode formMode) {
         switch (formMode) {
             case TableFormMode.SEE_ALL_ITEMS:
+                carsTableForm.getBtnReserve().setVisible(true);
                 carsTableForm.getBtnSelect().setVisible(false);
                 carsTableForm.getLblNote().setVisible(false);
                 carsTableForm.getTxtNote().setVisible(false);
+                carsTableForm.getLblCustomer().setVisible(false);
+                carsTableForm.getTxtCustomer().setVisible(false);
                 carsTableForm.getBtnDelete().setVisible(true);
                 carsTableForm.getBtnDetails().setVisible(true);
                 break;
             case TableFormMode.SELECT_ITEM:
                 selectedCars.clear();
+                carsTableForm.getBtnReserve().setVisible(false);
                 carsTableForm.getBtnSelect().setVisible(true);
                 carsTableForm.getLblNote().setVisible(true);
                 carsTableForm.getTxtNote().setVisible(true);
+                carsTableForm.getLblCustomer().setVisible(false);
+                carsTableForm.getTxtCustomer().setVisible(false);
+                carsTableForm.getBtnDelete().setVisible(false);
+                carsTableForm.getBtnDetails().setVisible(false);
+                break;
+            case TableFormMode.RESERVE_CAR:
+                selectedCars.clear();
+                carsTableForm.getBtnReserve().setVisible(true);
+                carsTableForm.getBtnSelect().setVisible(false);
+                carsTableForm.getLblNote().setVisible(false);
+                carsTableForm.getTxtNote().setVisible(false);
+                carsTableForm.getLblCustomer().setVisible(true);
+                carsTableForm.getTxtCustomer().setVisible(true);
                 carsTableForm.getBtnDelete().setVisible(false);
                 carsTableForm.getBtnDetails().setVisible(false);
                 break;

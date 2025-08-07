@@ -132,7 +132,20 @@ public class MainController {
                 
             }
         });
+        
+        mainForm.btnSellCarAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Coordinator.getInstance().openAddInvoiceForm();
+            }
+        });
 
+        mainForm.btnReserveAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Coordinator.getInstance().openCarsTableForm(TableFormMode.RESERVE_CAR);
+            }
+        });
         
         mainForm.addWindowListener(new WindowAdapter() {
             @Override
