@@ -11,6 +11,7 @@ import carsalesclient.form.form_coordinator.Coordinator;
 import carsalesclient.form.language.LanguageManager;
 import carsalesclient.form.modes.AddFormMode;
 import domain.Car;
+import domain.CarStatus;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -63,7 +64,7 @@ public class CarController {
                     if(!emptyFields()){
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
                         Date reg = sdf.parse(carForm.getTxtFirstReg().getText());
-                        Car car = new Car(null, carForm.getTxtBrand().getText(), carForm.getTxtModel().getText(), reg, Integer.parseInt(carForm.getTxtMileage().getText()), getCategory(), getFuel(), Double.valueOf(carForm.getTxtEngineCapacity().getText()), Double.valueOf(carForm.getTxtEnginePower().getText()), getGearbox(), Double.parseDouble(carForm.getTxtPrice().getText()));
+                        Car car = new Car(null,carForm.getTxtVin().getText(), carForm.getTxtBrand().getText(), carForm.getTxtModel().getText(), reg, Integer.parseInt(carForm.getTxtMileage().getText()), getCategory(), getFuel(), Double.valueOf(carForm.getTxtEngineCapacity().getText()), Double.valueOf(carForm.getTxtEnginePower().getText()), getGearbox(), Double.parseDouble(carForm.getTxtPrice().getText()), getStatus());
                         if(JOptionPane.showConfirmDialog(carForm, "Are you sure you want to SAVE the following changes into the database: \n"+car.getBrand()+" "+car.getModel()+", "+car.getPrice()+"$", "Change car details", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                             car.setIdCar(((Car) Coordinator.getInstance().getParam(CoordinatorParamConsts.CAR_DETAILS)).getIdCar());
                             car.setUpdateConditionValue(car.getIdCar());
@@ -93,7 +94,7 @@ public class CarController {
                     if(!emptyFields()){
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
                         Date reg = sdf.parse(carForm.getTxtFirstReg().getText());
-                        Car car = new Car(null, carForm.getTxtBrand().getText(), carForm.getTxtModel().getText(), reg, Integer.parseInt(carForm.getTxtMileage().getText()), getCategory(), getFuel(), Double.valueOf(carForm.getTxtEngineCapacity().getText()), Double.valueOf(carForm.getTxtEnginePower().getText()), getGearbox(), Double.parseDouble(carForm.getTxtPrice().getText()));
+                        Car car = new Car(null, carForm.getTxtVin().getText(), carForm.getTxtBrand().getText(), carForm.getTxtModel().getText(), reg, Integer.parseInt(carForm.getTxtMileage().getText()), getCategory(), getFuel(), Double.valueOf(carForm.getTxtEngineCapacity().getText()), Double.valueOf(carForm.getTxtEnginePower().getText()), getGearbox(), Double.parseDouble(carForm.getTxtPrice().getText()), getStatus());
                         if(JOptionPane.showConfirmDialog(carForm, "Are you sure you want to INSERT the following car into the database: \n"+car.getBrand()+" "+car.getModel()+", "+car.getPrice()+"$", "Add car", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                             ClientController.getInstance().insertCar(car);
                             if(JOptionPane.showConfirmDialog(carForm, car.getBrand()+" "+car.getModel()+" has been successfully added to the database!\n\nAdd more cars?", "Success", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
@@ -197,11 +198,33 @@ public class CarController {
         }
     }
     
+    private CarStatus getStatus(){
+        int i = carForm.getCbStatus().getSelectedIndex();
+        switch (i) {
+            case 0:
+                return CarStatus.AVAILABLE;
+            case 1:
+                return CarStatus.SOLD;
+            case 2:
+                return CarStatus.RESERVED;
+            default:
+                return null;
+        }
+    }
+    
     private boolean emptyFields(){
         Border border = new LineBorder(Color.red, 1,true);
         Font font = new Font("Comic Sans MS", 1, 8);
         boolean empty = false;
         
+        
+        if(carForm.getTxtVin().getText().isBlank()){
+            carForm.getTxtVin().setBorder(new TitledBorder(border, LanguageManager.getValue("Required_Field"), 0, 0, font, Color.RED));
+            empty = true;
+        }
+        else{
+            carForm.getTxtVin().setBorder(new MetalBorders.TextFieldBorder());
+        }
         
         if(carForm.getTxtBrand().getText().isBlank()){
             carForm.getTxtBrand().setBorder(new TitledBorder(border, LanguageManager.getValue("Required_Field"), 0, 0, font, Color.RED));
@@ -283,6 +306,14 @@ public class CarController {
             carForm.getTxtPrice().setBorder(new MetalBorders.TextFieldBorder());
         }
         
+        if(carForm.getCbStatus().getSelectedIndex() == -1){
+            carForm.getCbStatus().setBorder(new TitledBorder(border, LanguageManager.getValue("Required_Field"), 0, 0, font, Color.RED));
+            empty = true;
+        }
+        else{
+            carForm.getCbStatus().setBorder(UIManager.getBorder("ComboBox.border"));
+        }
+        
         return empty;
     }
     
@@ -296,6 +327,8 @@ public class CarController {
                 carForm.getTxtId().setVisible(false);
                 carForm.getTxtId().setEnabled(false);
                 
+                carForm.getTxtVin().setText("");
+                carForm.getTxtVin().setEnabled(true);
                 carForm.getTxtBrand().setText("");
                 carForm.getTxtBrand().setEnabled(true);
                 carForm.getTxtModel().setText("");
@@ -316,6 +349,8 @@ public class CarController {
                 carForm.getCbGearbox().setEnabled(true);
                 carForm.getTxtPrice().setText("");
                 carForm.getTxtPrice().setEnabled(true);
+                carForm.getCbStatus().setSelectedIndex(-1);
+                carForm.getCbStatus().setEnabled(true);
                 
                 carForm.getBtnEnableChanges().setVisible(false);
                 carForm.getBtnEdit().setVisible(false);
@@ -332,6 +367,8 @@ public class CarController {
                 carForm.getTxtId().setText(car.getIdCar().toString());
                 carForm.getTxtId().setEnabled(false);
                 
+                carForm.getTxtVin().setText(car.getVin());
+                carForm.getTxtVin().setEnabled(false);
                 carForm.getTxtBrand().setText(car.getBrand());
                 carForm.getTxtBrand().setEnabled(false);
                 carForm.getTxtModel().setText(car.getModel());
@@ -354,6 +391,8 @@ public class CarController {
                 carForm.getCbGearbox().setEnabled(false);
                 carForm.getTxtPrice().setText(Double.toString(car.getPrice()));
                 carForm.getTxtPrice().setEnabled(false);
+                carForm.getCbStatus().setSelectedItem(car.getStatus());
+                carForm.getCbStatus().setEnabled(false);
                 
                 carForm.getBtnEnableChanges().setVisible(true);
                 carForm.getBtnEnableChanges().setEnabled(true);
@@ -367,6 +406,7 @@ public class CarController {
                 carForm.getTxtId().setVisible(true);
                 carForm.getTxtId().setEnabled(false);
                 
+                carForm.getTxtVin().setEnabled(true);
                 carForm.getTxtBrand().setEnabled(true);
                 carForm.getTxtModel().setEnabled(true);
                 carForm.getTxtFirstReg().setEnabled(true);
@@ -377,6 +417,7 @@ public class CarController {
                 carForm.getTxtEnginePower().setEnabled(true);
                 carForm.getCbGearbox().setEnabled(true);
                 carForm.getTxtPrice().setEnabled(true);
+                carForm.getCbStatus().setEnabled(true);
                 
                 carForm.getBtnEnableChanges().setVisible(true);
                 carForm.getBtnEnableChanges().setEnabled(false);

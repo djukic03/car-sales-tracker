@@ -4,7 +4,9 @@
  */
 package so.invoice;
 
+import domain.CarStatus;
 import domain.Invoice;
+import domain.InvoiceItem;
 import so.AbstractSO;
 
 /**
@@ -23,7 +25,17 @@ public class InsertInvoiceSO extends AbstractSO {
 
     @Override
     protected void execute(Object o) throws Exception {
-        invoiceId = dbBroker.insertRowAndGetId((Invoice) o);
+        Invoice invoice = (Invoice) o;
+        invoiceId = dbBroker.insertRowAndGetId(invoice);
+        for (InvoiceItem invoiceItem : invoice.getInvoiceItems()) {
+            invoiceItem.getCar().setStatus(CarStatus.SOLD);
+            invoiceItem.getCar().setUpdateConditionValue(invoiceItem.getCar().getIdCar());
+            dbBroker.updateRow(invoiceItem.getCar());
+            
+            invoiceItem.setInvoiceId(invoiceId);
+            dbBroker.insertRow(invoiceItem);
+            
+        }
     }
 
     @Override

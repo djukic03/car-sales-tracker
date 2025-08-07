@@ -20,6 +20,7 @@ import java.util.logging.Logger;
  */
 public class Car implements DefaultDomainObject, Serializable{
     private Long idCar;
+    private String vin;
     private String brand;
     private String model;
     private Date firstReg;
@@ -30,6 +31,7 @@ public class Car implements DefaultDomainObject, Serializable{
     private Double enginePower;
     private String gearbox;
     private double price;
+    private CarStatus status;
     String searchCondition;
     String searchConditionValue;
     Long deleteConditionValue;
@@ -38,8 +40,9 @@ public class Car implements DefaultDomainObject, Serializable{
     public Car() {
     }
 
-    public Car(Long idCar, String brand, String model, Date firstReg, int mileage, String category, String fuel, Double engineCapacity, Double enginePower, String gearbox, double price) {
+    public Car(Long idCar, String vin, String brand, String model, Date firstReg, int mileage, String category, String fuel, Double engineCapacity, Double enginePower, String gearbox, double price, CarStatus status) {
         this.idCar = idCar;
+        this.vin = vin;
         this.brand = brand;
         this.model = model;
         this.firstReg = firstReg;
@@ -50,6 +53,7 @@ public class Car implements DefaultDomainObject, Serializable{
         this.enginePower = enginePower;
         this.gearbox = gearbox;
         this.price = price;
+        this.status = status;
     }
 
     public Long getIdCar() {
@@ -60,6 +64,14 @@ public class Car implements DefaultDomainObject, Serializable{
         this.idCar = idCar;
     }
 
+    public String getVin() {
+        return vin;
+    }
+
+    public void setVin(String vin) {
+        this.vin = vin;
+    }
+    
     public String getBrand() {
         return brand;
     }
@@ -156,7 +168,13 @@ public class Car implements DefaultDomainObject, Serializable{
         this.updateConditionValue = updateConditionValue;
     }
     
-    
+    public CarStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CarStatus status) {
+        this.status = status;
+    }
     
     @Override
     public String getClassName() {
@@ -168,7 +186,22 @@ public class Car implements DefaultDomainObject, Serializable{
         List<DefaultDomainObject> cars = new ArrayList<>();
         try {
             while(rs.next()){
-                cars.add(new Car(rs.getLong("id"), rs.getString("brand"), rs.getString("model"),rs.getDate("first_reg"), rs.getInt("mileage"), rs.getString("category"), rs.getString("fuel"), rs.getDouble("engine_capacity"), rs.getDouble("engine_power"), rs.getString("gearbox"), rs.getDouble("price")));
+                CarStatus s;
+                switch (rs.getString("status").toLowerCase()) {
+                    case "available":
+                        s = CarStatus.AVAILABLE;
+                        break;
+                    case "reserved":
+                        s = CarStatus.RESERVED;
+                        break;
+                    case "sold":
+                        s = CarStatus.SOLD;
+                        break;
+                    default:
+                        s = CarStatus.AVAILABLE;
+                        break;
+                }
+                cars.add(new Car(rs.getLong("id"), rs.getString("vin"), rs.getString("brand"), rs.getString("model"),rs.getDate("first_reg"), rs.getInt("mileage"), rs.getString("category"), rs.getString("fuel"), rs.getDouble("engine_capacity"), rs.getDouble("engine_power"), rs.getString("gearbox"), rs.getDouble("price"), s));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Car.class.getName()).log(Level.SEVERE, null, ex);
@@ -190,12 +223,12 @@ public class Car implements DefaultDomainObject, Serializable{
     @Override
     public String getInsertValues() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return "'"+ brand +"', '"+ model +"', '"+ sdf.format(firstReg) +"', "+ mileage +", '"+ category +"', '"+ fuel +"', "+ engineCapacity +", "+ enginePower + ", '"+ gearbox +"', "+ price;
+        return "'"+ vin + "', '"+ brand +"', '"+ model +"', '"+ sdf.format(firstReg) +"', "+ mileage +", '"+ category +"', '"+ fuel +"', "+ engineCapacity +", "+ enginePower + ", '"+ gearbox +"', "+ price+ ", '"+ status.toString() +"'";
     }    
 
     @Override
     public String getInsertColumns() {
-        return "brand, model, first_reg, mileage, category, fuel, engine_capacity, engine_power, gearbox, price";
+        return "vin, brand, model, first_reg, mileage, category, fuel, engine_capacity, engine_power, gearbox, price, status";
     }
 
     @Override
@@ -211,7 +244,7 @@ public class Car implements DefaultDomainObject, Serializable{
     @Override
     public String getUpdateValues() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return "brand = '"+ brand +"', model = '"+ model +"', first_reg = '"+ sdf.format(firstReg) +"', mileage = "+ mileage +", category = '"+ category +"', fuel = '"+ fuel +"', engine_capacity = "+ engineCapacity +", engine_power = "+ enginePower + ", gearbox = '"+ gearbox +"', price = "+ price;
+        return "vin = '"+ vin +"', brand = '"+ brand +"', model = '"+ model +"', first_reg = '"+ sdf.format(firstReg) +"', mileage = "+ mileage +", category = '"+ category +"', fuel = '"+ fuel +"', engine_capacity = "+ engineCapacity +", engine_power = "+ enginePower + ", gearbox = '"+ gearbox +"', price = "+ price + ", status = '" + status.toString() + "'";
     }
 
     @Override

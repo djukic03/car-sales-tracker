@@ -89,9 +89,6 @@ public class HandleClientThread extends Thread{
                         case Operation.SEARCH_INVOICES:
                             response.setResult(controller.searchInvoices((Invoice) request.getArgument()));
                             break;
-                        case Operation.SEARCH_INVOICE_ITEMS:
-                            response.setResult(controller.searchInvoiceItems((InvoiceItem) request.getArgument()));
-                            break;
                         
                         
                         
@@ -104,11 +101,8 @@ public class HandleClientThread extends Thread{
                         case Operation.INSERT_CAR:
                             controller.insertCar((Car) request.getArgument());
                             break;
-                        case Operation.INSERT_INVOICE_ITEM:
-                            controller.insertInvoiceItem((InvoiceItem) request.getArgument());
-                            break;
                         case Operation.INSERT_INVOICE:
-                            response.setResult(controller.insertInvoice((Invoice) request.getArgument()));
+                            controller.insertInvoice((Invoice) request.getArgument());
                             break;
                         
                         

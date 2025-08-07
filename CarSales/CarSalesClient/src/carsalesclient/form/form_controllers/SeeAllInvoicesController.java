@@ -156,22 +156,6 @@ public class SeeAllInvoicesController {
         String outputPdf = path + "\\" + invoice.getInvoiceNum() + ".pdf";
 
         try {
-            Customer customer = invoice.getCustomer();
-            customer.setSearchCondition("id");
-            customer.setSearchConditionValue(customer.getIdCustomer().toString());
-            customer = ClientController.getInstance().searchCustomers(customer).getFirst();
-            
-            User salesperson = invoice.getUser();
-            salesperson.setSearchCondition("id");
-            salesperson.setSearchConditionValue(salesperson.getIdUser().toString());
-            salesperson = ClientController.getInstance().searchUsers(salesperson).getFirst();
-            
-            InvoiceItem item = new InvoiceItem();
-            item.setSearchCondition("invoice_id");
-            item.setSearchConditionValue(invoice.getIdInvoice().toString());
-            List<InvoiceItem> items = ClientController.getInstance().searchInvoiceItems(item);
-            
-            
             PdfReader pdfReader = new PdfReader(inputPdf);
             PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileOutputStream(outputPdf));
 
@@ -179,9 +163,9 @@ public class SeeAllInvoicesController {
 
             formFields.setField("InvNum", invoice.getInvoiceNum().toString());
             formFields.setField("invDate", invoice.getDateOfIssue().toString());
-            formFields.setField("customer", customer.getName());
-            formFields.setField("salesmanName", salesperson.getFirstName()+" "+salesperson.getLastName());
-            formFields.setField("username", salesperson.getUsername());
+            formFields.setField("customer", invoice.getCustomer().getName());
+            formFields.setField("salesmanName", invoice.getUser().getFirstName()+" "+invoice.getUser().getLastName());
+            formFields.setField("username", invoice.getUser().getUsername());
             formFields.setField("job", "Manager");
             formFields.setField("total", invoice.getTotalAmount().toString());
             
@@ -196,26 +180,27 @@ public class SeeAllInvoicesController {
             BaseFont baseFont = BaseFont.createFont(BaseFont.COURIER, BaseFont.WINANSI, BaseFont.EMBEDDED);
             Font font = new Font(baseFont, 10, Font.NORMAL, BaseColor.BLACK);
             PdfPCell cell;
+            List<InvoiceItem> items = invoice.getInvoiceItems();
             for (InvoiceItem i : items) {
-                cell = new PdfPCell(new Phrase(Integer.toString(i.getQuantity()), font));
+                cell = new PdfPCell(new Phrase(Integer.toString(i.getNum()), font));
                 cell.setHorizontalAlignment(Element.ALIGN_LEFT);
                 cell.setBorderWidth(0);
                 cell.setFixedHeight(20.5f);
                 table.addCell(cell);
-                i.getCar().setSearchCondition("id");
-                i.getCar().setSearchConditionValue(i.getCar().getIdCar().toString());
-                i.setCar(ClientController.getInstance().searchCars(i.getCar()).getFirst());
+                
                 cell = new PdfPCell(new Phrase(i.getCar().getBrand() + " " + i.getCar().getModel(), font));
                 cell.setHorizontalAlignment(Element.ALIGN_LEFT);
                 cell.setBorderWidth(0);
                 cell.setFixedHeight(20.5f);
                 table.addCell(cell);
-                cell = new PdfPCell(new Phrase(Double.toString(i.getPriceOfOne()), font));
+                
+                cell = new PdfPCell(new Phrase(Double.toString(i.getPrice()), font));
                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
                 cell.setBorderWidth(0);
                 cell.setFixedHeight(20.5f);
                 table.addCell(cell);
-                cell = new PdfPCell(new Phrase(Double.toString(i.getSum()), font));
+                
+                cell = new PdfPCell(new Phrase(Double.toString(i.getPrice()), font));
                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
                 cell.setBorderWidth(0);
                 cell.setFixedHeight(20.5f);
@@ -279,11 +264,8 @@ public class SeeAllInvoicesController {
                 try {
                     int row = (int) button.getClientProperty("row");
                     Invoice invoice = ((InvoicesTableModel) invoicesTableForm.getTblInvoices().getModel()).getInvoiceAt(row);
-                    InvoiceItem item = new InvoiceItem();
-                    item.setSearchCondition("invoice_id");
-                    item.setSearchConditionValue(invoice.getIdInvoice().toString());
-                    List<InvoiceItem> items = ClientController.getInstance().searchInvoiceItems(item);
-                    Coordinator.getInstance().openInvoiceItemsTableForm(items);
+                    
+                    Coordinator.getInstance().openInvoiceItemsTableForm(invoice.getInvoiceItems());
                     fireEditingStopped();
                 } catch (Exception ex) {
                     System.out.println("Error: "+ ex.getMessage());

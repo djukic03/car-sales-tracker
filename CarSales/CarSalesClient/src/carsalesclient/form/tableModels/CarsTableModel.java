@@ -29,34 +29,38 @@ public class CarsTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 10;
+        return 12;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return cars.get(rowIndex).getBrand();
+                return cars.get(rowIndex).getVin();
             case 1:
-                return cars.get(rowIndex).getModel();
+                return cars.get(rowIndex).getBrand();
             case 2:
+                return cars.get(rowIndex).getModel();
+            case 3:
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(cars.get(rowIndex).getFirstReg());
                 return calendar.get(Calendar.YEAR);
-            case 3:
-                return cars.get(rowIndex).getMileage() + " km";
             case 4:
-                return cars.get(rowIndex).getCategory();
+                return cars.get(rowIndex).getMileage() + " km";
             case 5:
-                return cars.get(rowIndex).getFuel();
+                return cars.get(rowIndex).getCategory();
             case 6:
-                return cars.get(rowIndex).getEngineCapacity() + " L";
+                return cars.get(rowIndex).getFuel();
             case 7:
-                return cars.get(rowIndex).getEnginePower() + " HP";
+                return cars.get(rowIndex).getEngineCapacity() + " L";
             case 8:
-                return cars.get(rowIndex).getGearbox();
+                return cars.get(rowIndex).getEnginePower() + " HP";
             case 9:
+                return cars.get(rowIndex).getGearbox();
+            case 10:
                 return cars.get(rowIndex).getPrice() + " €";
+            case 11:
+                return cars.get(rowIndex).getStatus().toString();
             default:
                 throw new AssertionError();
         }
@@ -64,7 +68,7 @@ public class CarsTableModel extends AbstractTableModel {
 
     @Override
     public String getColumnName(int column) {
-        String[] columns = {"Brand","Model","First Registration","Mileage","Category","Fuel","Engine Capacity","Engine power","Gearbox","Price"};
+        String[] columns = {"VIN","Brand","Model","First Registration","Mileage","Category","Fuel","Engine Capacity","Engine power","Gearbox","Price","Status"};
         return columns[column];
     }
 

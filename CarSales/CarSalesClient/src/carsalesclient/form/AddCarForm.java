@@ -55,6 +55,8 @@ public class AddCarForm extends javax.swing.JDialog {
         lblId = new javax.swing.JLabel();
         lblMileage = new javax.swing.JLabel();
         cbCategory = new javax.swing.JComboBox<>();
+        lblVin = new javax.swing.JLabel();
+        txtVin = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         lblFuel = new javax.swing.JLabel();
         lblGearbox = new javax.swing.JLabel();
@@ -66,6 +68,8 @@ public class AddCarForm extends javax.swing.JDialog {
         txtPrice = new javax.swing.JTextField();
         cbFuel = new javax.swing.JComboBox<>();
         cbGearbox = new javax.swing.JComboBox<>();
+        lblStatus = new javax.swing.JLabel();
+        cbStatus = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add new car");
@@ -147,7 +151,7 @@ public class AddCarForm extends javax.swing.JDialog {
         txtBrand.setName("brand"); // NOI18N
 
         lblModel.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        lblModel.setText("Модел");
+        lblModel.setText("Model");
 
         txtModel.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         txtModel.setName("model"); // NOI18N
@@ -179,6 +183,12 @@ public class AddCarForm extends javax.swing.JDialog {
         cbCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cabrio", "Coupe", "Estate/Wagon", "Hatchback", "Limousine/Salon", "Minivan/Van", "SUV" }));
         cbCategory.setSelectedIndex(-1);
 
+        lblVin.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblVin.setText("VIN:");
+
+        txtVin.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        txtVin.setName("brand"); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -191,15 +201,17 @@ public class AddCarForm extends javax.swing.JDialog {
                     .addComponent(lblId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblFirstReg, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblMileage, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblCategory, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblCategory, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblVin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtMileage)
                     .addComponent(txtModel)
                     .addComponent(txtFirstReg, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtBrand, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cbCategory, 0, 163, Short.MAX_VALUE)
-                    .addComponent(txtId))
+                    .addComponent(cbCategory, 0, 181, Short.MAX_VALUE)
+                    .addComponent(txtId)
+                    .addComponent(txtVin, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -209,6 +221,10 @@ public class AddCarForm extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblId)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblVin)
+                    .addComponent(txtVin, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBrand)
@@ -229,7 +245,7 @@ public class AddCarForm extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCategory)
                     .addComponent(cbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
@@ -266,6 +282,13 @@ public class AddCarForm extends javax.swing.JDialog {
         cbGearbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Manual", "Automatic", "Semi-automatic" }));
         cbGearbox.setSelectedIndex(-1);
 
+        lblStatus.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblStatus.setText("Status:");
+
+        cbStatus.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "Sold", "Reserved" }));
+        cbStatus.setSelectedIndex(-1);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -277,14 +300,16 @@ public class AddCarForm extends javax.swing.JDialog {
                     .addComponent(lblFuel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblEngCapacity, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblEngPower, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblGearbox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblGearbox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblStatus, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtPrice)
                     .addComponent(txtEnginePower)
-                    .addComponent(cbGearbox, 0, 151, Short.MAX_VALUE)
+                    .addComponent(cbGearbox, 0, 177, Short.MAX_VALUE)
                     .addComponent(txtEngineCapacity)
-                    .addComponent(cbFuel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cbFuel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -310,7 +335,11 @@ public class AddCarForm extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPrice)
                     .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblStatus))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         jSplitPane1.setRightComponent(jPanel2);
@@ -335,8 +364,8 @@ public class AddCarForm extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -366,6 +395,7 @@ public class AddCarForm extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cbCategory;
     private javax.swing.JComboBox<String> cbFuel;
     private javax.swing.JComboBox<String> cbGearbox;
+    private javax.swing.JComboBox<String> cbStatus;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -381,7 +411,9 @@ public class AddCarForm extends javax.swing.JDialog {
     private javax.swing.JLabel lblMileage;
     private javax.swing.JLabel lblModel;
     private javax.swing.JLabel lblPrice;
+    private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel lblVin;
     private javax.swing.JTextField txtBrand;
     private javax.swing.JTextField txtEngineCapacity;
     private javax.swing.JTextField txtEnginePower;
@@ -390,6 +422,7 @@ public class AddCarForm extends javax.swing.JDialog {
     private javax.swing.JTextField txtMileage;
     private javax.swing.JTextField txtModel;
     private javax.swing.JTextField txtPrice;
+    private javax.swing.JTextField txtVin;
     // End of variables declaration//GEN-END:variables
 
     public JButton getBtnSave() {
@@ -499,7 +532,22 @@ public class AddCarForm extends javax.swing.JDialog {
     public JLabel getLblPrice() {
         return lblPrice;
     }
-    
+
+    public JLabel getLblStatus() {
+        return lblStatus;
+    }
+
+    public JLabel getLblVin() {
+        return lblVin;
+    }
+
+    public JComboBox<String> getCbStatus() {
+        return cbStatus;
+    }
+
+    public JTextField getTxtVin() {
+        return txtVin;
+    }
     
     
     public void btnEnableChangesAddActionListener(ActionListener actionListener){

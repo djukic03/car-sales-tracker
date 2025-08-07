@@ -23,16 +23,19 @@ public class Invoice implements DefaultDomainObject, Serializable{
     private Double totalAmount;
     private User user;
     private Customer customer;
+    //DODAJ LISTU INVOICE ITEM-A
+    private List<InvoiceItem> invoiceItems;
     String searchCondition;
     String searchConditionValue;
 
-    public Invoice(Long idInvoice, Long invoiceNum, Date dateOfIssue, Double totalAmount, User user, Customer customer) {
+    public Invoice(Long idInvoice, Long invoiceNum, Date dateOfIssue, Double totalAmount, User user, Customer customer, List<InvoiceItem> invoiceItems) {
         this.idInvoice = idInvoice;
         this.invoiceNum = invoiceNum;
         this.dateOfIssue = dateOfIssue;
         this.totalAmount = totalAmount;
         this.user = user;
         this.customer = customer;
+        this.invoiceItems = invoiceItems;
     }
 
 
@@ -86,6 +89,14 @@ public class Invoice implements DefaultDomainObject, Serializable{
     public void setInvoiceNum(Long invoiceNum) {
         this.invoiceNum = invoiceNum;
     }
+    
+    public List<InvoiceItem> getInvoiceItems() {
+        return invoiceItems;
+    }
+
+    public void setInvoiceItems(List<InvoiceItem> invoiceItems) {
+        this.invoiceItems = invoiceItems;
+    }
 
     public void setSearchCondition(String searchCondition) {
         this.searchCondition = searchCondition;
@@ -108,7 +119,7 @@ public class Invoice implements DefaultDomainObject, Serializable{
             user.setIdUser(rs.getLong("user_id"));
             Customer customer = new Customer();
             customer.setIdCustomer(rs.getLong("customer_id"));
-            invoices.add(new Invoice(rs.getLong("id"), rs.getLong("invoice_num"), rs.getDate("date_of_issue"), rs.getDouble("total_amount"), user, customer));
+            invoices.add(new Invoice(rs.getLong("id"), rs.getLong("invoice_num"), rs.getDate("date_of_issue"), rs.getDouble("total_amount"), user, customer, new ArrayList<>()));
         }
         return invoices;
     }

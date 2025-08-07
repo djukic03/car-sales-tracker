@@ -24,7 +24,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
@@ -45,8 +45,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lblTitle" min="-2" pref="25" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jSplitPane1" min="-2" pref="322" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="32767" attributes="0"/>
+              <Component id="jSplitPane1" min="-2" pref="374" max="-2" attributes="0"/>
+              <EmptySpace pref="15" max="32767" attributes="0"/>
               <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -174,6 +174,7 @@
                           <Component id="lblFirstReg" alignment="0" max="32767" attributes="0"/>
                           <Component id="lblMileage" alignment="0" max="32767" attributes="0"/>
                           <Component id="lblCategory" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblVin" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -181,8 +182,9 @@
                           <Component id="txtModel" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtFirstReg" alignment="1" max="32767" attributes="0"/>
                           <Component id="txtBrand" alignment="1" max="32767" attributes="0"/>
-                          <Component id="cbCategory" alignment="0" pref="163" max="32767" attributes="0"/>
+                          <Component id="cbCategory" alignment="0" pref="181" max="32767" attributes="0"/>
                           <Component id="txtId" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtVin" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -195,6 +197,11 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblId" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtId" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblVin" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtVin" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -221,7 +228,7 @@
                           <Component id="lblCategory" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cbCategory" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="16" max="32767" attributes="0"/>
+                      <EmptySpace pref="15" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -248,7 +255,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Comic Sans MS" size="14" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#x41c;&#x43e;&#x434;&#x435;&#x43b;"/>
+                <Property name="text" type="java.lang.String" value="Model"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtModel">
@@ -341,6 +348,22 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
+            <Component class="javax.swing.JLabel" name="lblVin">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Comic Sans MS" size="14" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="VIN:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtVin">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Comic Sans MS" size="14" style="0"/>
+                </Property>
+                <Property name="name" type="java.lang.String" value="brand" noResource="true"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel2">
@@ -361,14 +384,16 @@
                           <Component id="lblEngCapacity" alignment="0" max="32767" attributes="0"/>
                           <Component id="lblEngPower" alignment="0" max="32767" attributes="0"/>
                           <Component id="lblGearbox" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
+                          <Component id="lblStatus" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="txtPrice" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtEnginePower" max="32767" attributes="0"/>
-                          <Component id="cbGearbox" alignment="0" pref="151" max="32767" attributes="0"/>
+                          <Component id="cbGearbox" alignment="0" pref="177" max="32767" attributes="0"/>
                           <Component id="txtEngineCapacity" alignment="0" max="32767" attributes="0"/>
                           <Component id="cbFuel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cbStatus" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -402,7 +427,12 @@
                           <Component id="lblPrice" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtPrice" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="45" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="cbStatus" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="lblStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="44" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -502,6 +532,32 @@
                     <StringItem index="0" value="Manual"/>
                     <StringItem index="1" value="Automatic"/>
                     <StringItem index="2" value="Semi-automatic"/>
+                  </StringArray>
+                </Property>
+                <Property name="selectedIndex" type="int" value="-1"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblStatus">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Comic Sans MS" size="14" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Status:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cbStatus">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Comic Sans MS" size="14" style="0"/>
+                </Property>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="3">
+                    <StringItem index="0" value="Available"/>
+                    <StringItem index="1" value="Sold"/>
+                    <StringItem index="2" value="Reserved"/>
                   </StringArray>
                 </Property>
                 <Property name="selectedIndex" type="int" value="-1"/>

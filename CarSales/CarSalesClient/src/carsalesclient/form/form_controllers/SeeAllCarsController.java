@@ -123,14 +123,11 @@ public class SeeAllCarsController {
                     int rowId = carsTableForm.getTblCars().getSelectedRow();
                     if(rowId != -1){
                         Car car = ((CarsTableModel) carsTableForm.getTblCars().getModel()).getCarAt(rowId);
-                        carsTableForm.getTxtQuantity().setEnabled(true);
-                        carsTableForm.getTxtQuantity().setText("1");
-                        carsTableForm.getTxtQuantity().grabFocus();
-                        carsTableForm.getTxtQuantity().setSelectionStart(0);
+                        carsTableForm.getTxtNote().setEnabled(true);
                     }
                     else{
-                        carsTableForm.getTxtQuantity().setEnabled(false);
-                        carsTableForm.getTxtQuantity().setText("");
+                        carsTableForm.getTxtNote().setEnabled(false);
+                        carsTableForm.getTxtNote().setText("");
                     }
                 }
             }
@@ -149,8 +146,8 @@ public class SeeAllCarsController {
                     return;
                 }
                 Car car = ((CarsTableModel) carsTableForm.getTblCars().getModel()).getCarAt(rowId);
-                int quantity = Integer.parseInt(carsTableForm.getTxtQuantity().getText());
-                selectedCars.add(new InvoiceItem(null, 0, quantity, car.getPrice(), car.getPrice()*quantity, car));
+                String note = carsTableForm.getTxtNote().getText();
+                selectedCars.add(new InvoiceItem(null, 0, car.getPrice(), note, car));
                 if (JOptionPane.showConfirmDialog(carsTableForm, "Selected Cars:\n"+selectedCars.toString() + "\n Select more cars?", "Select more cars?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     return;
                 }
@@ -200,16 +197,16 @@ public class SeeAllCarsController {
         switch (formMode) {
             case TableFormMode.SEE_ALL_ITEMS:
                 carsTableForm.getBtnSelect().setVisible(false);
-                carsTableForm.getLblQuantity().setVisible(false);
-                carsTableForm.getTxtQuantity().setVisible(false);
+                carsTableForm.getLblNote().setVisible(false);
+                carsTableForm.getTxtNote().setVisible(false);
                 carsTableForm.getBtnDelete().setVisible(true);
                 carsTableForm.getBtnDetails().setVisible(true);
                 break;
             case TableFormMode.SELECT_ITEM:
                 selectedCars.clear();
                 carsTableForm.getBtnSelect().setVisible(true);
-                carsTableForm.getLblQuantity().setVisible(true);
-                carsTableForm.getTxtQuantity().setVisible(true);
+                carsTableForm.getLblNote().setVisible(true);
+                carsTableForm.getTxtNote().setVisible(true);
                 carsTableForm.getBtnDelete().setVisible(false);
                 carsTableForm.getBtnDetails().setVisible(false);
                 break;

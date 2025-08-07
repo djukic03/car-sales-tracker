@@ -16,6 +16,7 @@ import java.util.logging.Logger;
  *
  * @author user
  */
+//ОД ОБОГ БРАТА ПРАВИМО АПСТРАКТНУ КЛАСУ И НАСЛЕЂИВАЋЕ ЈЕ ФИЗИЧКО И ПРАВНО ЛИЦЕ
 public class Customer implements DefaultDomainObject, Serializable{
     private Long idCustomer;
     private String name;

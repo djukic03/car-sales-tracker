@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
@@ -21,6 +22,7 @@ public class MainForm extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setResizable(false);
     }
 
     /**
@@ -32,7 +34,13 @@ public class MainForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLayeredPane2 = new javax.swing.JLayeredPane();
+        jPanel2 = new javax.swing.JPanel();
         lblMain = new javax.swing.JLabel();
+        btnSell = new javax.swing.JButton();
+        btnReserve = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        lblImage = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuInvoice = new javax.swing.JMenu();
         menuItemCreateNewInvoice = new javax.swing.JMenuItem();
@@ -55,8 +63,69 @@ public class MainForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Car Sales Tracker");
 
-        lblMain.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jLayeredPane2.setLayout(new javax.swing.OverlayLayout(jLayeredPane2));
+
+        jPanel2.setOpaque(false);
+
+        lblMain.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
         lblMain.setText("jLabel1");
+
+        btnSell.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        btnSell.setText("Sell Car");
+
+        btnReserve.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        btnReserve.setText("Reserve Car");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblMain, javax.swing.GroupLayout.PREFERRED_SIZE, 705, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnSell, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnReserve, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(431, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(lblMain, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSell, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReserve, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(663, Short.MAX_VALUE))
+        );
+
+        jLayeredPane2.add(jPanel2);
+
+        jPanel1.setOpaque(false);
+
+        lblImage.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carsalesclient/form/images/mainFormImage3.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 1154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 12, Short.MAX_VALUE)
+                .addComponent(lblImage))
+        );
+
+        jLayeredPane2.add(jPanel1);
 
         menuInvoice.setText("Invoice");
         menuInvoice.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
@@ -169,17 +238,16 @@ public class MainForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblMain, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(414, Short.MAX_VALUE))
+                .addComponent(jLayeredPane2))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblMain)
-                .addContainerGap(367, Short.MAX_VALUE))
+                .addComponent(jLayeredPane2)
+                .addContainerGap())
         );
 
         pack();
@@ -203,7 +271,13 @@ public class MainForm extends javax.swing.JFrame {
     private void menuItemCreateNewInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCreateNewInvoiceActionPerformed
     }//GEN-LAST:event_menuItemCreateNewInvoiceActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnReserve;
+    private javax.swing.JButton btnSell;
+    private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblMain;
     private javax.swing.JMenu menuCars;
     private javax.swing.JMenu menuCustomers;
@@ -335,6 +409,9 @@ public class MainForm extends javax.swing.JFrame {
     public JMenuItem getMenuItemLogOut() {
         return menuItemLogOut;
     }
-    
+
+    public JLabel getLblImage() {
+        return lblImage;
+    }
     
 }

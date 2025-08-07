@@ -40,8 +40,8 @@ public class CarsTableForm extends javax.swing.JDialog {
         btnDelete = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cbBrand = new javax.swing.JComboBox<>();
-        lblQuantity = new javax.swing.JLabel();
-        txtQuantity = new javax.swing.JTextField();
+        lblNote = new javax.swing.JLabel();
+        txtNote = new javax.swing.JTextField();
         btnSelect = new javax.swing.JButton();
         btnAddNew = new javax.swing.JButton();
 
@@ -106,15 +106,15 @@ public class CarsTableForm extends javax.swing.JDialog {
             }
         });
 
-        lblQuantity.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        lblQuantity.setText("Quantity:");
+        lblNote.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblNote.setText("Note:");
 
-        txtQuantity.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        txtQuantity.setEnabled(false);
-        txtQuantity.setName("price"); // NOI18N
-        txtQuantity.addActionListener(new java.awt.event.ActionListener() {
+        txtNote.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        txtNote.setEnabled(false);
+        txtNote.setName("price"); // NOI18N
+        txtNote.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtQuantityActionPerformed(evt);
+                txtNoteActionPerformed(evt);
             }
         });
 
@@ -141,7 +141,7 @@ public class CarsTableForm extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1021, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -149,12 +149,12 @@ public class CarsTableForm extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(lblQuantity)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblNote)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNote, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnAddNew)
@@ -171,12 +171,12 @@ public class CarsTableForm extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblQuantity)
-                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblNote)
+                    .addComponent(txtNote, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -198,9 +198,9 @@ public class CarsTableForm extends javax.swing.JDialog {
     private void cbBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbBrandActionPerformed
     }//GEN-LAST:event_cbBrandActionPerformed
 
-    private void txtQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantityActionPerformed
+    private void txtNoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNoteActionPerformed
 
-    }//GEN-LAST:event_txtQuantityActionPerformed
+    }//GEN-LAST:event_txtNoteActionPerformed
 
     private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
         // TODO add your handling code here:
@@ -218,9 +218,9 @@ public class CarsTableForm extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cbBrand;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblQuantity;
+    private javax.swing.JLabel lblNote;
     private javax.swing.JTable tblCars;
-    private javax.swing.JTextField txtQuantity;
+    private javax.swing.JTextField txtNote;
     // End of variables declaration//GEN-END:variables
 
     public JTable getTblCars() {
@@ -239,8 +239,8 @@ public class CarsTableForm extends javax.swing.JDialog {
         return btnDetails;
     }
 
-    public JTextField getTxtQuantity() {
-        return txtQuantity;
+    public JTextField getTxtNote() {
+        return txtNote;
     }
 
     public JButton getBtnAddNew() {
@@ -251,8 +251,8 @@ public class CarsTableForm extends javax.swing.JDialog {
         return btnSelect;
     }
 
-    public JLabel getLblQuantity() {
-        return lblQuantity;
+    public JLabel getLblNote() {
+        return lblNote;
     }
     
     public void cbBrandAddActionListener(ActionListener actionListener){

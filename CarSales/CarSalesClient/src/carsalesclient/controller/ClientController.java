@@ -166,20 +166,6 @@ public class ClientController {
         }
     }
     
-    public List<InvoiceItem> searchInvoiceItems(InvoiceItem item) throws Exception{
-        Request request = new Request(Operation.SEARCH_INVOICE_ITEMS, item);
-        sender.send(request);
-        
-        Response response = (Response) receiver.receive();
-        if(response.getException() == null){
-            return (List<InvoiceItem>) response.getResult();
-        }
-        else{
-            throw response.getException();
-        }
-    }
-    
-    
     
     
     
@@ -216,9 +202,9 @@ public class ClientController {
             throw response.getException();
         }
     }
-    
-    public void insertInvoiceItem(InvoiceItem invoiceItem) throws Exception {
-        Request request = new Request(Operation.INSERT_INVOICE_ITEM, invoiceItem);
+
+    public void insertInvoice(Invoice invoice) throws Exception {
+        Request request = new Request(Operation.INSERT_INVOICE, invoice);
         sender.send(request);
         
         Response response = (Response) receiver.receive();
@@ -227,18 +213,6 @@ public class ClientController {
         }
     }
     
-    public Long insertInvoice(Invoice invoice) throws Exception {
-        Request request = new Request(Operation.INSERT_INVOICE, invoice);
-        sender.send(request);
-        
-        Response response = (Response) receiver.receive();
-        if(response.getException() == null){
-            return (Long) response.getResult();
-        }
-        else{
-            throw response.getException();
-        }
-    }
     
     
     
@@ -246,8 +220,9 @@ public class ClientController {
     
     
     
-    
-    
+    // U SUSTINI NE BI TREBALO DA BRISEMO NISTA IZ BAZE, POGOTOVO KUPCE, DANAS JE BAZA KORISNIKA VREDNIJA OD ZLATA
+    // ZA KOLA SAMO MENJATI STATUS DOSTUPNO/PRODATO
+    // POSTO JE PROJEKAT ZA FAKS OSTAVICU KAO POKAZNI PRIMER
     
     public void deleteCar(Car car) throws Exception {
         Request request = new Request(Operation.DELETE_CAR, car);

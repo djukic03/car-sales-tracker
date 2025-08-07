@@ -18,7 +18,6 @@ import javax.swing.table.AbstractTableModel;
  */
 public class InvoiceItemsTableModel extends AbstractTableModel{
     private List<InvoiceItem> items;
-    private List<Car> cars = new ArrayList<>();
 
     public InvoiceItemsTableModel(List<InvoiceItem> items) {
         this.items = items;
@@ -31,7 +30,7 @@ public class InvoiceItemsTableModel extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 6;
+        return 5;
     }
 
     @Override
@@ -44,11 +43,9 @@ public class InvoiceItemsTableModel extends AbstractTableModel{
             case 2:
                 return items.get(rowIndex).getCar().getModel();
             case 3:
-                return items.get(rowIndex).getPriceOfOne() + " €";
+                return items.get(rowIndex).getNote();
             case 4:
-                return items.get(rowIndex).getQuantity();
-            case 5:
-                return items.get(rowIndex).getSum()  + " €";
+                return items.get(rowIndex).getPrice()  + " €";
             default:
                 break;
         }
@@ -57,7 +54,7 @@ public class InvoiceItemsTableModel extends AbstractTableModel{
 
     @Override
     public String getColumnName(int column) {
-        String columns[] = {"Num","Brand","Model","Price","Quantity","Sum"};
+        String columns[] = {"Num","Brand","Model","Note","Price"};
         return columns[column];
     }
 

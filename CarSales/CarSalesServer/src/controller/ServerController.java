@@ -29,8 +29,6 @@ import so.customer.UpdateCustomerSO;
 import so.invoice.GetAllInvoicesSO;
 import so.invoice.InsertInvoiceSO;
 import so.invoice.SearchInvoicesSO;
-import so.invoiceItem.SearchInvoiceItemsSO;
-import so.invoiceItem.InsertInvoiceItemSO;
 import so.user.GetAllUsersSO;
 import so.user.InsertUserSO;
 import so.user.LoginUserSO;
@@ -133,11 +131,7 @@ public class ServerController {
         return so.getInvoices();
     }
     
-    public List<DefaultDomainObject> searchInvoiceItems(InvoiceItem item) throws Exception{
-        SearchInvoiceItemsSO so = new SearchInvoiceItemsSO();
-        so.executeSO(item);
-        return so.getItems();
-    }
+    
     
     
     
@@ -158,15 +152,9 @@ public class ServerController {
         so.executeSO(car);
     }
     
-    public void insertInvoiceItem(InvoiceItem invoiceItem) throws Exception {
-        InsertInvoiceItemSO so = new InsertInvoiceItemSO();
-        so.executeSO(invoiceItem);
-    }
-    
-    public Long insertInvoice(Invoice invoice) throws Exception {
+    public void insertInvoice(Invoice invoice) throws Exception {
         InsertInvoiceSO so = new InsertInvoiceSO();
         so.executeSO(invoice);
-        return so.getInvoiceId();
     }
     
     

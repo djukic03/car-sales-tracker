@@ -19,9 +19,8 @@ import java.util.logging.Logger;
 public class InvoiceItem implements DefaultDomainObject, Serializable{
     private Long invoiceId;
     private int num;
-    private int quantity;
-    private double priceOfOne;
-    private double sum;
+    private double price;
+    private String note;
     private Car car;
     String searchCondition;
     String searchConditionValue;
@@ -29,12 +28,11 @@ public class InvoiceItem implements DefaultDomainObject, Serializable{
     public InvoiceItem() {
     }
 
-    public InvoiceItem(Long invoiceId, int num, int quantity, double priceOfOne, double sum, Car car) {
+    public InvoiceItem(Long invoiceId, int num, double price, String note, Car car) {
         this.invoiceId = invoiceId;
         this.num = num;
-        this.quantity = quantity;
-        this.priceOfOne = priceOfOne;
-        this.sum = sum;
+        this.price = price;
+        this.note = note;
         this.car = car;
     }
     
@@ -54,28 +52,20 @@ public class InvoiceItem implements DefaultDomainObject, Serializable{
         this.num = num;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public double getPrice() {
+        return price;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
-    public double getPriceOfOne() {
-        return priceOfOne;
+    public String getNote() {
+        return note;
     }
 
-    public void setPriceOfOne(double priceOfOne) {
-        this.priceOfOne = priceOfOne;
-    }
-
-    public double getSum() {
-        return sum;
-    }
-
-    public void setSum(double sum) {
-        this.sum = sum;
+    public void setNote(String note) {
+        this.note = note;
     }
     
     public Car getCar() {
@@ -96,7 +86,7 @@ public class InvoiceItem implements DefaultDomainObject, Serializable{
 
     @Override
     public String toString() {
-        return car.getBrand() + " " + car.getModel() + ", quantity: " + quantity + ", sum = " +sum+"\n";
+        return car.getBrand() + " " + car.getModel() + ", note: " + note + ", price = " +price+"\n";
     }
     
     @Override
@@ -110,7 +100,7 @@ public class InvoiceItem implements DefaultDomainObject, Serializable{
         while(rs.next()){
             Car car = new Car();
             car.setIdCar(rs.getLong("car_id"));
-            items.add(new InvoiceItem(rs.getLong("invoice_id"), rs.getInt("rb"), rs.getInt("quantity"), rs.getDouble("price_of_one"),rs.getDouble("sum"), car));
+            items.add(new InvoiceItem(rs.getLong("invoice_id"), rs.getInt("rb"), rs.getDouble("price"),rs.getString("note"), car));
         }
         return items;
     }
@@ -127,12 +117,12 @@ public class InvoiceItem implements DefaultDomainObject, Serializable{
 
     @Override
     public String getInsertValues() {
-        return invoiceId + ", "+ num +", "+ quantity +", "+ priceOfOne + ", " + sum + ", "+ car.getIdCar();
+        return invoiceId + ", "+ num + ", " + price + ", '" + note + "', "+ car.getIdCar();
     }
 
     @Override
     public String getInsertColumns() {
-        return "invoice_id, rb, quantity, price_of_one, sum, car_id";
+        return "invoice_id, rb, price, note, car_id";
     }
 
     @Override
@@ -164,5 +154,7 @@ public class InvoiceItem implements DefaultDomainObject, Serializable{
     public String getOrderCondition() {
         return "invoice_id";
     }
+
+    
 
 }

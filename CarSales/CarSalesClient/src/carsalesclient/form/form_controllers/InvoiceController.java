@@ -127,18 +127,13 @@ public class InvoiceController {
                     }
                     SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
                     Date d = formater.parse(invoiceForm.getTxtDate().getText());
-                    Invoice invoice = new Invoice(null, Long.valueOf(invoiceForm.getTxtInvoiceNumber().getText()), d, Double.valueOf(invoiceForm.getTxtTotalAmount().getText()),((User) Coordinator.getInstance().getParam(CoordinatorParamConsts.LOGGED_IN_USER)), customer);
+                    List<InvoiceItem> items = ((InvoiceItemsTableModel) invoiceForm.getTblInvoiceItems().getModel()).getInvoiceItems();
+                    Invoice invoice = new Invoice(null, Long.valueOf(invoiceForm.getTxtInvoiceNumber().getText()), d, Double.valueOf(invoiceForm.getTxtTotalAmount().getText()),((User) Coordinator.getInstance().getParam(CoordinatorParamConsts.LOGGED_IN_USER)), customer, items);
                     
                     if(JOptionPane.showConfirmDialog(invoiceForm, "Are you sure you want to CREATE and INSERT this invoice into the database? \n Please check all the data before clicking Yes!", "Create invoice", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                         ClientController controller = ClientController.getInstance();
-                        Long invoiceId = controller.insertInvoice(invoice);
-                        if(invoiceId != null){
-                            List<InvoiceItem> items = ((InvoiceItemsTableModel) invoiceForm.getTblInvoiceItems().getModel()).getInvoiceItems();
-                            for (InvoiceItem item : items) {
-                                item.setInvoiceId(invoiceId);
-                                controller.insertInvoiceItem(item);
-                            }
-                        }
+                        controller.insertInvoice(invoice);
+                        
                         if(JOptionPane.showConfirmDialog(invoiceForm, "Invoice has been successfully added to the database!!! \n\n Create more invoices?", "Success", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION){
                             prepareForm();
                             setCustomer(null);
@@ -172,7 +167,7 @@ public class InvoiceController {
         Double total = 0.0;
         InvoiceItemsTableModel tm = (InvoiceItemsTableModel) invoiceForm.getTblInvoiceItems().getModel();
         for (InvoiceItem item : tm.getInvoiceItems()) {
-            total += item.getSum();
+            total += item.getPrice();
         }
         invoiceForm.getTxtTotalAmount().setText(Double.toString(total));
     }
