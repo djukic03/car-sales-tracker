@@ -179,7 +179,10 @@ public class SeeAllCarsController {
             private void selectCustomer() {
                 Coordinator.getInstance().openCustomersTableForm(TableFormMode.SELECT_ITEM);
                 customer = (Customer)Coordinator.getInstance().getParam(CoordinatorParamConsts.SELECTED_CUSTOMER);
-                carsTableForm.getTxtCustomer().setText(customer.getName());
+                if (customer != null) {
+                    carsTableForm.getTxtCustomer().setText(customer.getName());
+                }
+                
             }
         });
         
@@ -190,35 +193,43 @@ public class SeeAllCarsController {
             }
 
             private void reserveCar() {
-                int rowId = carsTableForm.getTblCars().getSelectedRow();
-                if (rowId < 0) {
-                    JOptionPane.showMessageDialog(carsTableForm, "Please select car!");
-                    return;
+                try {
+                    int rowId = carsTableForm.getTblCars().getSelectedRow();
+                    if (rowId < 0) {
+                        JOptionPane.showMessageDialog(carsTableForm, "Please select car!");
+                        return;
+                    }
+                    Car car = ((CarsTableModel) carsTableForm.getTblCars().getModel()).getCarAt(rowId);
+                    if (car.getStatus() == CarStatus.RESERVED) {
+                        JOptionPane.showMessageDialog(carsTableForm, "Selected car is already reserved!");
+                        return;
+                    }
+                    if (car.getStatus() == CarStatus.SOLD) {
+                        JOptionPane.showMessageDialog(carsTableForm, "Selected car is already sold!");
+                        return;
+                    }
+                    if (customer == null) {
+                        JOptionPane.showMessageDialog(carsTableForm, "Please select customer!");
+                        return;
+                    }
+                    Date date = new Date();
+                    Calendar cal = Calendar.getInstance();
+                    cal.add(Calendar.DAY_OF_MONTH, 7);
+                    Date deadline = cal.getTime();
+                    String note = carsTableForm.getTxtNote().getText();
+                    Reservation reservation = new Reservation(null, date, deadline, ReservationStatus.ACTIVE, note, car, customer);
+                    if (JOptionPane.showConfirmDialog(carsTableForm, "Are you sure you want to SAVE the following reservation: \n" + car.getBrand() + " " + car.getModel() + " for " + customer.getName(), "Save Reservation", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                        ClientController.getInstance().insertReservation(reservation);
+                        if (JOptionPane.showConfirmDialog(carsTableForm, "Reservation saved successfuly!\nReserve more cars?", "Success", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                            return;
+                        }
+                    }
+                    Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_CUSTOMER, null);
+                    carsTableForm.dispose();
+                } catch (Exception e) {
+                    System.out.println("Error: " + e.getMessage());
                 }
-                Car car = ((CarsTableModel) carsTableForm.getTblCars().getModel()).getCarAt(rowId);
-                if (car.getStatus() == CarStatus.RESERVED) {
-                    JOptionPane.showMessageDialog(carsTableForm, "Selected car is already reserved!");
-                    return;
-                }
-                if (car.getStatus() == CarStatus.SOLD) {
-                    JOptionPane.showMessageDialog(carsTableForm, "Selected car is already sold!");
-                    return;
-                }
-                if (customer == null) {
-                    JOptionPane.showMessageDialog(carsTableForm, "Please select customer!");
-                    return;
-                }
-                Date date = new Date();
-                Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.DAY_OF_MONTH, 7);
-                Date deadline = cal.getTime();
-                Reservation reservation = new Reservation(null, date, deadline, ReservationStatus.ACTIVE, "blabla", car, customer);
-
-
-//SACUVAJ REZERVACIJU -----------------------------------------------------------
-
-
-                Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_CUSTOMER, null);
+                
             }
         });
         
@@ -226,6 +237,12 @@ public class SeeAllCarsController {
             @Override
             public void windowActivated(WindowEvent e) {
                 fillTable(null);
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                super.windowClosed(e); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+                Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_CUSTOMER, null);
             }
             
         });
@@ -260,12 +277,13 @@ public class SeeAllCarsController {
     private void prepareForm(TableFormMode formMode) {
         switch (formMode) {
             case TableFormMode.SEE_ALL_ITEMS:
-                carsTableForm.getBtnReserve().setVisible(true);
+                carsTableForm.getBtnReserve().setVisible(false);
                 carsTableForm.getBtnSelect().setVisible(false);
                 carsTableForm.getLblNote().setVisible(false);
                 carsTableForm.getTxtNote().setVisible(false);
                 carsTableForm.getLblCustomer().setVisible(false);
                 carsTableForm.getTxtCustomer().setVisible(false);
+                carsTableForm.getBtnSelectCustomer().setVisible(false);
                 carsTableForm.getBtnDelete().setVisible(true);
                 carsTableForm.getBtnDetails().setVisible(true);
                 break;
@@ -277,6 +295,7 @@ public class SeeAllCarsController {
                 carsTableForm.getTxtNote().setVisible(true);
                 carsTableForm.getLblCustomer().setVisible(false);
                 carsTableForm.getTxtCustomer().setVisible(false);
+                carsTableForm.getBtnSelectCustomer().setVisible(false);
                 carsTableForm.getBtnDelete().setVisible(false);
                 carsTableForm.getBtnDetails().setVisible(false);
                 break;
@@ -284,8 +303,8 @@ public class SeeAllCarsController {
                 selectedCars.clear();
                 carsTableForm.getBtnReserve().setVisible(true);
                 carsTableForm.getBtnSelect().setVisible(false);
-                carsTableForm.getLblNote().setVisible(false);
-                carsTableForm.getTxtNote().setVisible(false);
+                carsTableForm.getLblNote().setVisible(true);
+                carsTableForm.getTxtNote().setVisible(true);
                 carsTableForm.getLblCustomer().setVisible(true);
                 carsTableForm.getTxtCustomer().setVisible(true);
                 carsTableForm.getBtnDelete().setVisible(false);

@@ -10,6 +10,7 @@ import domain.Customer;
 import domain.DefaultDomainObject;
 import domain.Invoice;
 import domain.InvoiceItem;
+import domain.Reservation;
 import domain.User;
 import java.util.List;
 import java.sql.SQLException;
@@ -29,6 +30,9 @@ import so.customer.UpdateCustomerSO;
 import so.invoice.GetAllInvoicesSO;
 import so.invoice.InsertInvoiceSO;
 import so.invoice.SearchInvoicesSO;
+import so.reservation.GetAllReservationsSO;
+import so.reservation.InsertReservationSO;
+import so.reservation.UpdateReservationSO;
 import so.user.GetAllUsersSO;
 import so.user.InsertUserSO;
 import so.user.LoginUserSO;
@@ -103,6 +107,14 @@ public class ServerController {
         so.executeSO(null);
         return so.getInvoices();
     }
+
+    public Object getAllReservations() throws Exception {
+        GetAllReservationsSO so = new GetAllReservationsSO();
+        so.executeSO(null);
+        return so.getReservations();
+    }
+
+    
     
     
     
@@ -157,6 +169,10 @@ public class ServerController {
         so.executeSO(invoice);
     }
     
+    public void insertReservation(Reservation reservation) throws Exception {
+        InsertReservationSO so = new InsertReservationSO();
+        so.executeSO(reservation);
+    }
     
     
     
@@ -192,7 +208,12 @@ public class ServerController {
         UpdateUserSO so = new UpdateUserSO();
         so.executeSO(user);
     }
-    
+
+    public void updateReservation(Reservation reservation) throws Exception{
+        UpdateReservationSO so = new UpdateReservationSO();
+        so.executeSO(reservation);
+    }
+
     
     
     

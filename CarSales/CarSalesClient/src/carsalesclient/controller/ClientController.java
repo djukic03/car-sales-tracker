@@ -13,6 +13,7 @@ import domain.Car;
 import domain.Customer;
 import domain.Invoice;
 import domain.InvoiceItem;
+import domain.Reservation;
 import domain.User;
 import java.io.IOException;
 import java.net.Socket;
@@ -108,7 +109,20 @@ public class ClientController {
             throw response.getException();
         }
     }
-    
+
+    public List<Reservation> getAllReservations() throws Exception {
+        Request request = new Request(Operation.GET_ALL_RESERVATIONS, null);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException() == null){
+            return (List<Reservation>) response.getResult();
+        }
+        else{
+            throw response.getException();
+        }
+    }
+
     
     
     
@@ -212,7 +226,17 @@ public class ClientController {
             throw response.getException();
         }
     }
-    
+
+    public void insertReservation(Reservation reservation) throws Exception {
+        Request request = new Request(Operation.INSERT_RESERVATION, reservation);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if (response.getException() != null) {
+            throw response.getException();
+        }
+    }
+
     
     
     
@@ -282,7 +306,16 @@ public class ClientController {
         }
     }
     
-    
+    public void updateReservation(Reservation reservation) throws Exception {
+        Request request = new Request(Operation.UPDATE_RESERVATION, reservation);
+        sender.send(request);
+        
+        Response response = (Response) receiver.receive();
+        if(response.getException() != null){
+            throw response.getException();
+        }
+    }
+
     
     
     

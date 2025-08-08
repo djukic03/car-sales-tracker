@@ -14,7 +14,6 @@ import so.AbstractSO;
  * @author user
  */
 public class InsertInvoiceSO extends AbstractSO {
-    private Long invoiceId;
 
     @Override
     protected void validate(Object o) throws Exception {
@@ -26,7 +25,7 @@ public class InsertInvoiceSO extends AbstractSO {
     @Override
     protected void execute(Object o) throws Exception {
         Invoice invoice = (Invoice) o;
-        invoiceId = dbBroker.insertRowAndGetId(invoice);
+        Long invoiceId = dbBroker.insertRowAndGetId(invoice);
         for (InvoiceItem invoiceItem : invoice.getInvoiceItems()) {
             invoiceItem.getCar().setStatus(CarStatus.SOLD);
             invoiceItem.getCar().setUpdateConditionValue(invoiceItem.getCar().getIdCar());
@@ -45,10 +44,4 @@ public class InsertInvoiceSO extends AbstractSO {
     @Override
     protected void rollback() {
     }
-
-    public Long getInvoiceId() {
-        return invoiceId;
-    }
-    
-    
 }

@@ -48,7 +48,7 @@ public class MainController {
         mainForm.miCreateNewInvoiceAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Coordinator.getInstance().openAddInvoiceForm();
+                Coordinator.getInstance().openAddInvoiceForm(AddFormMode.ADD_FORM);
             }
         });
         
@@ -101,6 +101,20 @@ public class MainController {
             }
         });
         
+        mainForm.miAddNewReservationAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Coordinator.getInstance().openCarsTableForm(TableFormMode.RESERVE_CAR);
+            }
+        });
+        
+        mainForm.miSeeAllReservationsAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Coordinator.getInstance().openReservationsTableForm();
+            }
+        });
+        
         mainForm.miEnglishAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -136,7 +150,7 @@ public class MainController {
         mainForm.btnSellCarAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Coordinator.getInstance().openAddInvoiceForm();
+                Coordinator.getInstance().openAddInvoiceForm(AddFormMode.ADD_FORM);
             }
         });
 

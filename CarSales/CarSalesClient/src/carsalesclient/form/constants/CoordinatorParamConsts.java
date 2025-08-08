@@ -16,5 +16,6 @@ public enum CoordinatorParamConsts {
     CUSTOMER_DETAILS,
     CAR_DETAILS,
     INVOICE_ITEMS,
+    SELECTED_RESERVATION,
     SELECTED_LANGUAGE
 }

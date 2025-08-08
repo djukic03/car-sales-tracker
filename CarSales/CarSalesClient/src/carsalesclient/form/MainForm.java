@@ -55,6 +55,9 @@ public class MainForm extends javax.swing.JFrame {
         menuCustomers = new javax.swing.JMenu();
         menuItemAddNewCustomer = new javax.swing.JMenuItem();
         menuItemSeeAllCustomers = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        menuItemAddNewReservation = new javax.swing.JMenuItem();
+        menuItemSeeAllReservations = new javax.swing.JMenuItem();
         menuOptions = new javax.swing.JMenu();
         menuItemLanguage = new javax.swing.JMenu();
         menuItemEnglish = new javax.swing.JCheckBoxMenuItem();
@@ -210,6 +213,24 @@ public class MainForm extends javax.swing.JFrame {
 
         jMenuBar1.add(menuCustomers);
 
+        jMenu1.setText("Reservations");
+        jMenu1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+
+        menuItemAddNewReservation.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        menuItemAddNewReservation.setText("Add new reservation");
+        menuItemAddNewReservation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemAddNewReservationActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuItemAddNewReservation);
+
+        menuItemSeeAllReservations.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        menuItemSeeAllReservations.setText("See all reservations");
+        jMenu1.add(menuItemSeeAllReservations);
+
+        jMenuBar1.add(jMenu1);
+
         menuOptions.setText("Options");
         menuOptions.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
 
@@ -271,10 +292,16 @@ public class MainForm extends javax.swing.JFrame {
 
     private void menuItemCreateNewInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCreateNewInvoiceActionPerformed
     }//GEN-LAST:event_menuItemCreateNewInvoiceActionPerformed
+
+    private void menuItemAddNewReservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAddNewReservationActionPerformed
+        
+    }//GEN-LAST:event_menuItemAddNewReservationActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnReserve;
     private javax.swing.JButton btnSell;
     private javax.swing.JLayeredPane jLayeredPane2;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -285,6 +312,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenu menuInvoice;
     private javax.swing.JMenuItem menuItemAddNewCar;
     private javax.swing.JMenuItem menuItemAddNewCustomer;
+    private javax.swing.JMenuItem menuItemAddNewReservation;
     private javax.swing.JMenuItem menuItemAddSalesman;
     private javax.swing.JMenuItem menuItemCreateNewInvoice;
     private javax.swing.JCheckBoxMenuItem menuItemEnglish;
@@ -293,6 +321,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemSeeAllCars;
     private javax.swing.JMenuItem menuItemSeeAllCustomers;
     private javax.swing.JMenuItem menuItemSeeAllInvoices;
+    private javax.swing.JMenuItem menuItemSeeAllReservations;
     private javax.swing.JMenuItem menuItemSeeAllSalesmen;
     private javax.swing.JCheckBoxMenuItem menuItemSerbian;
     private javax.swing.JMenu menuOptions;
@@ -337,6 +366,14 @@ public class MainForm extends javax.swing.JFrame {
     
     public void miSeeAllCustomersAddActionListener(ActionListener actionListener){
         menuItemSeeAllCustomers.addActionListener(actionListener);
+    }
+    
+    public void miAddNewReservationAddActionListener(ActionListener actionListener){
+        menuItemAddNewReservation.addActionListener(actionListener);
+    }
+    
+    public void miSeeAllReservationsAddActionListener(ActionListener actionListener){
+        menuItemSeeAllReservations.addActionListener(actionListener);
     }
     
     public JLabel getLblMain() {

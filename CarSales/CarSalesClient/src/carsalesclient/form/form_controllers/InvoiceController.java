@@ -8,12 +8,15 @@ import carsalesclient.controller.ClientController;
 import carsalesclient.form.AddInvoiceForm;
 import carsalesclient.form.constants.CoordinatorParamConsts;
 import carsalesclient.form.form_coordinator.Coordinator;
+import carsalesclient.form.modes.AddFormMode;
 import carsalesclient.form.modes.TableFormMode;
 import carsalesclient.form.tableModels.InvoiceItemsTableModel;
 import carsalesclient.form.tableModels.UsersTableModel;
 import domain.Customer;
 import domain.Invoice;
 import domain.InvoiceItem;
+import domain.Reservation;
+import domain.ReservationStatus;
 import domain.User;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,8 +42,8 @@ public class InvoiceController {
         addListeners();
     }
     
-    public void openForm(){
-        prepareForm();
+    public void openForm(AddFormMode mode){
+        prepareForm(mode);
         invoiceForm.setVisible(true);
     }
 
@@ -134,8 +137,17 @@ public class InvoiceController {
                         ClientController controller = ClientController.getInstance();
                         controller.insertInvoice(invoice);
                         
+                        if (Coordinator.getInstance().getParam(CoordinatorParamConsts.SELECTED_RESERVATION) != null) {
+                            Reservation res =(Reservation) Coordinator.getInstance().getParam(CoordinatorParamConsts.SELECTED_RESERVATION);
+                            res.setStatus(ReservationStatus.REALIZED);
+                            controller.updateReservation(res);
+                            Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_RESERVATION, null);
+                            Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_CAR, null);
+                            Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_CUSTOMER, null);
+                        }
+                        
                         if(JOptionPane.showConfirmDialog(invoiceForm, "Invoice has been successfully added to the database!!! \n\n Create more invoices?", "Success", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION){
-                            prepareForm();
+                            prepareForm(AddFormMode.ADD_FORM);
                             setCustomer(null);
                             invoiceForm.getTxtSelectedCustomer().setText("");
                             invoiceForm.getTxtTotalAmount().setText("");
@@ -172,7 +184,7 @@ public class InvoiceController {
         invoiceForm.getTxtTotalAmount().setText(Double.toString(total));
     }
 
-    private void prepareForm(){
+    private void prepareForm(AddFormMode mode){
         try {
             invoiceForm.getTxtDate().setText(new SimpleDateFormat("dd.MM.yyyy").format(new Date()));
             List<Invoice> invoices = ClientController.getInstance().getAllInvoices();
@@ -184,6 +196,21 @@ public class InvoiceController {
             invoiceForm.getTblSalesman().setModel(new UsersTableModel(salesman));
 
             invoiceForm.getTblInvoiceItems().setModel(new InvoiceItemsTableModel(new ArrayList<>()));
+            
+            switch (mode) {
+                case ADD_FORM:
+                    invoiceForm.getBtnSelectCustomer().setEnabled(true);
+                    invoiceForm.getBtnAddItem().setEnabled(true);
+                    invoiceForm.getBtnRemoveItem().setEnabled(true);
+                    break;
+                case REALIZE_RESERVATION:
+                    invoiceForm.getBtnSelectCustomer().setEnabled(false);
+                    invoiceForm.getBtnAddItem().setEnabled(false);
+                    invoiceForm.getBtnRemoveItem().setEnabled(false);
+                    break;
+                default:
+                    throw new AssertionError();
+            }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
             e.printStackTrace();

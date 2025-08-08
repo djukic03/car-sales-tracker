@@ -14,6 +14,7 @@ import carsalesclient.form.InvoiceItemsTableForm;
 import carsalesclient.form.InvoicesTableForm;
 import carsalesclient.form.LoginForm;
 import carsalesclient.form.MainForm;
+import carsalesclient.form.ReservationsTableForm;
 import carsalesclient.form.UsersTableForm;
 import carsalesclient.form.constants.CoordinatorParamConsts;
 import carsalesclient.form.form_controllers.CarController;
@@ -24,6 +25,7 @@ import carsalesclient.form.form_controllers.InvoiceController;
 import carsalesclient.form.form_controllers.SeeAllCarsController;
 import carsalesclient.form.form_controllers.SeeAllCustomersController;
 import carsalesclient.form.form_controllers.SeeAllInvoicesController;
+import carsalesclient.form.form_controllers.SeeAllReservationsController;
 import carsalesclient.form.form_controllers.SeeAllUsersController;
 import carsalesclient.form.form_controllers.SeeItemsController;
 import carsalesclient.form.form_controllers.UserController;
@@ -76,9 +78,9 @@ public class Coordinator {
         return params.get(name);
     }
 
-    public void openAddInvoiceForm() {
+    public void openAddInvoiceForm(AddFormMode mode) {
         InvoiceController controller = new InvoiceController(new AddInvoiceForm(mainController.getMainForm(), true));
-        controller.openForm();
+        controller.openForm(mode);
     }
 
     public void openInvoicesTableForm() {
@@ -119,5 +121,10 @@ public class Coordinator {
     public void openCustomersTableForm(TableFormMode formMode) {
         SeeAllCustomersController controller = new SeeAllCustomersController(new CustomersTableForm(mainController.getMainForm(), true));
         controller.openForm(formMode);
+    }
+
+    public void openReservationsTableForm() {
+        SeeAllReservationsController controller = new SeeAllReservationsController(new ReservationsTableForm(mainController.getMainForm(), true));
+        controller.openForm();
     }
 }
