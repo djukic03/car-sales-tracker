@@ -11,7 +11,9 @@ import carsalesclient.form.form_coordinator.Coordinator;
 import carsalesclient.form.modes.AddFormMode;
 import carsalesclient.form.modes.TableFormMode;
 import carsalesclient.form.tableModels.CustomersTableModel;
+import domain.Company;
 import domain.Customer;
+import domain.Individual;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -25,6 +27,7 @@ import javax.swing.JOptionPane;
  */
 public class SeeAllCustomersController {
     private final CustomersTableForm customersTableForm;
+    private String customerType;
 
     public SeeAllCustomersController(CustomersTableForm customersTableForm) {
         this.customersTableForm = customersTableForm;
@@ -33,11 +36,35 @@ public class SeeAllCustomersController {
     
     public void openForm(TableFormMode formMode){
         prepareForm(formMode);
-        fillTable();
         customersTableForm.setVisible(true);
     }
 
     private void addListeners() {
+        customersTableForm.cbCustomerTypeAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chooseCustomerType();
+            }
+
+            private void chooseCustomerType() {
+                customerType = customersTableForm.getCbCustomerType().getSelectedItem().toString();
+                switch (customerType) {
+                    case "Individual":
+                        fillTable(new Individual());
+                        customersTableForm.getLblSearchBy().setText("Search by Last Name");
+                        break;
+                    case "Company":
+                        fillTable(new Company());
+                        customersTableForm.getLblSearchBy().setText("Search by Company Name");
+                        break;
+                    default:
+                        throw new AssertionError();
+                }
+                customersTableForm.getPanelCustomers().setVisible(true);
+                customersTableForm.getPanelButtons().setVisible(true);
+            }
+        });
+        
         customersTableForm.btnSearchAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -47,8 +74,23 @@ public class SeeAllCustomersController {
             private void searchCustomers() {
                 try {
                     String conditionValue = customersTableForm.getTxtSearch().getText();
-                    Customer customer = new Customer();
-                    customer.setSearchCondition("name");
+                    if ("".equals(conditionValue)) {
+                        JOptionPane.showMessageDialog(customersTableForm, "Please enter text to search");
+                        return;
+                    }
+                    Customer customer = null;
+                    switch (customerType) {
+                        case "Individual":
+                            customer = new Individual();
+                            customer.setSearchCondition("last_name");
+                            break;
+                        case "Company":
+                            customer = new Company();
+                            customer.setSearchCondition("company_name");
+                            break;
+                        default:
+                            throw new AssertionError();
+                    }
                     customer.setSearchConditionValue(conditionValue);
                     List<Customer> customers = ClientController.getInstance().searchCustomers(customer);
                     customersTableForm.getTblCustomers().setModel(new CustomersTableModel(customers));
@@ -64,29 +106,24 @@ public class SeeAllCustomersController {
             }
         });
         
-        customersTableForm.btnDeleteAddActionListener(new ActionListener() {
+        customersTableForm.btnShowAllAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                deleteCustomer();
+                showAllCustomers();
             }
 
-            private void deleteCustomer() {
-                try {
-                    int rowId = customersTableForm.getTblCustomers().getSelectedRow();
-                    if (rowId < 0) {
-                        JOptionPane.showMessageDialog(customersTableForm, "Please select customer!");
-                        return;
-                    }
-                    Customer customer = ((CustomersTableModel) customersTableForm.getTblCustomers().getModel()).getCustomerAt(rowId);
-                    customer.setDeleteConditionValue(customer.getIdCustomer());
-                    if(JOptionPane.showConfirmDialog(customersTableForm, "Are you sure you want to DELETE the following customer from the database: \n"+customer.getName(), "Delete customer", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                        ClientController.getInstance().deleteCustomer(customer);
-                        JOptionPane.showMessageDialog(customersTableForm, "Customer deleted successfully!");
-                        fillTable();
-                    }
-                } catch (Exception e) {
-                    System.out.println("Error: " + e.getMessage());
+            private void showAllCustomers() {
+                switch (customerType) {
+                    case "Individual":
+                        fillTable(new Individual());
+                        break;
+                    case "Company":
+                        fillTable(new Company());
+                        break;
+                    default:
+                        throw new AssertionError();
                 }
+                customersTableForm.getTxtSearch().setText("");
             }
         });
         
@@ -132,14 +169,30 @@ public class SeeAllCustomersController {
         customersTableForm.addWindowListener(new WindowAdapter() {
             @Override
             public void windowActivated(WindowEvent e) {
-                fillTable();
+                if (!"".equals(customersTableForm.getTxtSearch().getText())) {
+                    customersTableForm.getBtnSearch().doClick();
+                }
+                else{
+                    if (customerType != null) {
+                        switch (customerType) {
+                            case "Individual":
+                                fillTable(new Individual());
+                                break;
+                            case "Company":
+                                fillTable(new Company());
+                                break;
+                            default:
+                                throw new AssertionError();
+                        }
+                    }
+                }
             }
         });
     }
 
-    private void fillTable() {
+    private void fillTable(Customer customer) {
         try {
-            List<Customer> customers = ClientController.getInstance().getAllCustomers();
+            List<Customer> customers = ClientController.getInstance().getAllCustomers(customer);
             customersTableForm.getTblCustomers().setModel(new CustomersTableModel(customers));
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -149,13 +202,15 @@ public class SeeAllCustomersController {
     private void prepareForm(TableFormMode formMode) {
         switch (formMode) {
             case TableFormMode.SEE_ALL_ITEMS:
+                customersTableForm.getPanelCustomers().setVisible(false);
+                customersTableForm.getPanelButtons().setVisible(false);
                 customersTableForm.getBtnSelect().setVisible(false);
-                customersTableForm.getBtnDelete().setVisible(true);
                 customersTableForm.getBtnDetails().setVisible(true);
                 break;
             case TableFormMode.SELECT_ITEM:
+                customersTableForm.getPanelCustomers().setVisible(false);
+                customersTableForm.getPanelButtons().setVisible(false);
                 customersTableForm.getBtnSelect().setVisible(true);
-                customersTableForm.getBtnDelete().setVisible(false);
                 customersTableForm.getBtnDetails().setVisible(false);
                 break;
             default:

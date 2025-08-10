@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author user
  */
-public class Invoice implements DefaultDomainObject, Serializable{
+public class Invoice extends DefaultDomainObject implements  Serializable{
     private Long idInvoice;
     private Long invoiceNum;
     private Date dateOfIssue;
@@ -24,8 +24,6 @@ public class Invoice implements DefaultDomainObject, Serializable{
     private User user;
     private Customer customer;
     private List<InvoiceItem> invoiceItems;
-    String searchCondition;
-    String searchConditionValue;
 
     public Invoice(Long idInvoice, Long invoiceNum, Date dateOfIssue, Double totalAmount, User user, Customer customer, List<InvoiceItem> invoiceItems) {
         this.idInvoice = idInvoice;
@@ -36,7 +34,6 @@ public class Invoice implements DefaultDomainObject, Serializable{
         this.customer = customer;
         this.invoiceItems = invoiceItems;
     }
-
 
     public Invoice() {
     }
@@ -97,81 +94,77 @@ public class Invoice implements DefaultDomainObject, Serializable{
         this.invoiceItems = invoiceItems;
     }
 
-    public void setSearchCondition(String searchCondition) {
-        this.searchCondition = searchCondition;
-    }
-
-    public void setSearchConditionValue(String searchConditionValue) {
-        this.searchConditionValue = searchConditionValue;
-    }
-    
-    @Override
-    public String getClassName() {
-        return "invoice";
-    }
-
     @Override
     public List<DefaultDomainObject> returnList(ResultSet rs) throws SQLException {
         List<DefaultDomainObject> invoices = new ArrayList<>();
         while(rs.next()){
             User user = new User();
             user.setIdUser(rs.getLong("user_id"));
-            Customer customer = new Customer();
-            customer.setIdCustomer(rs.getLong("customer_id"));
-            invoices.add(new Invoice(rs.getLong("id"), rs.getLong("invoice_num"), rs.getDate("date_of_issue"), rs.getDouble("total_amount"), user, customer, new ArrayList<>()));
+            Customer customer;
+            switch(rs.getString("type")){
+                case "individual":
+                    customer = new Individual();
+                    customer.setIdCustomer(rs.getLong("customer_id"));
+                    break;
+                case "company":
+                    customer = new Company();
+                    customer.setIdCustomer(rs.getLong("customer_id"));
+                    break;
+                default:
+                    customer = null;
+                    break;
+            }
+            invoices.add(new Invoice(rs.getLong("id_invoice"), rs.getLong("invoice_num"), rs.getDate("date_of_issue"), rs.getDouble("total_amount"), user, customer, new ArrayList<>()));
         }
         return invoices;
     }
 
     @Override
-    public String getSearchCondition() {
-        return searchCondition;
+    public String getGetAllQuery() {
+        return """
+               SELECT i.id AS id_invoice, i.invoice_num, i.date_of_issue, i.total_amount, i.user_id, i.customer_id,
+                        c.id AS id_customer, c.type
+               FROM invoice i JOIN customer c ON i.customer_id = c.id 
+               """;
     }
 
     @Override
-    public String getSearchConditionValue() {
-        return searchConditionValue;
+    public String getGetAllOrderedQuery() {
+        return """
+               SELECT i.id AS id_invoice, i.invoice_num, i.date_of_issue, i.total_amount, i.user_id, i.customer_id,
+                        c.id AS id_customer, c.type
+               FROM invoice i JOIN customer c ON i.customer_id = c.id 
+               ORDER BY i.date_of_issue
+               """;
     }
 
     @Override
-    public String getInsertValues() {
+    public String getGetByConditionQuery() {
+        return "SELECT i.id AS id_invoice, i.invoice_num, i.date_of_issue, i.total_amount, i.user_id, i.customer_id, "+
+               "c.id AS id_customer, c.type "+
+               "FROM invoice i JOIN customer c ON i.customer_id = c.id "+ 
+               "WHERE i." + searchCondition + " LIKE '" + searchConditionValue +"%'";
+    }
+
+    @Override
+    public String getInsertQuery() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return invoiceNum +", '"+ sdf.format(dateOfIssue) +"', "+ totalAmount +", "+ user.getIdUser() +", "+ customer.getIdCustomer();
+        return "INSERT INTO invoice "+
+                "(invoice_num, date_of_issue, total_amount, user_id, customer_id) "+
+                "values("+ invoiceNum +", '"+ sdf.format(dateOfIssue) +"', "+ totalAmount +", "+ user.getIdUser() +", "+ customer.getIdCustomer() +")";
     }
 
     @Override
-    public String getInsertColumns() {
-        return "invoice_num, date_of_issue, total_amount, user_id, customer_id";
+    public String getUpdateQuery() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return "UPDATE invoice "+
+                "SET invoice_num=" + invoiceNum + ", date_of_issue = '" + sdf.format(dateOfIssue) + "', total_amount = " + totalAmount + ", user_id = "+ user.getIdUser()+", customer_id = " + customer.getIdCustomer()+" "+
+                "WHERE id = " + idInvoice;
     }
 
     @Override
-    public String getDeleteCondition() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getDeleteConditionValue() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getUpdateValues() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getUpdateCondition() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getUpdateConditionValue() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getOrderCondition() {
-        return "date_of_issue";
+    public String getDeleteQuery() {
+        return "DELETE FROM invoice WHERE id = " + idInvoice;
     }
 
 }

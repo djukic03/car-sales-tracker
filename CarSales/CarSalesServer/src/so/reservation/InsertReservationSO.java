@@ -26,7 +26,6 @@ public class InsertReservationSO extends AbstractSO{
         Reservation reservation = (Reservation) o;
         
         reservation.getCar().setStatus(CarStatus.RESERVED);
-        reservation.getCar().setUpdateConditionValue(reservation.getCar().getIdCar());
         dbBroker.updateRow(reservation.getCar());
         
         dbBroker.insertRow(reservation);

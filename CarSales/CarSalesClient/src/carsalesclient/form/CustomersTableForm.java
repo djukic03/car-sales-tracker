@@ -6,6 +6,9 @@ package carsalesclient.form;
 
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 /**
@@ -32,38 +35,51 @@ public class CustomersTableForm extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtSearch = new javax.swing.JTextField();
+        lblCustomerType = new javax.swing.JLabel();
+        cbCustomerType = new javax.swing.JComboBox<>();
+        panelCustomers = new javax.swing.JPanel();
+        btnShowAll = new javax.swing.JButton();
+        lblSearchBy = new javax.swing.JLabel();
         btnSearch = new javax.swing.JButton();
-        btnDetails = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCustomers = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        btnDelete = new javax.swing.JButton();
+        txtSearch = new javax.swing.JTextField();
+        panelButtons = new javax.swing.JPanel();
         btnSelect = new javax.swing.JButton();
+        btnDetails = new javax.swing.JButton();
         btnAddNew = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        txtSearch.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+        lblCustomerType.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblCustomerType.setText("Select Customer Type:");
+        lblCustomerType.setName("id"); // NOI18N
+
+        cbCustomerType.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        cbCustomerType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Individual", "Company" }));
+        cbCustomerType.setSelectedIndex(-1);
+        cbCustomerType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchActionPerformed(evt);
+                cbCustomerTypeActionPerformed(evt);
             }
         });
+
+        btnShowAll.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        btnShowAll.setText("Show All");
+        btnShowAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowAllActionPerformed(evt);
+            }
+        });
+
+        lblSearchBy.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblSearchBy.setText("Search by Company Name:");
 
         btnSearch.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchActionPerformed(evt);
-            }
-        });
-
-        btnDetails.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        btnDetails.setText("Details");
-        btnDetails.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDetailsActionPerformed(evt);
             }
         });
 
@@ -84,22 +100,57 @@ public class CustomersTableForm extends javax.swing.JDialog {
         tblCustomers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblCustomers);
 
-        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jLabel1.setText("Search by Name:");
-
-        btnDelete.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        btnDelete.setText("Delete");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+        txtSearch.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        txtSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
+                txtSearchActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout panelCustomersLayout = new javax.swing.GroupLayout(panelCustomers);
+        panelCustomers.setLayout(panelCustomersLayout);
+        panelCustomersLayout.setHorizontalGroup(
+            panelCustomersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCustomersLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelCustomersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 809, Short.MAX_VALUE)
+                    .addGroup(panelCustomersLayout.createSequentialGroup()
+                        .addComponent(lblSearchBy, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnShowAll, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        panelCustomersLayout.setVerticalGroup(
+            panelCustomersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCustomersLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelCustomersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSearchBy, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnShowAll, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE))
+        );
 
         btnSelect.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnSelect.setText("SELECT");
         btnSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSelectActionPerformed(evt);
+            }
+        });
+
+        btnDetails.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        btnDetails.setText("Details");
+        btnDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetailsActionPerformed(evt);
             }
         });
 
@@ -111,6 +162,30 @@ public class CustomersTableForm extends javax.swing.JDialog {
             }
         });
 
+        javax.swing.GroupLayout panelButtonsLayout = new javax.swing.GroupLayout(panelButtons);
+        panelButtons.setLayout(panelButtonsLayout);
+        panelButtonsLayout.setHorizontalGroup(
+            panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelButtonsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnAddNew)
+                .addGap(18, 18, 18)
+                .addComponent(btnDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        panelButtonsLayout.setVerticalGroup(
+            panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelButtonsLayout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddNew, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -118,42 +193,26 @@ public class CustomersTableForm extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(73, 73, 73)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblCustomerType, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbCustomerType, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAddNew)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(panelCustomers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelButtons, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAddNew, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblCustomerType)
+                    .addComponent(cbCustomerType, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addComponent(panelCustomers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -168,9 +227,6 @@ public class CustomersTableForm extends javax.swing.JDialog {
     private void btnDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailsActionPerformed
     }//GEN-LAST:event_btnDetailsActionPerformed
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
     private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSelectActionPerformed
@@ -179,14 +235,26 @@ public class CustomersTableForm extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddNewActionPerformed
 
+    private void btnShowAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowAllActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnShowAllActionPerformed
+
+    private void cbCustomerTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCustomerTypeActionPerformed
+
+    }//GEN-LAST:event_cbCustomerTypeActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddNew;
-    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnDetails;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSelect;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnShowAll;
+    private javax.swing.JComboBox<String> cbCustomerType;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCustomerType;
+    private javax.swing.JLabel lblSearchBy;
+    private javax.swing.JPanel panelButtons;
+    private javax.swing.JPanel panelCustomers;
     private javax.swing.JTable tblCustomers;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
@@ -203,10 +271,6 @@ public class CustomersTableForm extends javax.swing.JDialog {
         return tblCustomers;
     }
 
-    public JButton getBtnDelete() {
-        return btnDelete;
-    }
-
     public JTextField getTxtSearch() {
         return txtSearch;
     }
@@ -218,13 +282,41 @@ public class CustomersTableForm extends javax.swing.JDialog {
     public JButton getBtnSelect() {
         return btnSelect;
     }
+
+    public JButton getBtnShowAll() {
+        return btnShowAll;
+    }
+
+    public JComboBox<String> getCbCustomerType() {
+        return cbCustomerType;
+    }
+
+    public JLabel getLblCustomerType() {
+        return lblCustomerType;
+    }
+
+    public JPanel getPanelCustomers() {
+        return panelCustomers;
+    }
+
+    public JLabel getLblSearchBy() {
+        return lblSearchBy;
+    }
+
+    public JPanel getPanelButtons() {
+        return panelButtons;
+    }
+    
+    public void cbCustomerTypeAddActionListener(ActionListener actionListener){
+        cbCustomerType.addActionListener(actionListener);
+    }
     
     public void btnSearchAddActionListener(ActionListener actionListener){
         btnSearch.addActionListener(actionListener);
     }
     
-    public void btnDeleteAddActionListener(ActionListener actionListener){
-        btnDelete.addActionListener(actionListener);
+    public void btnShowAllAddActionListener(ActionListener actionListener){
+        btnShowAll.addActionListener(actionListener);
     }
     
     public void btnDetailsAddActionListener(ActionListener actionListener){

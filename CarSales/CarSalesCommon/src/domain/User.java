@@ -17,16 +17,12 @@ import java.util.logging.Logger;
  *
  * @author user
  */
-public class User implements DefaultDomainObject, Serializable{
+public class User extends DefaultDomainObject implements  Serializable{
     private Long idUser;
     private String username;
     private String password;
     private String firstName;
     private String lastName;
-    String searchCondition;
-    String searchConditionValue;
-    Long deleteConditionValue;
-    Long updateConditionValue;
 
     public User() {
     }
@@ -79,22 +75,6 @@ public class User implements DefaultDomainObject, Serializable{
         this.lastName = lastName;
     }
 
-    public void setSearchCondition(String condition) {
-        this.searchCondition = condition;
-    }
-
-    public void setSearchConditionValue(String conditionValue) {
-        this.searchConditionValue = conditionValue;
-    }
-
-    public void setDeleteConditionValue(Long deleteConditionValue) {
-        this.deleteConditionValue = deleteConditionValue;
-    }
-
-    public void setUpdateConditionValue(Long updateConditionValue) {
-        this.updateConditionValue = updateConditionValue;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof User){
@@ -102,12 +82,6 @@ public class User implements DefaultDomainObject, Serializable{
             return idUser.equals(user.idUser);
         }
         return false;
-    }
-    
-
-    @Override
-    public String getClassName() {
-        return "user";
     }
 
     @Override
@@ -125,53 +99,37 @@ public class User implements DefaultDomainObject, Serializable{
     }
 
     @Override
-    public String getSearchCondition() {
-        return searchCondition;
+    public String getGetAllQuery() {
+        return "SELECT * FROM user";
     }
 
     @Override
-    public String getSearchConditionValue() {
-        return searchConditionValue;
+    public String getGetAllOrderedQuery() {
+        return "SELECT * FROM user ORDER BY last_name";
     }
 
     @Override
-    public String getInsertValues() {
-        return "'"+ username +"', '"+ password +"', '"+ firstName +"', '"+ lastName +"'";
+    public String getGetByConditionQuery() {
+        return "SELECT * FROM user WHERE "+ searchCondition +" LIKE '"+ searchConditionValue +"%'"; 
     }
 
     @Override
-    public String getInsertColumns() {
-        return "username, password, first_name, last_name";
+    public String getInsertQuery() {
+        return "INSERT INTO user "+
+                "(username, password, first_name, last_name) "+
+                "values('"+ username +"', '"+ password +"', '"+ firstName +"', '"+ lastName +"')";
     }
 
     @Override
-    public String getDeleteCondition() {
-        return "id";
+    public String getUpdateQuery() {
+        return "UPDATE user "+
+                "SET username = '"+ username +"', password = '"+ password +"', first_name = '"+ firstName +"', last_name = '"+ lastName +"' "+
+                "WHERE id = " + idUser;
     }
 
     @Override
-    public String getDeleteConditionValue() {
-        return deleteConditionValue.toString();
-    }
-
-    @Override
-    public String getUpdateValues() {
-        return "username = '"+ username +"', password = '"+ password +"', first_name = '"+ firstName +"', last_name = '"+ lastName +"'";
-    }
-
-    @Override
-    public String getUpdateCondition() {
-        return "id";
-    }
-
-    @Override
-    public String getUpdateConditionValue() {
-        return updateConditionValue.toString();
-    }
-
-    @Override
-    public String getOrderCondition() {
-        return "last_name";
+    public String getDeleteQuery() {
+        return "DELETE FROM user WHERE id = " + idUser;
     }
     
     

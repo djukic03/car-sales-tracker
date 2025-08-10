@@ -6,6 +6,7 @@ package carsalesclient.form.form_controllers;
 
 import carsalesclient.controller.ClientController;
 import carsalesclient.form.AddCarForm;
+import carsalesclient.form.CustomersTableForm;
 import carsalesclient.form.constants.CoordinatorParamConsts;
 import carsalesclient.form.form_coordinator.Coordinator;
 import carsalesclient.form.language.LanguageManager;
@@ -64,10 +65,9 @@ public class CarController {
                     if(!emptyFields()){
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
                         Date reg = sdf.parse(carForm.getTxtFirstReg().getText());
-                        Car car = new Car(null,carForm.getTxtVin().getText(), carForm.getTxtBrand().getText(), carForm.getTxtModel().getText(), reg, Integer.parseInt(carForm.getTxtMileage().getText()), getCategory(), getFuel(), Double.valueOf(carForm.getTxtEngineCapacity().getText()), Double.valueOf(carForm.getTxtEnginePower().getText()), getGearbox(), Double.parseDouble(carForm.getTxtPrice().getText()), getStatus());
+                        Car car = new Car(null,carForm.getTxtVin().getText(), carForm.getTxtBrand().getText(), carForm.getTxtModel().getText(), reg, Integer.parseInt(carForm.getTxtMileage().getText()), getCategory(), getFuel(), Double.valueOf(carForm.getTxtEngineCapacity().getText()), Double.valueOf(carForm.getTxtEnginePower().getText()), getGearbox(), Double.parseDouble(carForm.getTxtPrice().getText()), ((CarStatus) carForm.getCbStatus().getSelectedItem()));
                         if(JOptionPane.showConfirmDialog(carForm, "Are you sure you want to SAVE the following changes into the database: \n"+car.getBrand()+" "+car.getModel()+", "+car.getPrice()+"$", "Change car details", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                             car.setIdCar(((Car) Coordinator.getInstance().getParam(CoordinatorParamConsts.CAR_DETAILS)).getIdCar());
-                            car.setUpdateConditionValue(car.getIdCar());
                             ClientController.getInstance().updateCar(car);
                             JOptionPane.showMessageDialog(carForm, car.getBrand()+" "+car.getModel()+" has been successfully added to the database!");
                             carForm.dispose();
@@ -94,7 +94,7 @@ public class CarController {
                     if(!emptyFields()){
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
                         Date reg = sdf.parse(carForm.getTxtFirstReg().getText());
-                        Car car = new Car(null, carForm.getTxtVin().getText(), carForm.getTxtBrand().getText(), carForm.getTxtModel().getText(), reg, Integer.parseInt(carForm.getTxtMileage().getText()), getCategory(), getFuel(), Double.valueOf(carForm.getTxtEngineCapacity().getText()), Double.valueOf(carForm.getTxtEnginePower().getText()), getGearbox(), Double.parseDouble(carForm.getTxtPrice().getText()), getStatus());
+                        Car car = new Car(null, carForm.getTxtVin().getText(), carForm.getTxtBrand().getText(), carForm.getTxtModel().getText(), reg, Integer.parseInt(carForm.getTxtMileage().getText()), getCategory(), getFuel(), Double.valueOf(carForm.getTxtEngineCapacity().getText()), Double.valueOf(carForm.getTxtEnginePower().getText()), getGearbox(), Double.parseDouble(carForm.getTxtPrice().getText()), ((CarStatus) carForm.getCbStatus().getSelectedItem()));
                         if(JOptionPane.showConfirmDialog(carForm, "Are you sure you want to INSERT the following car into the database: \n"+car.getBrand()+" "+car.getModel()+", "+car.getPrice()+"$", "Add car", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                             ClientController.getInstance().insertCar(car);
                             if(JOptionPane.showConfirmDialog(carForm, car.getBrand()+" "+car.getModel()+" has been successfully added to the database!\n\nAdd more cars?", "Success", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
@@ -193,20 +193,6 @@ public class CarController {
                 return "Automatic";
             case 2:
                 return "Semi-automatic";
-            default:
-                return null;
-        }
-    }
-    
-    private CarStatus getStatus(){
-        int i = carForm.getCbStatus().getSelectedIndex();
-        switch (i) {
-            case 0:
-                return CarStatus.AVAILABLE;
-            case 1:
-                return CarStatus.SOLD;
-            case 2:
-                return CarStatus.RESERVED;
             default:
                 return null;
         }
@@ -319,6 +305,7 @@ public class CarController {
     
     private void prepareForm(AddFormMode formMode) {
         setLanguage();
+        carForm.getCbStatus().setModel(new DefaultComboBoxModel<>(CarStatus.values()));
         switch(formMode){
             case AddFormMode.ADD_FORM:
                 carForm.getLblTitle().setText(LanguageManager.getValue("ADD_NEW_CAR"));

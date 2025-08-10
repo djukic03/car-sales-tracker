@@ -23,9 +23,7 @@ public class UpdateReservationSO extends AbstractSO{
     @Override
     protected void execute(Object o) throws Exception {
         Reservation res = (Reservation) o;
-        res.getCar().setUpdateConditionValue(res.getCar().getIdCar());
         dbBroker.updateRow(res.getCar());
-        res.setUpdateConditionValue(res.getIdReservaion());
         dbBroker.updateRow(res);
     }
 

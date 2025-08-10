@@ -15,12 +15,12 @@ import so.AbstractSO;
  */
 public class SearchCustomersSO extends AbstractSO {
     private List<DefaultDomainObject> customers;
-
+    
     @Override
     protected void validate(Object o) throws Exception {
         if(!(o instanceof Customer)){
             throw new Exception("Wrong object type used");
-        }
+}
     }
 
     @Override

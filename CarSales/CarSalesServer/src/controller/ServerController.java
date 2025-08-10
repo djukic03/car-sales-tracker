@@ -22,7 +22,6 @@ import so.car.GetCarBrandsSO;
 import so.car.InsertCarSO;
 import so.car.SearchCarsSO;
 import so.car.UpdateCarSO;
-import so.customer.DeleteCustomerSO;
 import so.customer.GetAllCustomersSO;
 import so.customer.InsertCustomerSO;
 import so.customer.SearchCustomersSO;
@@ -96,9 +95,9 @@ public class ServerController {
         return so.getCars();
     }
     
-    public List<DefaultDomainObject> getAllCustomers() throws Exception{
+    public List<DefaultDomainObject> getAllCustomers(Customer customer) throws Exception{
         GetAllCustomersSO so = new GetAllCustomersSO();
-        so.executeSO(null);
+        so.executeSO(customer);
         return so.getCustomers();
     }
     
@@ -172,21 +171,6 @@ public class ServerController {
     public void insertReservation(Reservation reservation) throws Exception {
         InsertReservationSO so = new InsertReservationSO();
         so.executeSO(reservation);
-    }
-    
-    
-    
-    
-    
-    
-    public void deleteCar(Car car) throws Exception {
-        DeleteCarSO so = new DeleteCarSO();
-        so.executeSO(car);
-    }
-    
-    public void deleteCustomer(Customer customer) throws Exception {
-        DeleteCustomerSO so = new DeleteCustomerSO();
-        so.executeSO(customer);
     }
     
     

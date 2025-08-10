@@ -12,17 +12,17 @@ import so.AbstractSO;
  * @author user
  */
 public class InsertCustomerSO extends AbstractSO {
-
+    
     @Override
     protected void validate(Object o) throws Exception {
         if(!(o instanceof Customer)){
             throw new Exception("Wrong object type used");
-        }
+}
     }
 
     @Override
     protected void execute(Object o) throws Exception {
-        dbBroker.insertRow((Customer) o);
+        dbBroker.insertCustomer((Customer) o);
     }
 
     @Override

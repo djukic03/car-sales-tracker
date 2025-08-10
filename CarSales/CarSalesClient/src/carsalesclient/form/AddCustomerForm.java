@@ -6,7 +6,9 @@ package carsalesclient.form;
 
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
@@ -34,36 +36,309 @@ public class AddCustomerForm extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtName = new javax.swing.JTextField();
-        txtPhone = new javax.swing.JTextField();
-        txtEmail = new javax.swing.JTextField();
-        btnSave = new javax.swing.JButton();
-        btnCancel = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        cbCustomerType = new javax.swing.JComboBox<>();
+        lblCustomerType = new javax.swing.JLabel();
+        panelId = new javax.swing.JPanel();
         lblId = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        btnEnableChanges = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        panelIndividual = new javax.swing.JPanel();
+        lblEmailI = new javax.swing.JLabel();
+        txtEmailI = new javax.swing.JTextField();
+        lblFirstName = new javax.swing.JLabel();
+        lblPhoneI = new javax.swing.JLabel();
+        txtPhoneI = new javax.swing.JTextField();
+        txtFirstName = new javax.swing.JTextField();
+        lblLastName = new javax.swing.JLabel();
+        txtLastName = new javax.swing.JTextField();
+        lblJmbg = new javax.swing.JLabel();
+        txtJmbg = new javax.swing.JTextField();
+        lblIdCardNum = new javax.swing.JLabel();
+        txtIdCardNum = new javax.swing.JTextField();
+        lblAddressI = new javax.swing.JLabel();
+        txtAddressI = new javax.swing.JTextField();
+        panelCompany = new javax.swing.JPanel();
+        lblPhoneC = new javax.swing.JLabel();
+        txtPhoneC = new javax.swing.JTextField();
+        lblCompanyName = new javax.swing.JLabel();
+        lblRegNum = new javax.swing.JLabel();
+        txtRegNum = new javax.swing.JTextField();
+        txtCompanyName = new javax.swing.JTextField();
+        lblTaxNum = new javax.swing.JLabel();
+        txtTaxNum = new javax.swing.JTextField();
+        lblEmailC = new javax.swing.JLabel();
+        txtEmailC = new javax.swing.JTextField();
+        lblAuthPerson = new javax.swing.JLabel();
+        txtAuthPerson = new javax.swing.JTextField();
+        lblAddressC = new javax.swing.JLabel();
+        txtAddressC = new javax.swing.JTextField();
+        panelButtons = new javax.swing.JPanel();
         btnEdit = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
+        btnEnableChanges = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        txtName.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        txtName.setName("name"); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Add new customer");
 
-        txtPhone.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        txtPhone.setName("phone"); // NOI18N
-
-        txtEmail.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        txtEmail.setName("email"); // NOI18N
-
-        btnSave.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        btnSave.setText("Save");
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
+        cbCustomerType.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        cbCustomerType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Individual", "Company" }));
+        cbCustomerType.setSelectedIndex(-1);
+        cbCustomerType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveActionPerformed(evt);
+                cbCustomerTypeActionPerformed(evt);
+            }
+        });
+
+        lblCustomerType.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblCustomerType.setText("Select Customer Type:");
+        lblCustomerType.setName("id"); // NOI18N
+
+        lblId.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblId.setText("ID:");
+        lblId.setName("id"); // NOI18N
+
+        txtId.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        txtId.setName("id"); // NOI18N
+
+        javax.swing.GroupLayout panelIdLayout = new javax.swing.GroupLayout(panelId);
+        panelId.setLayout(panelIdLayout);
+        panelIdLayout.setHorizontalGroup(
+            panelIdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelIdLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtId)
+                .addContainerGap())
+        );
+        panelIdLayout.setVerticalGroup(
+            panelIdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelIdLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelIdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblId)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jLayeredPane1.setLayout(new javax.swing.OverlayLayout(jLayeredPane1));
+
+        lblEmailI.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblEmailI.setText("Email:");
+
+        txtEmailI.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        txtEmailI.setName("email"); // NOI18N
+
+        lblFirstName.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblFirstName.setText("First Name:");
+
+        lblPhoneI.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblPhoneI.setText("Phone:");
+
+        txtPhoneI.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        txtPhoneI.setName("phone"); // NOI18N
+
+        txtFirstName.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        txtFirstName.setName("name"); // NOI18N
+
+        lblLastName.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblLastName.setText("Last Name:");
+
+        txtLastName.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        txtLastName.setName("name"); // NOI18N
+
+        lblJmbg.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblJmbg.setText("JMBG:");
+
+        txtJmbg.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        txtJmbg.setName("email"); // NOI18N
+
+        lblIdCardNum.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblIdCardNum.setText("ID Card Number:");
+
+        txtIdCardNum.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        txtIdCardNum.setName("email"); // NOI18N
+
+        lblAddressI.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblAddressI.setText("Address:");
+
+        txtAddressI.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        txtAddressI.setName("email"); // NOI18N
+
+        javax.swing.GroupLayout panelIndividualLayout = new javax.swing.GroupLayout(panelIndividual);
+        panelIndividual.setLayout(panelIndividualLayout);
+        panelIndividualLayout.setHorizontalGroup(
+            panelIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelIndividualLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblEmailI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblJmbg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblIdCardNum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblAddressI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLastName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblPhoneI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtFirstName, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
+                    .addComponent(txtPhoneI)
+                    .addComponent(txtEmailI)
+                    .addComponent(txtLastName)
+                    .addComponent(txtJmbg)
+                    .addComponent(txtIdCardNum)
+                    .addComponent(txtAddressI))
+                .addContainerGap())
+        );
+        panelIndividualLayout.setVerticalGroup(
+            panelIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelIndividualLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblFirstName)
+                    .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblLastName)
+                    .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPhoneI)
+                    .addComponent(txtPhoneI, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEmailI)
+                    .addComponent(txtEmailI, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAddressI)
+                    .addComponent(txtAddressI, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblJmbg)
+                    .addComponent(txtJmbg, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblIdCardNum)
+                    .addComponent(txtIdCardNum, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(9, Short.MAX_VALUE))
+        );
+
+        jLayeredPane1.add(panelIndividual);
+
+        lblPhoneC.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblPhoneC.setText("Phone:");
+
+        txtPhoneC.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        txtPhoneC.setName("email"); // NOI18N
+
+        lblCompanyName.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblCompanyName.setText("Company Name:");
+
+        lblRegNum.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblRegNum.setText("Registation Number:");
+
+        txtRegNum.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        txtRegNum.setName("phone"); // NOI18N
+
+        txtCompanyName.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        txtCompanyName.setName("name"); // NOI18N
+
+        lblTaxNum.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblTaxNum.setText("Tax Number:");
+
+        txtTaxNum.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        txtTaxNum.setName("name"); // NOI18N
+
+        lblEmailC.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblEmailC.setText("Email:");
+
+        txtEmailC.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        txtEmailC.setName("email"); // NOI18N
+
+        lblAuthPerson.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblAuthPerson.setText("Authorized Person:");
+
+        txtAuthPerson.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        txtAuthPerson.setName("email"); // NOI18N
+
+        lblAddressC.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblAddressC.setText("Address:");
+
+        txtAddressC.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        txtAddressC.setName("email"); // NOI18N
+
+        javax.swing.GroupLayout panelCompanyLayout = new javax.swing.GroupLayout(panelCompany);
+        panelCompany.setLayout(panelCompanyLayout);
+        panelCompanyLayout.setHorizontalGroup(
+            panelCompanyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCompanyLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelCompanyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(lblPhoneC, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblRegNum, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblCompanyName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTaxNum, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblEmailC, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblAuthPerson, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblAddressC, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelCompanyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCompanyName)
+                    .addComponent(txtRegNum)
+                    .addComponent(txtPhoneC)
+                    .addComponent(txtTaxNum)
+                    .addComponent(txtEmailC)
+                    .addComponent(txtAuthPerson)
+                    .addComponent(txtAddressC))
+                .addContainerGap())
+        );
+        panelCompanyLayout.setVerticalGroup(
+            panelCompanyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCompanyLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelCompanyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCompanyName)
+                    .addComponent(txtCompanyName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelCompanyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTaxNum)
+                    .addComponent(txtTaxNum, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelCompanyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRegNum)
+                    .addComponent(txtRegNum, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelCompanyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPhoneC)
+                    .addComponent(txtPhoneC, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelCompanyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEmailC)
+                    .addComponent(txtEmailC, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelCompanyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAddressC)
+                    .addComponent(txtAddressC, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelCompanyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAuthPerson)
+                    .addComponent(txtAuthPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLayeredPane1.add(panelCompany);
+
+        btnEdit.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
             }
         });
 
@@ -75,17 +350,6 @@ public class AddCustomerForm extends javax.swing.JDialog {
             }
         });
 
-        lblId.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        lblId.setText("ID:");
-        lblId.setName("id"); // NOI18N
-
-        txtId.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        txtId.setName("id"); // NOI18N
-
-        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Add new customer");
-
         btnEnableChanges.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnEnableChanges.setText("Enable changes");
         btnEnableChanges.setName("btnEnableChanges"); // NOI18N
@@ -95,22 +359,40 @@ public class AddCustomerForm extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jLabel2.setText("Full Name:");
-
-        jLabel3.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jLabel3.setText("Email:");
-
-        jLabel4.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jLabel4.setText("Phone:");
-
-        btnEdit.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        btnEdit.setText("Edit");
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout panelButtonsLayout = new javax.swing.GroupLayout(panelButtons);
+        panelButtons.setLayout(panelButtonsLayout);
+        panelButtonsLayout.setHorizontalGroup(
+            panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelButtonsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnEnableChanges)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnCancel)
+                .addContainerGap())
+        );
+        panelButtonsLayout.setVerticalGroup(
+            panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelButtonsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEnableChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -120,26 +402,14 @@ public class AddCustomerForm extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLayeredPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtName)
-                            .addComponent(txtPhone)
-                            .addComponent(txtEmail)
-                            .addComponent(txtId)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnEnableChanges)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
-                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblCustomerType, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancel)))
+                        .addComponent(cbCustomerType, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(panelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -149,27 +419,14 @@ public class AddCustomerForm extends javax.swing.JDialog {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblId)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblCustomerType)
+                    .addComponent(cbCustomerType, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEnableChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addComponent(panelId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLayeredPane1)
+                .addGap(24, 24, 24)
+                .addComponent(panelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -189,32 +446,183 @@ public class AddCustomerForm extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEditActionPerformed
 
+    private void cbCustomerTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCustomerTypeActionPerformed
+
+    }//GEN-LAST:event_cbCustomerTypeActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnEnableChanges;
     private javax.swing.JButton btnSave;
+    private javax.swing.JComboBox<String> cbCustomerType;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JLabel lblAddressC;
+    private javax.swing.JLabel lblAddressI;
+    private javax.swing.JLabel lblAuthPerson;
+    private javax.swing.JLabel lblCompanyName;
+    private javax.swing.JLabel lblCustomerType;
+    private javax.swing.JLabel lblEmailC;
+    private javax.swing.JLabel lblEmailI;
+    private javax.swing.JLabel lblFirstName;
     private javax.swing.JLabel lblId;
-    private javax.swing.JTextField txtEmail;
+    private javax.swing.JLabel lblIdCardNum;
+    private javax.swing.JLabel lblJmbg;
+    private javax.swing.JLabel lblLastName;
+    private javax.swing.JLabel lblPhoneC;
+    private javax.swing.JLabel lblPhoneI;
+    private javax.swing.JLabel lblRegNum;
+    private javax.swing.JLabel lblTaxNum;
+    private javax.swing.JPanel panelButtons;
+    private javax.swing.JPanel panelCompany;
+    private javax.swing.JPanel panelId;
+    private javax.swing.JPanel panelIndividual;
+    private javax.swing.JTextField txtAddressC;
+    private javax.swing.JTextField txtAddressI;
+    private javax.swing.JTextField txtAuthPerson;
+    private javax.swing.JTextField txtCompanyName;
+    private javax.swing.JTextField txtEmailC;
+    private javax.swing.JTextField txtEmailI;
+    private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtPhone;
+    private javax.swing.JTextField txtIdCardNum;
+    private javax.swing.JTextField txtJmbg;
+    private javax.swing.JTextField txtLastName;
+    private javax.swing.JTextField txtPhoneC;
+    private javax.swing.JTextField txtPhoneI;
+    private javax.swing.JTextField txtRegNum;
+    private javax.swing.JTextField txtTaxNum;
     // End of variables declaration//GEN-END:variables
+
+    
+
+    public JComboBox<String> getCbCustomerType() {
+        return cbCustomerType;
+    }
+
+    public JLabel getLblAuthPerson() {
+        return lblAuthPerson;
+    }
+
+    public JLabel getLblCompanyName() {
+        return lblCompanyName;
+    }
+
+    public JLabel getLblCustomerType() {
+        return lblCustomerType;
+    }
+
+    public JLabel getLblEmailC() {
+        return lblEmailC;
+    }
+
+    public JLabel getLblEmailI() {
+        return lblEmailI;
+    }
+
+    public JLabel getLblFirstName() {
+        return lblFirstName;
+    }
+
+    public JLabel getLblIdCardNum() {
+        return lblIdCardNum;
+    }
+
+    public JLabel getLblJmbg() {
+        return lblJmbg;
+    }
+
+    public JLabel getLblLastName() {
+        return lblLastName;
+    }
+
+    public JLabel getLblPhoneC() {
+        return lblPhoneC;
+    }
+
+    public JLabel getLblPhoneI() {
+        return lblPhoneI;
+    }
+
+    public JLabel getLblRegNum() {
+        return lblRegNum;
+    }
+
+    public JLabel getLblTaxNum() {
+        return lblTaxNum;
+    }
+
+    public JPanel getPanelCompany() {
+        return panelCompany;
+    }
+
+    public JPanel getPanelId() {
+        return panelId;
+    }
+
+    public JPanel getPanelIndividual() {
+        return panelIndividual;
+    }
+
+    public JTextField getTxtAuthPerson() {
+        return txtAuthPerson;
+    }
+
+    public JTextField getTxtCompanyName() {
+        return txtCompanyName;
+    }
+
+    public JTextField getTxtEmailC() {
+        return txtEmailC;
+    }
+
+    public JTextField getTxtEmailI() {
+        return txtEmailI;
+    }
+
+    public JTextField getTxtFirstName() {
+        return txtFirstName;
+    }
+
+    public JTextField getTxtIdCardNum() {
+        return txtIdCardNum;
+    }
+
+    public JTextField getTxtJmbg() {
+        return txtJmbg;
+    }
+
+    public JTextField getTxtLastName() {
+        return txtLastName;
+    }
+
+    public JTextField getTxtPhoneC() {
+        return txtPhoneC;
+    }
+
+    public JTextField getTxtPhoneI() {
+        return txtPhoneI;
+    }
+
+    public JTextField getTxtRegNum() {
+        return txtRegNum;
+    }
+
+    public JTextField getTxtTaxNum() {
+        return txtTaxNum;
+    }
 
     public JButton getBtnCancel() {
         return btnCancel;
     }
 
-    public JButton getBtnEnableChanges() {
-        return btnEnableChanges;
-    }
-
     public JButton getBtnEdit() {
         return btnEdit;
+    }
+
+    public JButton getBtnEnableChanges() {
+        return btnEnableChanges;
     }
 
     public JButton getBtnSave() {
@@ -229,17 +637,27 @@ public class AddCustomerForm extends javax.swing.JDialog {
         return txtId;
     }
 
-    public JTextField getTxtEmail() {
-        return txtEmail;
+    public JLabel getLblAddressC() {
+        return lblAddressC;
     }
 
-    public JTextField getTxtName() {
-        return txtName;
+    public JLabel getLblAddressI() {
+        return lblAddressI;
     }
 
-    public JTextField getTxtPhone() {
-        return txtPhone;
+    public JTextField getTxtAddressC() {
+        return txtAddressC;
     }
+
+    public JTextField getTxtAddressI() {
+        return txtAddressI;
+    }
+
+    public JPanel getPanelButtons() {
+        return panelButtons;
+    }
+    
+    
     
     public void btnEnableChangesAddActionListener(ActionListener actionListener){
         btnEnableChanges.addActionListener(actionListener);
@@ -255,5 +673,9 @@ public class AddCustomerForm extends javax.swing.JDialog {
     
     public void btnCancelAddActionListener(ActionListener actionListener){
         btnCancel.addActionListener(actionListener);
+    }
+    
+    public void cbCustomerTypeAddActionListener(ActionListener actionListener){
+        cbCustomerType.addActionListener(actionListener);
     }
 }

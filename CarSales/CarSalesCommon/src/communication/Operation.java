@@ -29,8 +29,7 @@ public enum Operation {
     INSERT_INVOICE,
     INSERT_RESERVATION,
     
-    DELETE_CAR,
-    DELETE_CUSTOMER,
+    DELETE_USER,
     
     UPDATE_CUSTOMER,
     UPDATE_CAR,

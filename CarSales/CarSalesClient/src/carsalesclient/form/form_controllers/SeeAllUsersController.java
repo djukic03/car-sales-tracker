@@ -15,7 +15,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.net.CookieHandler;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -55,6 +54,7 @@ public class SeeAllUsersController {
                     usersTableForm.getTblUsers().setModel(new UsersTableModel(users));
                 } catch (Exception e) {
                     System.out.println("Error: " + e.getMessage());
+                    JOptionPane.showMessageDialog(usersTableForm, "System couldn't find users with entered last name \n" + e.getMessage());
                 }
             }
         });
@@ -65,10 +65,26 @@ public class SeeAllUsersController {
             }
         });
         
+        usersTableForm.btnShowAllAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showAllUsers();
+            }
+
+            private void showAllUsers() {
+                fillTable();
+                usersTableForm.getTxtSearch().setText("");
+            }
+        });
+        
         usersTableForm.btnDetailsAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = usersTableForm.getTblUsers().getSelectedRow();
+                if (row < 0) {
+                    JOptionPane.showMessageDialog(usersTableForm, "Please select user");
+                    return;
+                }
                 User user = ((UsersTableModel)usersTableForm.getTblUsers().getModel()).getUserAt(row);
                 Coordinator.getInstance().addParam(CoordinatorParamConsts.USER_DETAILS, user);
                 Coordinator.getInstance().openAddUserForm(AddFormMode.DETAILS_FORM);
@@ -78,7 +94,12 @@ public class SeeAllUsersController {
         usersTableForm.addWindowListener(new WindowAdapter() {
             @Override
             public void windowActivated(WindowEvent e) {
-                fillTable();
+                if (!"".equals(usersTableForm.getTxtSearch().getText())) {
+                    usersTableForm.getBtnSearch().doClick();
+                }
+                else{
+                    fillTable();
+                }
             }
             
         });

@@ -25,7 +25,9 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import domain.Car;
+import domain.Company;
 import domain.Customer;
+import domain.Individual;
 import domain.Invoice;
 import domain.InvoiceItem;
 import domain.User;
@@ -152,7 +154,7 @@ public class SeeAllInvoicesController {
     }
 
     private void generatePdf(Invoice invoice, String path) {
-        String inputPdf = "invoice_template_good_one.pdf";
+        String inputPdf = "invoice_template_good_one2.pdf";
         String outputPdf = path + "\\" + invoice.getInvoiceNum() + ".pdf";
 
         try {
@@ -163,7 +165,12 @@ public class SeeAllInvoicesController {
 
             formFields.setField("InvNum", invoice.getInvoiceNum().toString());
             formFields.setField("invDate", invoice.getDateOfIssue().toString());
-            formFields.setField("customer", invoice.getCustomer().getName());
+            if (invoice.getCustomer() instanceof Individual) {
+                Individual i = (Individual) invoice.getCustomer();
+                formFields.setField("customer", i.getFirstName() + " " + i.getLastName());
+            }
+            else
+                formFields.setField("customer", ((Company) invoice.getCustomer()).getCompanyName());
             formFields.setField("salesmanName", invoice.getUser().getFirstName()+" "+invoice.getUser().getLastName());
             formFields.setField("username", invoice.getUser().getUsername());
             formFields.setField("job", "Manager");

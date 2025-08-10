@@ -4,6 +4,7 @@
  */
 package carsalesclient.form;
 
+import domain.CarStatus;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -286,7 +287,6 @@ public class AddCarForm extends javax.swing.JDialog {
         lblStatus.setText("Status:");
 
         cbStatus.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "Sold", "Reserved" }));
         cbStatus.setSelectedIndex(-1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -395,7 +395,7 @@ public class AddCarForm extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cbCategory;
     private javax.swing.JComboBox<String> cbFuel;
     private javax.swing.JComboBox<String> cbGearbox;
-    private javax.swing.JComboBox<String> cbStatus;
+    private javax.swing.JComboBox<CarStatus> cbStatus;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -541,7 +541,7 @@ public class AddCarForm extends javax.swing.JDialog {
         return lblVin;
     }
 
-    public JComboBox<String> getCbStatus() {
+    public JComboBox<CarStatus> getCbStatus() {
         return cbStatus;
     }
 

@@ -4,10 +4,12 @@
  */
 package domain;
 
+import java.io.Serializable;
+
 /**
  *
  * @author user
  */
-public enum CarStatus {
+public enum CarStatus implements Serializable{
     AVAILABLE, SOLD, RESERVED
 }

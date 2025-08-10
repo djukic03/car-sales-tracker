@@ -56,7 +56,6 @@ public class UserController {
                         User user = new User(null, addUserForm.getTxtUsername().getText(), addUserForm.getTxtPassword().getText(), addUserForm.getTxtFirstName().getText(), addUserForm.getTxtLastName().getText());
                         if(JOptionPane.showConfirmDialog(addUserForm, "Are you sure you want to SAVE the following changes into the database: \n"+user.getFirstName()+" "+user.getLastName()+", "+user.getUsername() + ", " + user.getPassword(), "Update user", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                             user.setIdUser(((User) Coordinator.getInstance().getParam(CoordinatorParamConsts.USER_DETAILS)).getIdUser());
-                            user.setUpdateConditionValue(user.getIdUser());
                             ClientController.getInstance().updateUser(user);
                             JOptionPane.showMessageDialog(addUserForm, user.getFirstName() + " " + user.getLastName() + " has been successfully updated!");
                             addUserForm.dispose();
@@ -96,6 +95,7 @@ public class UserController {
                     }
                 } catch (Exception e) {
                     System.out.println("Error: " + e.getMessage());
+                    JOptionPane.showMessageDialog(addUserForm, e.getMessage());
                 }
                 
             }

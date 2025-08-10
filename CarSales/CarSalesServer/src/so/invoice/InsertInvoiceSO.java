@@ -28,7 +28,6 @@ public class InsertInvoiceSO extends AbstractSO {
         Long invoiceId = dbBroker.insertRowAndGetId(invoice);
         for (InvoiceItem invoiceItem : invoice.getInvoiceItems()) {
             invoiceItem.getCar().setStatus(CarStatus.SOLD);
-            invoiceItem.getCar().setUpdateConditionValue(invoiceItem.getCar().getIdCar());
             dbBroker.updateRow(invoiceItem.getCar());
             
             invoiceItem.setInvoiceId(invoiceId);

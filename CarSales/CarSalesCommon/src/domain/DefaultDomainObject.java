@@ -12,29 +12,30 @@ import java.util.List;
  *
  * @author user
  */
-public interface DefaultDomainObject extends Serializable{
+public abstract class DefaultDomainObject implements Serializable{
+    protected String searchCondition;
+    protected String searchConditionValue;
     
-    public String getClassName();
+    public abstract List<DefaultDomainObject> returnList(ResultSet rs) throws SQLException;
+
+    public abstract String getGetAllQuery();
+
+    public abstract String getGetAllOrderedQuery();
+
+    public abstract String getGetByConditionQuery();
+
+    public abstract String getInsertQuery();
+
+    public abstract String getUpdateQuery();
+
+    public abstract String getDeleteQuery();
+
+    public void setSearchCondition(String searchCondition) {
+        this.searchCondition = searchCondition;
+    }
+
+    public void setSearchConditionValue(String searchConditionValue) {
+        this.searchConditionValue = searchConditionValue;
+    }
     
-    public List<DefaultDomainObject> returnList(ResultSet rs) throws SQLException;
-    
-    public String getSearchCondition();
-    
-    public String getSearchConditionValue();
-
-    public String getInsertValues();
-
-    public String getInsertColumns();
-    
-    public String getDeleteCondition();
-    
-    public String getDeleteConditionValue();
-
-    public String getUpdateValues();
-
-    public String getUpdateCondition();
-
-    public String getUpdateConditionValue();
-
-    public String getOrderCondition();
 }

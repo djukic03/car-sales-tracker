@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author user
  */
-public class Reservation implements DefaultDomainObject, Serializable{
+public class Reservation extends DefaultDomainObject implements  Serializable{
     private Long idReservaion;
     private Date dateOfReservation;
     private Date reservationDeadline;
@@ -24,7 +24,6 @@ public class Reservation implements DefaultDomainObject, Serializable{
     private String note;
     private Car car;
     private Customer customer;
-    private Long updateConditionValue;
 
     public Reservation(Long idReservaion, Date dateOfReservation, Date reservationDeadline, ReservationStatus status, String note, Car car, Customer customer) {
         this.idReservaion = idReservaion;
@@ -38,11 +37,6 @@ public class Reservation implements DefaultDomainObject, Serializable{
 
     public Reservation() {
     }
-    
-    @Override
-    public String getClassName() {
-        return "reservation";
-    }
 
     @Override
     public List<DefaultDomainObject> returnList(ResultSet rs) throws SQLException {
@@ -50,8 +44,20 @@ public class Reservation implements DefaultDomainObject, Serializable{
         while(rs.next()){
             Car car = new Car();
             car.setIdCar(rs.getLong("car_id"));
-            Customer customer = new Customer();
-            customer.setIdCustomer(rs.getLong("customer_id"));
+            Customer customer;
+            switch(rs.getString("type")){
+                case "individual":
+                    customer = new Individual();
+                    customer.setIdCustomer(rs.getLong("customer_id"));
+                    break;
+                case "company":
+                    customer = new Company();
+                    customer.setIdCustomer(rs.getLong("customer_id"));
+                    break;
+                default:
+                    customer = null;
+                    break;
+            }
             ReservationStatus s;
             switch (rs.getString("status").toLowerCase()) {
                 case "active":
@@ -66,65 +72,9 @@ public class Reservation implements DefaultDomainObject, Serializable{
                 default:
                     throw new AssertionError();
             }
-            reservations.add(new Reservation(rs.getLong("id"), rs.getDate("reservation_date"), rs.getDate("reservation_deadline"), s, rs.getString("note"), car, customer));
+            reservations.add(new Reservation(rs.getLong("id_reservation"), rs.getDate("reservation_date"), rs.getDate("reservation_deadline"), s, rs.getString("note"), car, customer));
         }
         return reservations;
-    }
-
-    @Override
-    public String getSearchCondition() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getSearchConditionValue() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getInsertValues() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return "'"+ sdf.format(dateOfReservation) +"', '"+ sdf.format(reservationDeadline) +"', '"+ status.toString() +"', '"+ note +"', "+ car.getIdCar() +", "+ customer.getIdCustomer();
-    }
-
-    @Override
-    public String getInsertColumns() {
-        return "reservation_date, reservation_deadline, status, note, car_id, customer_id";
-    }
-
-    @Override
-    public String getDeleteCondition() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getDeleteConditionValue() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getUpdateValues() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return "reservation_date = '"+ sdf.format(dateOfReservation) +"', reservation_deadline = '"+ sdf.format(reservationDeadline) +"', status = '"+ status.toString() +"', note = '"+ note +"', car_id = "+ car.getIdCar() +", customer_id = "+ customer.getIdCustomer();
-    }
-
-    @Override
-    public String getUpdateCondition() {
-        return "id";
-    }
-
-    @Override
-    public String getUpdateConditionValue() {
-        return updateConditionValue.toString();
-    }
-
-    @Override
-    public String getOrderCondition() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
-    public void setUpdateConditionValue(Long updateConditionValue) {
-        this.updateConditionValue = updateConditionValue;
     }
 
     public Long getIdReservaion() {
@@ -181,6 +131,54 @@ public class Reservation implements DefaultDomainObject, Serializable{
 
     public void setReservationDeadline(Date reservationDeadline) {
         this.reservationDeadline = reservationDeadline;
+    }
+
+    @Override
+    public String getGetAllQuery() {
+        return """
+               SELECT r.id AS id_reservation, r.reservation_date, r.reservation_deadline, r.status, r.note, r.car_id, r.customer_id,
+                        c.id AS id_customer, c.type
+               FROM reservation r JOIN customer c ON r.customer_id = c.id 
+               """;
+    }
+
+    @Override
+    public String getGetAllOrderedQuery() {
+        return """
+               SELECT r.id AS id_reservation, r.reservation_date, r.reservation_deadline, r.status, r.note, r.car_id, r.customer_id,
+                        c.id AS id_customer, c.type
+               FROM reservation r JOIN customer c ON r.customer_id = c.id 
+               ORDER BY r.reservation_date
+               """;
+    }
+
+    @Override
+    public String getGetByConditionQuery() {
+        return "SELECT r.id AS id_reservation, r.reservation_date, r.reservation_deadline, r.status, r.note, r.car_id, r.customer_id, "+
+                "c.id AS id_customer, c.type "+
+                "FROM reservation r JOIN customer c ON r.customer_id = c.id "+ 
+                "WHERE r."+ searchCondition +" LIKE '"+ searchConditionValue + "'%";
+    }
+
+    @Override
+    public String getInsertQuery() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return "INSERT INTO reservation "+
+                "(reservation_date, reservation_deadline, status, note, car_id, customer_id) "+
+                "values('"+ sdf.format(dateOfReservation) +"', '"+ sdf.format(reservationDeadline) +"', '"+ status.toString() +"', '"+ note +"', "+ car.getIdCar() +", "+ customer.getIdCustomer() +")";
+    }
+
+    @Override
+    public String getUpdateQuery() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return "UPDATE reservation "+
+                "SET reservation_date = '"+ sdf.format(dateOfReservation) +"', reservation_deadline = '"+ sdf.format(reservationDeadline) +"', status = '"+ status.toString() +"', note = '"+ note +"', car_id = "+ car.getIdCar() +", customer_id = "+ customer.getIdCustomer() +" "+
+                "WHERE id = "+ idReservaion;
+    }
+
+    @Override
+    public String getDeleteQuery() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

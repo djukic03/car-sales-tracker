@@ -12,7 +12,9 @@ import carsalesclient.form.modes.AddFormMode;
 import carsalesclient.form.modes.TableFormMode;
 import carsalesclient.form.tableModels.InvoiceItemsTableModel;
 import carsalesclient.form.tableModels.UsersTableModel;
+import domain.Company;
 import domain.Customer;
+import domain.Individual;
 import domain.Invoice;
 import domain.InvoiceItem;
 import domain.Reservation;
@@ -35,7 +37,6 @@ import javax.swing.JOptionPane;
 public class InvoiceController {
     private final AddInvoiceForm invoiceForm;
     private Customer customer;
-    private final List<InvoiceItem> invoiceItems = new ArrayList<>();
 
     public InvoiceController(AddInvoiceForm invoiceForm) {
         this.invoiceForm = invoiceForm;
@@ -58,14 +59,13 @@ public class InvoiceController {
             private void fillItemsTable() {
                 List<InvoiceItem> items = (List<InvoiceItem>) Coordinator.getInstance().getParam(CoordinatorParamConsts.SELECTED_CAR);
                 if (items != null) {
+                    int i = 1;
                     for (InvoiceItem item : items) {
-                        item.setNum(invoiceItems.size() + 1);
-                        invoiceItems.add(item);
+                        item.setNum(i++);
                     }
-                    invoiceForm.getTblInvoiceItems().setModel(new InvoiceItemsTableModel(invoiceItems));
+                    invoiceForm.getTblInvoiceItems().setModel(new InvoiceItemsTableModel(items));
                     fillTotalAmount();
                 }
-                Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_CAR, null);
             }
 
             private void fillSelectedCustomer() {
@@ -74,7 +74,14 @@ public class InvoiceController {
                     invoiceForm.getTxtSelectedCustomer().setText("");
                 }
                 else{
-                    invoiceForm.getTxtSelectedCustomer().setText(customer.getName());
+                    if (customer instanceof Individual) {
+                        Individual i = (Individual) customer;
+                        invoiceForm.getTxtSelectedCustomer().setText(i.getFirstName() + " " + i.getLastName());
+                    }
+                    else{
+                        invoiceForm.getTxtSelectedCustomer().setText(((Company) customer).getCompanyName());
+                    }
+                    
                     setCustomer(customer);
                 }
             }
@@ -142,9 +149,10 @@ public class InvoiceController {
                             res.setStatus(ReservationStatus.REALIZED);
                             controller.updateReservation(res);
                             Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_RESERVATION, null);
-                            Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_CAR, null);
-                            Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_CUSTOMER, null);
                         }
+                        
+                        Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_CAR, null);
+                        Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_CUSTOMER, null);
                         
                         if(JOptionPane.showConfirmDialog(invoiceForm, "Invoice has been successfully added to the database!!! \n\n Create more invoices?", "Success", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION){
                             prepareForm(AddFormMode.ADD_FORM);
@@ -166,6 +174,8 @@ public class InvoiceController {
         invoiceForm.btnCancelAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_CAR, null);
+                Coordinator.getInstance().addParam(CoordinatorParamConsts.SELECTED_CUSTOMER, null);
                 invoiceForm.dispose();
             }
         });

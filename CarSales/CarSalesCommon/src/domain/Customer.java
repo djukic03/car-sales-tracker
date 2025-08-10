@@ -5,33 +5,22 @@
 package domain;
 
 import java.io.Serializable;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author user
  */
-//ОД ОБОГ БРАТА ПРАВИМО АПСТРАКТНУ КЛАСУ И НАСЛЕЂИВАЋЕ ЈЕ ФИЗИЧКО И ПРАВНО ЛИЦЕ
-public class Customer implements DefaultDomainObject, Serializable{
-    private Long idCustomer;
-    private String name;
-    private String phone;
-    private String email;
-    String searchCondition;
-    String searchConditionValue;
-    Long deleteConditionValue;
-    Long updateConditionValue;
+public abstract class Customer extends DefaultDomainObject implements  Serializable{
+    protected Long idCustomer;
+    protected String phone;
+    protected String email;
+    protected String address;
 
-    public Customer(Long idCustomer, String name, String phone, String email) {
+    public Customer(Long idCustomer, String phone, String email, String address) {
         this.idCustomer = idCustomer;
-        this.name = name;
         this.phone = phone;
         this.email = email;
+        this.address = address;
     }
 
     public Customer() {
@@ -53,14 +42,6 @@ public class Customer implements DefaultDomainObject, Serializable{
         this.idCustomer = idCustomer;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -69,93 +50,11 @@ public class Customer implements DefaultDomainObject, Serializable{
         this.phone = phone;
     }
 
-    public void setSearchCondition(String searchCondition) {
-        this.searchCondition = searchCondition;
+    public String getAddress() {
+        return address;
     }
 
-    public void setSearchConditionValue(String searchConditionValue) {
-        this.searchConditionValue = searchConditionValue;
+    public void setAddress(String address) {
+        this.address = address;
     }
-
-    public void setDeleteConditionValue(Long deleteConditionValue) {
-        this.deleteConditionValue = deleteConditionValue;
-    }
-
-    public void setUpdateConditionValue(Long updateConditionValue) {
-        this.updateConditionValue = updateConditionValue;
-    }
-    
-    
-
-    
-    @Override
-    public String getClassName() {
-        return "customer";
-    }
-
-    @Override
-    public List<DefaultDomainObject> returnList(ResultSet rs) throws SQLException {
-        List<DefaultDomainObject> customers = new ArrayList<>();
-        try {
-            while(rs.next()){
-                customers.add(new Customer(rs.getLong("id"), rs.getString("name"), rs.getString("phone"), rs.getString("email")));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
-            throw ex;
-        }
-        return customers;
-    }
-
-    @Override
-    public String getSearchCondition() {
-        return searchCondition;
-    }
-
-    @Override
-    public String getSearchConditionValue() {
-        return searchConditionValue;
-    }
-
-    @Override
-    public String getInsertValues() {
-        return "'"+ name +"', '"+ phone +"', '"+ email +"'";
-    }
-
-    @Override
-    public String getInsertColumns() {
-        return "name, phone, email";
-    }
-
-    @Override
-    public String getDeleteCondition() {
-        return "id";
-    }
-
-    @Override
-    public String getDeleteConditionValue() {
-        return deleteConditionValue.toString();
-    }
-
-    @Override
-    public String getUpdateValues() {
-        return "name = '"+ name +"', phone = '"+ phone +"', email = '"+ email +"'";
-    }
-
-    @Override
-    public String getUpdateCondition() {
-        return "id";
-    }
-
-    @Override
-    public String getUpdateConditionValue() {
-        return updateConditionValue.toString();
-    }
-
-    @Override
-    public String getOrderCondition() {
-        return "name";
-    }
-    
-    
 }

@@ -4,9 +4,10 @@
  */
 package database;
 
-import domain.Car;
+import domain.Company;
+import domain.Customer;
 import domain.DefaultDomainObject;
-import domain.User;
+import domain.Individual;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class DatabaseBroker {
     }
     
     public List<DefaultDomainObject> getAll(DefaultDomainObject ddo) throws SQLException{
-        String query = "select * from "+ddo.getClassName();
+        String query = ddo.getGetAllQuery();
         Connection connection = DatabaseConnection.getInstance().getConnection();
         Statement s = connection.createStatement();
         ResultSet rs = s.executeQuery(query);
@@ -29,7 +30,7 @@ public class DatabaseBroker {
     }
     
     public List<DefaultDomainObject> getAllOrdered(DefaultDomainObject ddo) throws SQLException{
-        String query = "select * from "+ddo.getClassName() + " order by "+ddo.getOrderCondition();
+        String query = ddo.getGetAllOrderedQuery();
         Connection connection = DatabaseConnection.getInstance().getConnection();
         Statement s = connection.createStatement();
         ResultSet rs = s.executeQuery(query);
@@ -37,7 +38,7 @@ public class DatabaseBroker {
     }
     
     public List<DefaultDomainObject> getByCondition(DefaultDomainObject ddo) throws SQLException{
-        String query = "select * from "+ddo.getClassName()+" where "+ddo.getSearchCondition()+" Like '"+ddo.getSearchConditionValue()+"%'";
+        String query = ddo.getGetByConditionQuery();
         Connection connection = DatabaseConnection.getInstance().getConnection();
         Statement s = connection.createStatement();
         ResultSet rs = s.executeQuery(query);
@@ -45,14 +46,14 @@ public class DatabaseBroker {
     }
     
     public void insertRow(DefaultDomainObject ddo) throws SQLException{
-        String query = "insert into "+ddo.getClassName()+" ("+ddo.getInsertColumns()+") values("+ddo.getInsertValues()+")";
+        String query = ddo.getInsertQuery();
         Connection connection = DatabaseConnection.getInstance().getConnection();
         Statement s = connection.createStatement();
         s.executeUpdate(query);
     }
     
     public Long insertRowAndGetId(DefaultDomainObject ddo) throws SQLException{
-        String query = "insert into "+ddo.getClassName()+" ("+ddo.getInsertColumns()+") values("+ddo.getInsertValues()+")";
+        String query = ddo.getInsertQuery();
         Connection connection = DatabaseConnection.getInstance().getConnection();
         PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         int affectedRows = ps.executeUpdate();
@@ -72,17 +73,69 @@ public class DatabaseBroker {
     }
     
     public void deleteRow(DefaultDomainObject ddo) throws SQLException {
-        String query = "delete from "+ddo.getClassName()+" where "+ddo.getDeleteCondition()+" = "+ddo.getDeleteConditionValue();
+        String query = ddo.getDeleteQuery();
         Connection connection = DatabaseConnection.getInstance().getConnection();
         Statement s = connection.createStatement();
         s.executeUpdate(query);
     }
     
     public void updateRow(DefaultDomainObject ddo) throws SQLException {
-        String query = "update "+ddo.getClassName()+" set "+ddo.getUpdateValues()+" where "+ddo.getUpdateCondition()+" = "+ddo.getUpdateConditionValue();
+        String query = ddo.getUpdateQuery();
         Connection connection = DatabaseConnection.getInstance().getConnection();
         Statement s = connection.createStatement();
         s.executeUpdate(query);
+    }
+    
+    public void insertCustomer(Customer customer) throws SQLException{
+        String query = "INSERT INTO customer (phone, email, address, type) values (?, ?, ?, ?)";
+        Connection connection = DatabaseConnection.getInstance().getConnection();
+        PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        ps.setString(1, customer.getPhone());
+        ps.setString(2, customer.getEmail());
+        ps.setString(3, customer.getAddress());
+        String type = null;
+        if (customer instanceof Individual) {
+            type = "individual";
+        }
+        else if (customer instanceof Company){
+            type = "company";
+        }
+        ps.setString(4, type);
+        int affectedRows = ps.executeUpdate();
+        Long id = null;
+        if (affectedRows > 0) {
+            try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    id = generatedKeys.getLong(1);
+                } else {
+                    System.out.println("No ID generated.");
+                }
+            }
+        } else {
+            System.out.println("Insert failed, no rows affected.");
+        }
+        customer.setIdCustomer(id);
+        insertRow(customer);
+    }
+    
+    public void updateCustomer(Customer customer) throws SQLException{
+        String query = "UPDATE customer SET phone = ?, email = ?, address = ?, type = ? WHERE id = ?";
+        Connection connection = DatabaseConnection.getInstance().getConnection();
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setString(1, customer.getPhone());
+        ps.setString(2, customer.getEmail());
+        ps.setString(3, customer.getAddress());
+        String type = null;
+        if (customer instanceof Individual) {
+            type = "individual";
+        }
+        else if (customer instanceof Company){
+            type = "company";
+        }
+        ps.setString(4, type);
+        ps.setLong(5, customer.getIdCustomer());
+        ps.executeUpdate();
+        updateRow(customer);
     }
     
     public List<String> getAllCarBrands() throws SQLException {

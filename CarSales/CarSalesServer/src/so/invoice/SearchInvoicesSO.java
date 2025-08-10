@@ -30,6 +30,7 @@ public class SearchInvoicesSO extends AbstractSO {
 
     @Override
     protected void execute(Object o) throws Exception {
+        invoices = dbBroker.getByCondition((Invoice) o);
         for (DefaultDomainObject invoice : invoices) {
             Invoice inv = (Invoice) invoice;
             

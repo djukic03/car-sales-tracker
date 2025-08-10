@@ -84,8 +84,8 @@ public class ClientController {
         }
     }
     
-    public List<Customer> getAllCustomers() throws Exception{
-        Request request = new Request(Operation.GET_ALL_CUSTOMERS, null);
+    public List<Customer> getAllCustomers(Customer customer) throws Exception{
+        Request request = new Request(Operation.GET_ALL_CUSTOMERS, customer);
         sender.send(request);
         
         Response response = (Response) receiver.receive();
@@ -248,18 +248,8 @@ public class ClientController {
     // ZA KOLA SAMO MENJATI STATUS DOSTUPNO/PRODATO
     // POSTO JE PROJEKAT ZA FAKS OSTAVICU KAO POKAZNI PRIMER
     
-    public void deleteCar(Car car) throws Exception {
-        Request request = new Request(Operation.DELETE_CAR, car);
-        sender.send(request);
-        
-        Response response = (Response) receiver.receive();
-        if(response.getException() != null){
-            throw response.getException();
-        }
-    }
-    
-    public void deleteCustomer(Customer customer) throws Exception {
-        Request request = new Request(Operation.DELETE_CUSTOMER, customer);
+    public void deleteUser(User user) throws Exception {
+        Request request = new Request(Operation.DELETE_USER, user);
         sender.send(request);
         
         Response response = (Response) receiver.receive();

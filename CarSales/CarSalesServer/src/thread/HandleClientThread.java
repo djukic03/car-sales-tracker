@@ -69,7 +69,7 @@ public class HandleClientThread extends Thread{
                             response.setResult(controller.getAllCars());
                             break;
                         case Operation.GET_ALL_CUSTOMERS:
-                            response.setResult(controller.getAllCustomers());
+                            response.setResult(controller.getAllCustomers((Customer) request.getArgument()));
                             break;
                         case Operation.GET_ALL_INVOICES:
                             response.setResult(controller.getAllInvoices());
@@ -114,11 +114,7 @@ public class HandleClientThread extends Thread{
                         
                         
                         
-                        case Operation.DELETE_CAR:
-                            controller.deleteCar((Car) request.getArgument());
-                            break;
-                        case Operation.DELETE_CUSTOMER:
-                            controller.deleteCustomer((Customer) request.getArgument());
+                        case Operation.DELETE_USER:
                             break;
                         
                         

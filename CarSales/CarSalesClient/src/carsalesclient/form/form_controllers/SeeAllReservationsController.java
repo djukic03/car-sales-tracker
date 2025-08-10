@@ -13,7 +13,9 @@ import carsalesclient.form.modes.TableFormMode;
 import carsalesclient.form.tableModels.ReservationsTableModel;
 import domain.Car;
 import domain.CarStatus;
+import domain.Company;
 import domain.Customer;
+import domain.Individual;
 import domain.InvoiceItem;
 import domain.Reservation;
 import domain.ReservationStatus;
@@ -26,6 +28,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
@@ -148,7 +151,7 @@ public class SeeAllReservationsController {
                         return;
                     }
                     
-                    if (JOptionPane.showConfirmDialog(reservationsTableForm, "Are you sure you want to CANCEL following reservation:\n" + reservation.getCar().getBrand() + " " + reservation.getCar().getModel()+" for "+reservation.getCustomer().getName(), "Cancel Reservation", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    if (JOptionPane.showConfirmDialog(reservationsTableForm, "Are you sure you want to CANCEL following reservation:\n" + reservation.getCar().getBrand() + " " + reservation.getCar().getModel()+" for "+ ((reservation.getCustomer() instanceof Individual) ? ((Individual) reservation.getCustomer()).getFirstName(): ((Company) reservation.getCustomer()).getCompanyName()), "Cancel Reservation", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                         reservation.setStatus(ReservationStatus.CANCELED);
                         reservation.getCar().setStatus(CarStatus.AVAILABLE);
                         ClientController.getInstance().updateReservation(reservation);
@@ -194,6 +197,13 @@ public class SeeAllReservationsController {
     private void prepareForm() {
         try {
             reservations = ClientController.getInstance().getAllReservations();
+            for (Reservation reservation : reservations) {
+                if (!reservation.getStatus().equals(ReservationStatus.REALIZED) && reservation.getReservationDeadline().before(new Date())) {
+                    reservation.setStatus(ReservationStatus.CANCELED);
+                    reservation.getCar().setStatus(CarStatus.AVAILABLE);
+                    ClientController.getInstance().updateReservation(reservation);
+                }
+            }
             setTableModel(new ReservationsTableModel(reservations));
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());

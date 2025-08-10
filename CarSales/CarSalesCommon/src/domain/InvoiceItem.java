@@ -7,6 +7,7 @@ package domain;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -16,14 +17,12 @@ import java.util.logging.Logger;
  *
  * @author user
  */
-public class InvoiceItem implements DefaultDomainObject, Serializable{
+public class InvoiceItem extends DefaultDomainObject implements  Serializable{
     private Long invoiceId;
     private int num;
     private double price;
     private String note;
     private Car car;
-    String searchCondition;
-    String searchConditionValue;
 
     public InvoiceItem() {
     }
@@ -76,22 +75,9 @@ public class InvoiceItem implements DefaultDomainObject, Serializable{
         this.car = car;
     }
     
-    public void setSearchCondition(String condition) {
-        this.searchCondition = condition;
-    }
-
-    public void setSearchConditionValue(String conditionValue) {
-        this.searchConditionValue = conditionValue;
-    }
-
     @Override
     public String toString() {
         return car.getBrand() + " " + car.getModel() + ", note: " + note + ", price = " +price+"\n";
-    }
-    
-    @Override
-    public String getClassName() {
-        return "invoice_item";
     }
 
     @Override
@@ -106,55 +92,45 @@ public class InvoiceItem implements DefaultDomainObject, Serializable{
     }
 
     @Override
-    public String getSearchCondition() {
-        return searchCondition;
+    public String getGetAllQuery() {
+        return "SELECT * FROM invoice_item";
     }
 
     @Override
-    public String getSearchConditionValue() {
-        return searchConditionValue;
+    public String getGetAllOrderedQuery() {
+        return "SELECT * FROM invoice_item ORDER BY invoice_id";
     }
 
     @Override
-    public String getInsertValues() {
-        return invoiceId + ", "+ num + ", " + price + ", '" + note + "', "+ car.getIdCar();
+    public String getGetByConditionQuery() {
+        return "SELECT * FROM invoice_item "+
+                "WHERE " + searchCondition + " LIKE '" + searchConditionValue + "%'";
     }
 
     @Override
-    public String getInsertColumns() {
-        return "invoice_id, rb, price, note, car_id";
+    public String getInsertQuery() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return "INSERT INTO invoice_item "+
+                "(invoice_id, rb, price, note, car_id) "+
+                "values("+ invoiceId + ", "+ num + ", " + price + ", '" + note + "', "+ car.getIdCar() +")";
     }
 
     @Override
-    public String getDeleteCondition() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getUpdateQuery() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return "UPDATE invoice_item "+
+                "SET price = "+ price +", note = '"+ note +"', car_id = "+ car.getIdCar() +" "+
+                "WHERE invoice_id = "+ invoiceId + "AND rb = " + num;
     }
 
     @Override
-    public String getDeleteConditionValue() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getDeleteQuery() {
+        try {
+            throw new Exception("Can't delete invoice item");
+        } catch (Exception ex) {
+            Logger.getLogger(InvoiceItem.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
-
-    @Override
-    public String getUpdateValues() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getUpdateCondition() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getUpdateConditionValue() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String getOrderCondition() {
-        return "invoice_id";
-    }
-
-    
 
 }

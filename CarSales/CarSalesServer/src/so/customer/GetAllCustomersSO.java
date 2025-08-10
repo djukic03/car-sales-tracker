@@ -4,8 +4,10 @@
  */
 package so.customer;
 
+import domain.Company;
 import domain.Customer;
 import domain.DefaultDomainObject;
+import domain.Individual;
 import java.util.List;
 import so.AbstractSO;
 
@@ -22,7 +24,7 @@ public class GetAllCustomersSO extends AbstractSO {
 
     @Override
     protected void execute(Object o) throws Exception {
-        customers = dbBroker.getAllOrdered(new Customer());
+        customers = dbBroker.getAllOrdered((Customer) o);
     }
 
     @Override
@@ -36,7 +38,5 @@ public class GetAllCustomersSO extends AbstractSO {
     public List<DefaultDomainObject> getCustomers() {
         return customers;
     }
-    
-    
     
 }

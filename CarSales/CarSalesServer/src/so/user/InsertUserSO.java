@@ -4,7 +4,9 @@
  */
 package so.user;
 
+import domain.DefaultDomainObject;
 import domain.User;
+import java.util.List;
 import so.AbstractSO;
 
 /**
@@ -22,6 +24,12 @@ public class InsertUserSO extends AbstractSO {
 
     @Override
     protected void execute(Object o) throws Exception {
+        List<DefaultDomainObject> users = dbBroker.getAll(new User());
+        for (DefaultDomainObject user : users) {
+            if (((User) user).getUsername().equals(((User) o).getUsername())) {
+                throw new Exception("Selected username is taken");
+            }
+        }
         dbBroker.insertRow((User) o);
     }
 

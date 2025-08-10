@@ -37,7 +37,6 @@ public class CarsTableForm extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCars = new javax.swing.JTable();
         btnDetails = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cbBrand = new javax.swing.JComboBox<>();
         lblNote = new javax.swing.JLabel();
@@ -89,14 +88,6 @@ public class CarsTableForm extends javax.swing.JDialog {
         btnDetails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDetailsActionPerformed(evt);
-            }
-        });
-
-        btnDelete.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        btnDelete.setText("Delete");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -194,8 +185,6 @@ public class CarsTableForm extends javax.swing.JDialog {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnAddNew)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
                                 .addComponent(btnDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(lblNote)
@@ -222,7 +211,6 @@ public class CarsTableForm extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAddNew, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -235,9 +223,6 @@ public class CarsTableForm extends javax.swing.JDialog {
 
     private void btnDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailsActionPerformed
     }//GEN-LAST:event_btnDetailsActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-    }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void cbBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbBrandActionPerformed
     }//GEN-LAST:event_cbBrandActionPerformed
@@ -268,7 +253,6 @@ public class CarsTableForm extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddNew;
-    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnDetails;
     private javax.swing.JButton btnReserve;
     private javax.swing.JButton btnSelect;
@@ -289,10 +273,6 @@ public class CarsTableForm extends javax.swing.JDialog {
 
     public JComboBox<String> getCbBrand() {
         return cbBrand;
-    }
-
-    public JButton getBtnDelete() {
-        return btnDelete;
     }
 
     public JButton getBtnDetails() {
@@ -341,10 +321,6 @@ public class CarsTableForm extends javax.swing.JDialog {
     
     public void cbBrandAddActionListener(ActionListener actionListener){
         cbBrand.addActionListener(actionListener);
-    }
-    
-    public void btnDeleteAddActionListener(ActionListener actionListener){
-        btnDelete.addActionListener(actionListener);
     }
     
     public void btnDetailsAddActionListener(ActionListener actionListener){

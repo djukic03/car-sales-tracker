@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Date;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author user
  */
-public class Car implements DefaultDomainObject, Serializable{
+public class Car extends DefaultDomainObject implements  Serializable{
     private Long idCar;
     private String vin;
     private String brand;
@@ -32,10 +33,6 @@ public class Car implements DefaultDomainObject, Serializable{
     private String gearbox;
     private double price;
     private CarStatus status;
-    String searchCondition;
-    String searchConditionValue;
-    Long deleteConditionValue;
-    Long updateConditionValue;
 
     public Car() {
     }
@@ -151,22 +148,6 @@ public class Car implements DefaultDomainObject, Serializable{
     public void setPrice(double price) {
         this.price = price;
     }
-
-    public void setSearchCondition(String condition) {
-        this.searchCondition = condition;
-    }
-
-    public void setSearchConditionValue(String conditionValue) {
-        this.searchConditionValue = conditionValue;
-    }
-
-    public void setDeleteConditionValue(Long deleteConditionValue) {
-        this.deleteConditionValue = deleteConditionValue;
-    }
-
-    public void setUpdateConditionValue(Long updateConditionValue) {
-        this.updateConditionValue = updateConditionValue;
-    }
     
     public CarStatus getStatus() {
         return status;
@@ -175,12 +156,27 @@ public class Car implements DefaultDomainObject, Serializable{
     public void setStatus(CarStatus status) {
         this.status = status;
     }
-    
-    @Override
-    public String getClassName() {
-        return "car";
-    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Car other = (Car) obj;
+        if (!Objects.equals(this.vin, other.vin)) {
+            return false;
+        }
+        return Objects.equals(this.idCar, other.idCar);
+    }
+    
+    
+    
     @Override
     public List<DefaultDomainObject> returnList(ResultSet rs) throws SQLException{
         List<DefaultDomainObject> cars = new ArrayList<>();
@@ -211,55 +207,35 @@ public class Car implements DefaultDomainObject, Serializable{
     }
 
     @Override
-    public String getSearchCondition() {
-        return searchCondition;
+    public String getGetAllQuery() {
+        return "SELECT * FROM car";
     }
 
     @Override
-    public String getSearchConditionValue() {
-        return searchConditionValue;
+    public String getGetAllOrderedQuery() {
+        return "SELECT * FROM car ORDER BY brand";
     }
 
     @Override
-    public String getInsertValues() {
+    public String getGetByConditionQuery() {
+        return "SELECT * FROM car WHERE "+ searchCondition +" LIKE '" + searchConditionValue + "%'";
+    }
+
+    @Override
+    public String getInsertQuery() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return "'"+ vin + "', '"+ brand +"', '"+ model +"', '"+ sdf.format(firstReg) +"', "+ mileage +", '"+ category +"', '"+ fuel +"', "+ engineCapacity +", "+ enginePower + ", '"+ gearbox +"', "+ price+ ", '"+ status.toString() +"'";
-    }    
-
-    @Override
-    public String getInsertColumns() {
-        return "vin, brand, model, first_reg, mileage, category, fuel, engine_capacity, engine_power, gearbox, price, status";
+        return "INSERT INTO car (vin, brand, model, first_reg, mileage, category, fuel, engine_capacity, engine_power, gearbox, price, status) values('"+ vin + "', '"+ brand +"', '"+ model +"', '"+ sdf.format(firstReg) +"', "+ mileage +", '"+ category +"', '"+ fuel +"', "+ engineCapacity +", "+ enginePower + ", '"+ gearbox +"', "+ price+ ", '"+ status.toString() +"')";
     }
 
     @Override
-    public String getDeleteCondition() {
-        return "id";
-    }
-
-    @Override
-    public String getDeleteConditionValue() {
-        return deleteConditionValue.toString();
-    }
-
-    @Override
-    public String getUpdateValues() {
+    public String getUpdateQuery() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return "vin = '"+ vin +"', brand = '"+ brand +"', model = '"+ model +"', first_reg = '"+ sdf.format(firstReg) +"', mileage = "+ mileage +", category = '"+ category +"', fuel = '"+ fuel +"', engine_capacity = "+ engineCapacity +", engine_power = "+ enginePower + ", gearbox = '"+ gearbox +"', price = "+ price + ", status = '" + status.toString() + "'";
+        return "UPDATE car SET vin = '"+ vin +"', brand = '"+ brand +"', model = '"+ model +"', first_reg = '"+ sdf.format(firstReg) +"', mileage = "+ mileage +", category = '"+ category +"', fuel = '"+ fuel +"', engine_capacity = "+ engineCapacity +", engine_power = "+ enginePower + ", gearbox = '"+ gearbox +"', price = "+ price + ", status = '" + status.toString() + "' WHERE id = " + idCar;
     }
 
     @Override
-    public String getUpdateCondition() {
-        return "id";
-    }
-
-    @Override
-    public String getUpdateConditionValue() {
-        return updateConditionValue.toString();
-    }
-
-    @Override
-    public String getOrderCondition() {
-        return "brand";
+    public String getDeleteQuery() {
+        return "DELETE FROM car WHERE id = " + idCar;
     }
 
 }
